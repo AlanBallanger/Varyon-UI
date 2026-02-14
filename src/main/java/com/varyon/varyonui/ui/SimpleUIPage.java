@@ -41,6 +41,12 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
     private void buildTabBar(@Nonnull UICommandBuilder commandBuilder,
                              @Nonnull UIEventBuilder eventBuilder) {
+        commandBuilder.set("#HomeTab.Disabled", "home".equals(activeTab));
+        commandBuilder.set("#TutorielTab.Disabled", "tutoriel".equals(activeTab));
+        commandBuilder.set("#CommandesTab.Disabled", "commandes".equals(activeTab));
+        commandBuilder.set("#MisesAJourTab.Disabled", "misesajour".equals(activeTab));
+        commandBuilder.set("#InfosTab.Disabled", "infos".equals(activeTab));
+        
         eventBuilder.addEventBinding(
             CustomUIEventBindingType.Activating,
             "#HomeTab",
@@ -48,23 +54,23 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         );
         eventBuilder.addEventBinding(
             CustomUIEventBindingType.Activating,
-            "#GeneralTab",
-            EventData.of("Action", "tab").append("Tab", "general")
+            "#TutorielTab",
+            EventData.of("Action", "tab").append("Tab", "tutoriel")
+        );
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#CommandesTab",
+            EventData.of("Action", "tab").append("Tab", "commandes")
+        );
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#MisesAJourTab",
+            EventData.of("Action", "tab").append("Tab", "misesajour")
         );
         eventBuilder.addEventBinding(
             CustomUIEventBindingType.Activating,
             "#InfosTab",
             EventData.of("Action", "tab").append("Tab", "infos")
-        );
-        eventBuilder.addEventBinding(
-            CustomUIEventBindingType.Activating,
-            "#ProfilTab",
-            EventData.of("Action", "tab").append("Tab", "profil")
-        );
-        eventBuilder.addEventBinding(
-            CustomUIEventBindingType.Activating,
-            "#SettingsTab",
-            EventData.of("Action", "tab").append("Tab", "settings")
         );
         eventBuilder.addEventBinding(
             CustomUIEventBindingType.Activating,
@@ -78,10 +84,10 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                               @Nonnull Store<EntityStore> store,
                               @Nonnull Ref<EntityStore> ref) {
         commandBuilder.set("#HomeContent.Visible", "home".equals(activeTab));
-        commandBuilder.set("#GeneralContent.Visible", "general".equals(activeTab));
+        commandBuilder.set("#TutorielContent.Visible", "tutoriel".equals(activeTab));
+        commandBuilder.set("#CommandesContent.Visible", "commandes".equals(activeTab));
+        commandBuilder.set("#MisesAJourContent.Visible", "misesajour".equals(activeTab));
         commandBuilder.set("#InfosContent.Visible", "infos".equals(activeTab));
-        commandBuilder.set("#ProfilContent.Visible", "profil".equals(activeTab));
-        commandBuilder.set("#SettingsContent.Visible", "settings".equals(activeTab));
     }
 
     @Override
@@ -92,6 +98,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             activeTab = data.tab;
             UICommandBuilder commandBuilder = new UICommandBuilder();
             UIEventBuilder eventBuilder = new UIEventBuilder();
+            buildTabBar(commandBuilder, eventBuilder);
             buildContent(commandBuilder, eventBuilder, store, ref);
             sendUpdate(commandBuilder, eventBuilder, false);
         } else if ("close".equals(data.action)) {
