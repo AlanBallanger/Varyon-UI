@@ -33,7 +33,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                       @Nonnull UICommandBuilder commandBuilder,
                       @Nonnull UIEventBuilder eventBuilder,
                       @Nonnull Store<EntityStore> store) {
-        commandBuilder.append("Pages/VaryonMainPage.ui");
+        commandBuilder.append("VaryonMainPage.ui");
         
         buildTabBar(commandBuilder, eventBuilder);
         buildContent(commandBuilder, eventBuilder, store, ref);
