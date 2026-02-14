@@ -88,6 +88,16 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#CommandesContent.Visible", "commandes".equals(activeTab));
         commandBuilder.set("#MisesAJourContent.Visible", "misesajour".equals(activeTab));
         commandBuilder.set("#InfosContent.Visible", "infos".equals(activeTab));
+        
+        String tabName = switch (activeTab) {
+            case "home" -> "ACCUEIL";
+            case "tutoriel" -> "TUTORIEL";
+            case "commandes" -> "COMMANDES";
+            case "misesajour" -> "ACTUALITES";
+            case "infos" -> "INFOS";
+            default -> "ACCUEIL";
+        };
+        commandBuilder.set("#MenuTitle.TextSpans", Message.raw("VARYON - " + tabName));
     }
 
     @Override
