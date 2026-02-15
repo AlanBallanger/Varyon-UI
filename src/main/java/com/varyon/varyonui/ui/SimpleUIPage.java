@@ -45,11 +45,12 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
     private void buildTabBar(@Nonnull UICommandBuilder commandBuilder,
                              @Nonnull UIEventBuilder eventBuilder) {
-        commandBuilder.set("#HomeTabBg.Background", "home".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
-        commandBuilder.set("#TutorielTabBg.Background", "tutoriel".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
-        commandBuilder.set("#CommandesTabBg.Background", "commandes".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
-        commandBuilder.set("#MisesAJourTabBg.Background", "misesajour".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
-        commandBuilder.set("#InfosTabBg.Background", "infos".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#HomeTab.Background", "home".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#TutorielTab.Background", "tutoriel".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#CommandesTab.Background", "commandes".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#MisesAJourTab.Background", "misesajour".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#InfosTab.Background", "infos".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        
         
         eventBuilder.addEventBinding(
             CustomUIEventBindingType.Activating,
@@ -122,7 +123,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             case "home" -> "ACCUEIL";
             case "tutoriel" -> "TUTORIEL";
             case "commandes" -> "COMMANDES";
-            case "misesajour" -> "MISES À JOUR";
+            case "misesajour" -> "MISES ?? JOUR";
             case "infos" -> "INFOS";
             default -> "ACCUEIL";
         };
@@ -136,7 +137,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     private void buildCommandsContent(@Nonnull UICommandBuilder commandBuilder) {
         List<CommandsConfig.CommandCategory> categories = CommandsConfig.getInstance().getCategories();
         
-        // Masquer tous les boutons et titres par défaut
+        // Masquer tous les boutons et titres par d??faut
         for (int i = 1; i <= 8; i++) {
             commandBuilder.set("#CommandButton" + i + ".Visible", false);
         }
@@ -147,7 +148,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         int titleIndex = 1;
         
         for (CommandsConfig.CommandCategory category : categories) {
-            if (titleIndex > 2) break; // Max 2 catégories
+            if (titleIndex > 2) break; // Max 2 cat??gories
             
             // Afficher et configurer le titre
             commandBuilder.set("#CategoryTitle" + titleIndex + ".Visible", true);
