@@ -45,11 +45,11 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
     private void buildTabBar(@Nonnull UICommandBuilder commandBuilder,
                              @Nonnull UIEventBuilder eventBuilder) {
-        commandBuilder.set("#HomeTab.Background", "home".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
-        commandBuilder.set("#TutorielTab.Background", "tutoriel".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
-        commandBuilder.set("#CommandesTab.Background", "commandes".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
-        commandBuilder.set("#MisesAJourTab.Background", "misesajour".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
-        commandBuilder.set("#InfosTab.Background", "infos".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#HomeTabBg.Background", "home".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#TutorielTabBg.Background", "tutoriel".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#CommandesTabBg.Background", "commandes".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#MisesAJourTabBg.Background", "misesajour".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#InfosTabBg.Background", "infos".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
         
         eventBuilder.addEventBinding(
             CustomUIEventBindingType.Activating,
@@ -119,12 +119,12 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#InfosContent.Visible", "infos".equals(activeTab));
         
         String tabName = switch (activeTab) {
-            case "home" -> "HOME";
-            case "tutoriel" -> "TUTORIAL";
-            case "commandes" -> "COMMANDS";
-            case "misesajour" -> "NEWS";
-            case "infos" -> "INFO";
-            default -> "HOME";
+            case "home" -> "ACCUEIL";
+            case "tutoriel" -> "TUTORIEL";
+            case "commandes" -> "COMMANDES";
+            case "misesajour" -> "MISES À JOUR";
+            case "infos" -> "INFOS";
+            default -> "ACCUEIL";
         };
         commandBuilder.set("#MenuTitle.TextSpans", Message.raw("VARYON - " + tabName));
         
@@ -160,7 +160,8 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 if (buttonIndex > 8) break; // Max 8 boutons
                 
                 commandBuilder.set("#CommandButton" + buttonIndex + ".Visible", true);
-                commandBuilder.set("#CommandButton" + buttonIndex + ".TextSpans", Message.raw(button.getLabel()));
+                commandBuilder.set("#CommandButton" + buttonIndex + "Label.TextSpans", Message.raw(button.getLabel()));
+                commandBuilder.set("#CommandButton" + buttonIndex + "Cmd.TextSpans", Message.raw(button.getCommand()));
             }
         }
     }

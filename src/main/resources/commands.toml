@@ -7,17 +7,17 @@ name = "TELEPORTATION"
 
 [[category.buttons]]
 label = "Teleport to spawn"
-command = "spawn"
+command = "/spawn"
 type = "execute"
 
 [[category.buttons]]
 label = "Teleport home"
-command = "home"
+command = "/home"
 type = "execute"
 
 [[category.buttons]]
 label = "Random teleport"
-command = "rtp"
+command = "/rtp"
 type = "execute"
 
 [[category]]
