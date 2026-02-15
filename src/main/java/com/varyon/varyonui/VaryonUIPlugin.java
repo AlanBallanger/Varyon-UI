@@ -18,7 +18,7 @@ public class VaryonUIPlugin extends JavaPlugin {
     @Override
     protected void setup() {
         instance = this;
-        this.dataFolder = new File("config/VaryonUI");
+        this.dataFolder = this.getDataDirectory().toFile();
         
         CommandsConfig.getInstance();
         

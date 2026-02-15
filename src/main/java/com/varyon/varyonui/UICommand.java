@@ -29,7 +29,7 @@ public class UICommand extends AbstractAsyncCommand {
     @Nonnull
     protected CompletableFuture<Void> executeAsync(@Nonnull CommandContext ctx) {
         if (!ctx.isPlayer()) {
-            ctx.sendMessage(Message.raw("Cette commande doit être exécutée par un joueur"));
+            ctx.sendMessage(Message.raw("Cette commande doit ??tre ex??cut??e par un joueur"));
             return CompletableFuture.completedFuture(null);
         }
 
@@ -54,3 +54,4 @@ public class UICommand extends AbstractAsyncCommand {
         }, world);
     }
 }
+

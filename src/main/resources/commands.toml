@@ -1,34 +1,125 @@
 # VaryonUI Commands Configuration
 # Each category can have up to 4 buttons per row
+# If more than 4 buttons, they wrap to the next row
 # Type can be: "execute" (runs command directly) or "chat" (opens chat with command)
 
+##################################################
+# COMMANDES UTILES (1)
+##################################################
 [[category]]
-name = "TELEPORTATION"
+name = "Commandes utiles"
 
 [[category.buttons]]
-label = "Teleport to spawn"
+label = "Aller au spawn"
 command = "/spawn"
 type = "execute"
 
 [[category.buttons]]
-label = "Teleport home"
+label = "Définir son home"
+command = "/sethome"
+type = "execute"
+
+[[category.buttons]]
+label = "Retour à son home"
 command = "/home"
 type = "execute"
 
 [[category.buttons]]
-label = "Random teleport"
+label = "Tous les kits"
+command = "/kit"
+type = "execute"
+
+##################################################
+# COMMANDES UTILES (2)
+##################################################
+[[category]]
+name = "Commandes utiles (2)"
+
+[[category.buttons]]
+label = "Téléportation aléatoire"
 command = "/rtp"
 type = "execute"
 
+[[category.buttons]]
+label = "Demande de téléportation"
+command = "/tpa joueur"
+type = "chat"
+
+[[category.buttons]]
+label = "Accepter la téléportation"
+command = "/tpaccept"
+type = "execute"
+
+[[category.buttons]]
+label = "Message privé"
+command = "/msg joueur message"
+type = "chat"
+
+[[category.buttons]]
+label = "Répondre"
+command = "/r message"
+type = "chat"
+
+[[category.buttons]]
+label = "Retour arrière"
+command = "/back"
+type = "execute"
+
+##################################################
+# SÉCURISER SA BASE
+##################################################
 [[category]]
-name = "COMMUNICATION"
+name = "Sécuriser sa base"
 
 [[category.buttons]]
-label = "Private message"
-command = "/msg player text"
-type = "chat"
+label = "Gérer ses claims"
+command = "/claims gui"
+type = "execute"
 
 [[category.buttons]]
-label = "Global chat"
-command = "/g message"
-type = "chat"
+label = "Liste des claims"
+command = "/claims list"
+type = "execute"
+
+##################################################
+# MENU MMO
+##################################################
+[[category]]
+name = "Menu MMO"
+
+[[category.buttons]]
+label = "Profil et progression"
+command = "/xp"
+type = "execute"
+
+##################################################
+# VISUALISER TOUS LES ITEMS
+##################################################
+[[category]]
+name = "Visualiser tous les items"
+
+[[category.buttons]]
+label = "Voir les objets"
+command = "/biv"
+type = "execute"
+
+##################################################
+# COMMANDES SERVEUR
+##################################################
+[[category]]
+name = "Commandes serveur"
+
+[[category.buttons]]
+label = "Voter pour le serveur"
+command = "/vote"
+type = "execute"
+
+[[category.buttons]]
+label = "Warp Fraktale"
+command = "/warp fraktale"
+type = "execute"
+
+[[category.buttons]]
+label = "Warp Novale"
+command = "/warp novale"
+type = "execute"

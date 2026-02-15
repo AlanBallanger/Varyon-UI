@@ -1,4 +1,4 @@
-$C = "Common.ui";
+﻿$C = "Common.ui";
 
 $C.@PageOverlay {
   
@@ -146,7 +146,7 @@ $C.@PageOverlay {
               Padding: (Left: 40, Right: 8);
               
               Label {
-                Text: "ACTUALITÉimage.pngS";
+                Text: "ACTUALIT`u00c9S";
                 Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
               }
             }
@@ -244,13 +244,13 @@ $C.@PageOverlay {
             Label #CategoryTitle1 {
               Text: "CATEGORY 1";
               Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Bottom: 12);
+              Anchor: (Bottom: 8);
               Visible: false;
             }
             
             Group #ButtonRow1 {
               LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 12);
+              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton1 {
                 Anchor: (Width: 180, Height: 50, Right: 2);
@@ -364,13 +364,13 @@ $C.@PageOverlay {
             Label #CategoryTitle2 {
               Text: "CATEGORY 2";
               Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Bottom: 12, Top: 12);
+              Anchor: (Top: 8, Bottom: 8);
               Visible: false;
             }
             
             Group #ButtonRow2 {
               LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 12);
+              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton5 {
                 Anchor: (Width: 180, Height: 50, Right: 2);
@@ -474,6 +474,966 @@ $C.@PageOverlay {
                   }
                   
                   Label #CommandButton8Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+            
+            Label #CategoryTitle3 {
+              Text: "CATEGORY 3";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow3 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              
+              Button #CommandButton9 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton9Label {
+                    Text: "Button 9";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton9Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton10 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton10Label {
+                    Text: "Button 10";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton10Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton11 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton11Label {
+                    Text: "Button 11";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton11Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton12 {
+                Anchor: (Width: 180, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton12Label {
+                    Text: "Button 12";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton12Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+            
+            Label #CategoryTitle4 {
+              Text: "CATEGORY 4";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow4 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              
+              Button #CommandButton13 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton13Label {
+                    Text: "Button 13";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton13Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton14 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton14Label {
+                    Text: "Button 14";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton14Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton15 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton15Label {
+                    Text: "Button 15";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton15Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton16 {
+                Anchor: (Width: 180, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton16Label {
+                    Text: "Button 16";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton16Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+            
+            Label #CategoryTitle5 {
+              Text: "CATEGORY 5";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow5 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              
+              Button #CommandButton17 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton17Label {
+                    Text: "Button 17";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton17Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton18 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton18Label {
+                    Text: "Button 18";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton18Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton19 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton19Label {
+                    Text: "Button 19";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton19Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton20 {
+                Anchor: (Width: 180, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton20Label {
+                    Text: "Button 20";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton20Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+            
+            Label #CategoryTitle6 {
+              Text: "CATEGORY 6";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow6 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              
+              Button #CommandButton21 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton21Label {
+                    Text: "Button 21";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton21Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton22 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton22Label {
+                    Text: "Button 22";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton22Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton23 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton23Label {
+                    Text: "Button 23";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton23Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton24 {
+                Anchor: (Width: 180, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton24Label {
+                    Text: "Button 24";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton24Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+            
+            Label #CategoryTitle7 {
+              Text: "CATEGORY 7";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow7 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              
+              Button #CommandButton25 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton25Label {
+                    Text: "Button 25";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton25Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton26 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton26Label {
+                    Text: "Button 26";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton26Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton27 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton27Label {
+                    Text: "Button 27";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton27Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton28 {
+                Anchor: (Width: 180, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton28Label {
+                    Text: "Button 28";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton28Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+            
+            Label #CategoryTitle8 {
+              Text: "CATEGORY 8";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow8 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              
+              Button #CommandButton29 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton29Label {
+                    Text: "Button 29";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton29Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton30 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton30Label {
+                    Text: "Button 30";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton30Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton31 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton31Label {
+                    Text: "Button 31";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton31Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton32 {
+                Anchor: (Width: 180, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton32Label {
+                    Text: "Button 32";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton32Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+            
+            Label #CategoryTitle9 {
+              Text: "CATEGORY 9";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow9 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              
+              Button #CommandButton33 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton33Label {
+                    Text: "Button 33";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton33Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton34 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton34Label {
+                    Text: "Button 34";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton34Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton35 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton35Label {
+                    Text: "Button 35";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton35Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton36 {
+                Anchor: (Width: 180, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton36Label {
+                    Text: "Button 36";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton36Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+            
+            Label #CategoryTitle10 {
+              Text: "CATEGORY 10";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow10 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              
+              Button #CommandButton37 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton37Label {
+                    Text: "Button 37";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton37Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton38 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton38Label {
+                    Text: "Button 38";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton38Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton39 {
+                Anchor: (Width: 180, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton39Label {
+                    Text: "Button 39";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton39Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton40 {
+                Anchor: (Width: 180, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton40Label {
+                    Text: "Button 40";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton40Cmd {
                     Text: "/command";
                     Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
                   }
