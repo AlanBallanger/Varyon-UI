@@ -17,6 +17,7 @@ repositories {
 dependencies {
     compileOnly(libs.jetbrains.annotations)
     compileOnly(libs.jspecify)
+    implementation("com.moandjiezana.toml:toml4j:0.7.2")
 }
 
 hytale {
@@ -69,6 +70,15 @@ tasks.withType<Jar> {
             providers.environmentVariable("COMMIT_SHA_SHORT")
                 .map { "${version}-${it}" }
                 .getOrElse(version.toString())
+    }
+}
+
+tasks.named<Jar>("jar") {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    doFirst {
+        from(configurations.runtimeClasspath.get()
+            .filter { it.name.contains("toml4j") }
+            .map { zipTree(it) })
     }
 }
 

@@ -1,4 +1,4 @@
-$C = "Common.ui";
+﻿$C = "Common.ui";
 
 $C.@PageOverlay {
   
@@ -11,7 +11,7 @@ $C.@PageOverlay {
         
         Label #MenuTitle {
           FlexWeight: 1;
-          Text: "VARYON - ACCUEIL";
+          Text: "VARYON - HOME";
           Style: (FontSize: 23, RenderBold: true, TextColor: #ffffff, VerticalAlignment: Center, HorizontalAlignment: Center);
         }
         
@@ -36,122 +36,156 @@ $C.@PageOverlay {
         Padding: (Top: 8, Bottom: 8, Left: 8, Right: 8);
         
         Group #HomeTabContainer {
-          Anchor: (Height: 44, Bottom: 4);
+          Anchor: (Height: 50, Bottom: 6);
           
-          TextButton #HomeTab {
-            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 4);
-            Text: "ACCUEIL";
-            Background: (Color: #1e2d3d);
-            OutlineColor: #3a4a5a;
-            OutlineSize: 1;
-            Padding: (Top: 0, Bottom: 0, Left: 40, Right: 8);
-            Disabled: true;
-            Style: TextButtonStyle(
-              Default: (LabelStyle: (FontSize: 13, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Hovered: (LabelStyle: (FontSize: 13, TextColor: #aabbcc, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Disabled: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 13, TextColor: #88ccff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+          Button #HomeTab {
+            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 6);
+            Style: ButtonStyle(
+              Default: (Background: (Color: #2a4a6a)),
+              Hovered: (Background: (Color: #3a5a7a)),
+              Pressed: (Background: (Color: #2a4a6a))
             );
+            OutlineColor: #1a2a3a;
+            OutlineSize: 3;
+            
+            Group {
+              LayoutMode: Middle;
+              Padding: (Left: 40, Right: 8);
+              
+              Label {
+                Text: "HOME";
+                Style: (FontSize: 14, TextColor: #88ccff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              }
+            }
           }
           
           Group #HomeIcon {
             LayoutMode: Middle;
-            Anchor: (Width: 28, Height: 28, Left: 6, Top: 6);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 9);
             Background: "Icons/Accueil.png";
           }
         }
         
         Group #TutorielTabContainer {
-          Anchor: (Height: 44, Bottom: 4);
+          Anchor: (Height: 50, Bottom: 6);
           
-          TextButton #TutorielTab {
-            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 4);
-            Text: "TUTORIEL";
-            Background: (Color: #1e2d3d);
-            OutlineColor: #3a4a5a;
-            OutlineSize: 1;
-            Padding: (Top: 0, Bottom: 0, Left: 40, Right: 8);
-            Style: TextButtonStyle(
-              Default: (LabelStyle: (FontSize: 13, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Hovered: (LabelStyle: (FontSize: 13, TextColor: #aabbcc, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Disabled: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 13, TextColor: #88ccff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+          Button #TutorielTab {
+            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 6);
+            Style: ButtonStyle(
+              Default: (Background: (Color: #1e2d3d)),
+              Hovered: (Background: (Color: #2a3a4a)),
+              Pressed: (Background: (Color: #2a4a6a))
             );
+            OutlineColor: #1a2a3a;
+            OutlineSize: 3;
+            
+            Group {
+              LayoutMode: Middle;
+              Padding: (Left: 40, Right: 8);
+              
+              Label {
+                Text: "TUTORIAL";
+                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              }
+            }
           }
           
           Group #TutorielIcon {
             LayoutMode: Middle;
-            Anchor: (Width: 28, Height: 28, Left: 6, Top: 6);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 9);
             Background: "Icons/Tutoriel.png";
           }
         }
         
         Group #CommandesTabContainer {
-          Anchor: (Height: 44, Bottom: 4);
+          Anchor: (Height: 50, Bottom: 6);
           
-          TextButton #CommandesTab {
-            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 4);
-            Text: "COMMANDES";
-            Background: (Color: #1e2d3d);
-            OutlineColor: #3a4a5a;
-            OutlineSize: 1;
-            Padding: (Top: 0, Bottom: 0, Left: 40, Right: 8);
-            Style: TextButtonStyle(
-              Default: (LabelStyle: (FontSize: 13, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Hovered: (LabelStyle: (FontSize: 13, TextColor: #aabbcc, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Disabled: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 13, TextColor: #88ccff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+          Button #CommandesTab {
+            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 6);
+            Style: ButtonStyle(
+              Default: (Background: (Color: #1e2d3d)),
+              Hovered: (Background: (Color: #2a3a4a)),
+              Pressed: (Background: (Color: #2a4a6a))
             );
+            OutlineColor: #1a2a3a;
+            OutlineSize: 3;
+            
+            Group {
+              LayoutMode: Middle;
+              Padding: (Left: 40, Right: 8);
+              
+              Label {
+                Text: "COMMANDS";
+                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              }
+            }
           }
           
           Group #CommandesIcon {
             LayoutMode: Middle;
-            Anchor: (Width: 28, Height: 28, Left: 6, Top: 6);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 9);
             Background: "Icons/Commandes.png";
           }
         }
         
         Group #MisesAJourTabContainer {
-          Anchor: (Height: 44, Bottom: 4);
+          Anchor: (Height: 50, Bottom: 6);
           
-          TextButton #MisesAJourTab {
-            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 4);
-            Text: "ACTUALITÉS";
-            Background: (Color: #1e2d3d);
-            OutlineColor: #3a4a5a;
-            OutlineSize: 1;
-            Padding: (Top: 0, Bottom: 0, Left: 40, Right: 8);
-            Style: TextButtonStyle(
-              Default: (LabelStyle: (FontSize: 13, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Hovered: (LabelStyle: (FontSize: 13, TextColor: #aabbcc, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Disabled: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 13, TextColor: #88ccff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+          Button #MisesAJourTab {
+            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 6);
+            Style: ButtonStyle(
+              Default: (Background: (Color: #1e2d3d)),
+              Hovered: (Background: (Color: #2a3a4a)),
+              Pressed: (Background: (Color: #2a4a6a))
             );
+            OutlineColor: #1a2a3a;
+            OutlineSize: 3;
+            
+            Group {
+              LayoutMode: Middle;
+              Padding: (Left: 40, Right: 8);
+              
+              Label {
+                Text: "NEWS";
+                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              }
+            }
           }
           
           Group #MisesAJourIcon {
             LayoutMode: Middle;
-            Anchor: (Width: 28, Height: 28, Left: 6, Top: 6);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 9);
             Background: "Icons/Mises_a_jour.png";
           }
         }
         
         Group #InfosTabContainer {
-          Anchor: (Height: 44, Bottom: 4);
+          Anchor: (Height: 50, Bottom: 6);
           
-          TextButton #InfosTab {
-            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 4);
-            Text: "INFOS";
-            Background: (Color: #1e2d3d);
-            OutlineColor: #3a4a5a;
-            OutlineSize: 1;
-            Padding: (Top: 0, Bottom: 0, Left: 40, Right: 8);
-            Style: TextButtonStyle(
-              Default: (LabelStyle: (FontSize: 13, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Hovered: (LabelStyle: (FontSize: 13, TextColor: #aabbcc, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-              Disabled: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 13, TextColor: #88ccff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+          Button #InfosTab {
+            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 6);
+            Style: ButtonStyle(
+              Default: (Background: (Color: #1e2d3d)),
+              Hovered: (Background: (Color: #2a3a4a)),
+              Pressed: (Background: (Color: #2a4a6a))
             );
+            OutlineColor: #1a2a3a;
+            OutlineSize: 3;
+            
+            Group {
+              LayoutMode: Middle;
+              Padding: (Left: 40, Right: 8);
+              
+              Label {
+                Text: "INFO";
+                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              }
+            }
           }
           
           Group #InfosIcon {
             LayoutMode: Middle;
-            Anchor: (Width: 28, Height: 28, Left: 6, Top: 6);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 9);
             Background: "Icons/Infos.png";
           }
         }
@@ -171,7 +205,7 @@ $C.@PageOverlay {
           Visible: true;
           
           Label #HomeTitle {
-            Text: "Bienvenue sur Varyon";
+            Text: "Welcome to Varyon";
             Style: (FontSize: 18, RenderBold: true, TextColor: #aaddff);
             Anchor: (Bottom: 12);
           }
@@ -179,6 +213,11 @@ $C.@PageOverlay {
           Group #HomeList {
             LayoutMode: Top;
             FlexWeight: 1;
+            
+            Label {
+              Text: "Home Page";
+              Style: (FontSize: 16, TextColor: #ffffff);
+            }
           }
         }
         
@@ -188,7 +227,7 @@ $C.@PageOverlay {
           Visible: false;
           
           Label {
-            Text: "Page Tutoriel";
+            Text: "Tutorial Page";
             Style: (FontSize: 16, TextColor: #ffffff);
           }
         }
@@ -198,9 +237,129 @@ $C.@PageOverlay {
           LayoutMode: Top;
           Visible: false;
           
-          Label {
-            Text: "Page Commandes";
-            Style: (FontSize: 16, TextColor: #ffffff);
+          Group #CommandesList {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            
+            Label #CategoryTitle1 {
+              Text: "CATEGORY 1";
+              Style: (FontSize: 16, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Bottom: 12);
+              Visible: false;
+            }
+            
+            Group #ButtonRow1 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 12);
+              
+              TextButton #CommandButton1 {
+                Text: "Button 1";
+                Anchor: (Width: 250, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: TextButtonStyle(
+                  Default: (LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Hovered: (Background: (Color: #3a5a7a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Pressed: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+                );
+              }
+              
+              TextButton #CommandButton2 {
+                Text: "Button 2";
+                Anchor: (Width: 250, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: TextButtonStyle(
+                  Default: (LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Hovered: (Background: (Color: #3a5a7a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Pressed: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+                );
+              }
+              
+              TextButton #CommandButton3 {
+                Text: "Button 3";
+                Anchor: (Width: 250, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: TextButtonStyle(
+                  Default: (LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Hovered: (Background: (Color: #3a5a7a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Pressed: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+                );
+              }
+              
+              TextButton #CommandButton4 {
+                Text: "Button 4";
+                Anchor: (Width: 250, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: TextButtonStyle(
+                  Default: (LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Hovered: (Background: (Color: #3a5a7a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Pressed: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+                );
+              }
+            }
+            
+            Label #CategoryTitle2 {
+              Text: "CATEGORY 2";
+              Style: (FontSize: 16, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Bottom: 12, Top: 12);
+              Visible: false;
+            }
+            
+            Group #ButtonRow2 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 12);
+              
+              TextButton #CommandButton5 {
+                Text: "Button 5";
+                Anchor: (Width: 250, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: TextButtonStyle(
+                  Default: (LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Hovered: (Background: (Color: #3a5a7a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Pressed: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+                );
+              }
+              
+              TextButton #CommandButton6 {
+                Text: "Button 6";
+                Anchor: (Width: 250, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: TextButtonStyle(
+                  Default: (LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Hovered: (Background: (Color: #3a5a7a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Pressed: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+                );
+              }
+              
+              TextButton #CommandButton7 {
+                Text: "Button 7";
+                Anchor: (Width: 250, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: TextButtonStyle(
+                  Default: (LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Hovered: (Background: (Color: #3a5a7a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Pressed: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+                );
+              }
+              
+              TextButton #CommandButton8 {
+                Text: "Button 8";
+                Anchor: (Width: 250, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: TextButtonStyle(
+                  Default: (LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Hovered: (Background: (Color: #3a5a7a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+                  Pressed: (Background: (Color: #2a4a6a), LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+                );
+              }
+            }
           }
         }
         
@@ -210,7 +369,7 @@ $C.@PageOverlay {
           Visible: false;
           
           Label {
-            Text: "Page Actualités";
+            Text: "News Page";
             Style: (FontSize: 16, TextColor: #ffffff);
           }
         }
@@ -221,7 +380,7 @@ $C.@PageOverlay {
           Visible: false;
           
           Label {
-            Text: "Page Infos";
+            Text: "Info Page";
             Style: (FontSize: 16, TextColor: #ffffff);
           }
         }

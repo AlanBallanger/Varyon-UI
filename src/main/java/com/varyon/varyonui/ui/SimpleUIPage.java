@@ -8,17 +8,21 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
 import com.hypixel.hytale.protocol.packets.interface_.Page;
+import com.hypixel.hytale.protocol.packets.interface_.OpenChatWithCommand;
+import com.hypixel.hytale.protocol.Packet;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
-import com.hypixel.hytale.server.core.ui.Value;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.command.system.CommandManager;
+import com.varyon.varyonui.config.CommandsConfig;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventDataClass> {
 
@@ -41,11 +45,11 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
     private void buildTabBar(@Nonnull UICommandBuilder commandBuilder,
                              @Nonnull UIEventBuilder eventBuilder) {
-        commandBuilder.set("#HomeTab.Disabled", "home".equals(activeTab));
-        commandBuilder.set("#TutorielTab.Disabled", "tutoriel".equals(activeTab));
-        commandBuilder.set("#CommandesTab.Disabled", "commandes".equals(activeTab));
-        commandBuilder.set("#MisesAJourTab.Disabled", "misesajour".equals(activeTab));
-        commandBuilder.set("#InfosTab.Disabled", "infos".equals(activeTab));
+        commandBuilder.set("#HomeTab.Background", "home".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#TutorielTab.Background", "tutoriel".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#CommandesTab.Background", "commandes".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#MisesAJourTab.Background", "misesajour".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#InfosTab.Background", "infos".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
         
         eventBuilder.addEventBinding(
             CustomUIEventBindingType.Activating,
@@ -77,6 +81,31 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             "#CloseButton",
             EventData.of("Action", "close")
         );
+        
+        if ("commandes".equals(activeTab)) {
+            buildCommandButtons(commandBuilder, eventBuilder);
+        }
+    }
+
+    private void buildCommandButtons(@Nonnull UICommandBuilder commandBuilder,
+                                     @Nonnull UIEventBuilder eventBuilder) {
+        List<CommandsConfig.CommandCategory> categories = CommandsConfig.getInstance().getCategories();
+        
+        int buttonIndex = 0;
+        for (CommandsConfig.CommandCategory category : categories) {
+            for (CommandsConfig.CommandButton button : category.getButtons()) {
+                buttonIndex++;
+                String buttonId = "#CommandButton" + buttonIndex;
+                
+                String action = button.getType() == CommandsConfig.CommandType.CHAT ? "chatcommand" : "command";
+                
+                eventBuilder.addEventBinding(
+                    CustomUIEventBindingType.Activating,
+                    buttonId,
+                    EventData.of("Action", action).append("Command", button.getCommand())
+                );
+            }
+        }
     }
 
     private void buildContent(@Nonnull UICommandBuilder commandBuilder,
@@ -90,14 +119,50 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#InfosContent.Visible", "infos".equals(activeTab));
         
         String tabName = switch (activeTab) {
-            case "home" -> "ACCUEIL";
-            case "tutoriel" -> "TUTORIEL";
-            case "commandes" -> "COMMANDES";
-            case "misesajour" -> "ACTUALITES";
-            case "infos" -> "INFOS";
-            default -> "ACCUEIL";
+            case "home" -> "HOME";
+            case "tutoriel" -> "TUTORIAL";
+            case "commandes" -> "COMMANDS";
+            case "misesajour" -> "NEWS";
+            case "infos" -> "INFO";
+            default -> "HOME";
         };
         commandBuilder.set("#MenuTitle.TextSpans", Message.raw("VARYON - " + tabName));
+        
+        if ("commandes".equals(activeTab)) {
+            buildCommandsContent(commandBuilder);
+        }
+    }
+
+    private void buildCommandsContent(@Nonnull UICommandBuilder commandBuilder) {
+        List<CommandsConfig.CommandCategory> categories = CommandsConfig.getInstance().getCategories();
+        
+        // Masquer tous les boutons et titres par défaut
+        for (int i = 1; i <= 8; i++) {
+            commandBuilder.set("#CommandButton" + i + ".Visible", false);
+        }
+        commandBuilder.set("#CategoryTitle1.Visible", false);
+        commandBuilder.set("#CategoryTitle2.Visible", false);
+        
+        int buttonIndex = 0;
+        int titleIndex = 1;
+        
+        for (CommandsConfig.CommandCategory category : categories) {
+            if (titleIndex > 2) break; // Max 2 catégories
+            
+            // Afficher et configurer le titre
+            commandBuilder.set("#CategoryTitle" + titleIndex + ".Visible", true);
+            commandBuilder.set("#CategoryTitle" + titleIndex + ".TextSpans", Message.raw(category.getName()));
+            titleIndex++;
+            
+            // Afficher et configurer les boutons
+            for (CommandsConfig.CommandButton button : category.getButtons()) {
+                buttonIndex++;
+                if (buttonIndex > 8) break; // Max 8 boutons
+                
+                commandBuilder.set("#CommandButton" + buttonIndex + ".Visible", true);
+                commandBuilder.set("#CommandButton" + buttonIndex + ".TextSpans", Message.raw(button.getLabel()));
+            }
+        }
     }
 
     @Override
@@ -116,6 +181,23 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             if (player != null) {
                 player.getPageManager().setPage(ref, store, Page.None);
             }
+        } else if ("chatcommand".equals(data.action) && data.command != null) {
+            Player player = store.getComponent(ref, Player.getComponentType());
+            PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
+            if (player != null && playerRefComponent != null) {
+                player.getPageManager().setPage(ref, store, Page.None);
+                
+                playerRefComponent.getPacketHandler().write((Packet) new OpenChatWithCommand(data.command));
+            }
+        } else if ("command".equals(data.action) && data.command != null) {
+            Player player = store.getComponent(ref, Player.getComponentType());
+            PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
+            if (player != null && playerRefComponent != null) {
+                player.getPageManager().setPage(ref, store, Page.None);
+                
+                String command = data.command.startsWith("/") ? data.command.substring(1) : data.command;
+                CommandManager.get().handleCommand(playerRefComponent, command);
+            }
         }
     }
 
@@ -124,9 +206,11 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             BuilderCodec.builder(EventDataClass.class, EventDataClass::new)
                 .addField(new KeyedCodec<>("Action", Codec.STRING), (entry, s) -> entry.action = s, entry -> entry.action)
                 .addField(new KeyedCodec<>("Tab", Codec.STRING), (entry, s) -> entry.tab = s, entry -> entry.tab)
+                .addField(new KeyedCodec<>("Command", Codec.STRING), (entry, s) -> entry.command = s, entry -> entry.command)
                 .build();
         
         public String action;
         public String tab;
+        public String command;
     }
 }

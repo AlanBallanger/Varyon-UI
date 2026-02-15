@@ -1,20 +1,36 @@
 package com.varyon.varyonui;
 
-import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
+import com.varyon.varyonui.config.CommandsConfig;
+
+import java.io.File;
 
 public class VaryonUIPlugin extends JavaPlugin {
-    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+    private static VaryonUIPlugin instance;
+    private File dataFolder;
 
     public VaryonUIPlugin(JavaPluginInit init) {
         super(init);
-        LOGGER.atInfo().log("Initialisation de %s version %s", this.getName(), this.getManifest().getVersion().toString());
     }
 
     @Override
     protected void setup() {
-        this.getCommandRegistry().registerCommand(new UICommand());
-        LOGGER.atInfo().log("Varyon UI chargé - commande /c disponible !");
+        instance = this;
+        this.dataFolder = new File("config/VaryonUI");
+        
+        CommandsConfig.getInstance();
+        
+        CommandManager.get().register(new UICommand());
+        CommandManager.get().register(new ReloadCommand());
+    }
+
+    public static VaryonUIPlugin getInstance() {
+        return instance;
+    }
+
+    public File getDataFolder() {
+        return dataFolder;
     }
 }

@@ -1,0 +1,34 @@
+# VaryonUI Commands Configuration
+# Each category can have up to 4 buttons per row
+# Type can be: "execute" (runs command directly) or "chat" (opens chat with command)
+
+[[category]]
+name = "TELEPORTATION"
+
+[[category.buttons]]
+label = "Teleport to spawn"
+command = "spawn"
+type = "execute"
+
+[[category.buttons]]
+label = "Teleport home"
+command = "home"
+type = "execute"
+
+[[category.buttons]]
+label = "Random teleport"
+command = "rtp"
+type = "execute"
+
+[[category]]
+name = "COMMUNICATION"
+
+[[category.buttons]]
+label = "Private message"
+command = "/msg player text"
+type = "chat"
+
+[[category.buttons]]
+label = "Global chat"
+command = "/g message"
+type = "chat"
