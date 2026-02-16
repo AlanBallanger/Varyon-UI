@@ -159,6 +159,33 @@ $C.@PageOverlay {
           }
         }
         
+
+        
+        Group #VaryonTabContainer {
+          Anchor: (Height: 50, Bottom: 6);
+          
+          Button #VaryonTab {
+            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 6);
+            Style: ButtonStyle(
+              Default: (Background: (Color: #1e2d3d)),
+              Hovered: (Background: (Color: #2a3a4a)),
+              Pressed: (Background: (Color: #2a4a6a))
+            );
+            OutlineColor: #1a2a3a;
+            OutlineSize: 3;
+            
+            Group {
+              LayoutMode: Middle;
+              Padding: (Left: 8, Right: 8);
+              
+              Label {
+                Text: "VARYON";
+                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              }
+            }
+          }
+        }
+        
         Group #InfosTabContainer {
           Anchor: (Height: 50, Bottom: 6);
           
@@ -1739,6 +1766,19 @@ $C.@PageOverlay {
           
           Label {
             Text: "News Page";
+            Style: (FontSize: 16, TextColor: #ffffff);
+          }
+        }
+        
+
+        
+        Group #VaryonContent {
+          FlexWeight: 1;
+          LayoutMode: Top;
+          Visible: false;
+          
+          Label {
+            Text: "Varyon Page";
             Style: (FontSize: 16, TextColor: #ffffff);
           }
         }

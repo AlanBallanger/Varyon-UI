@@ -18,18 +18,22 @@ import java.util.concurrent.CompletableFuture;
 public class UICommand extends AbstractAsyncCommand {
 
     private static final Message MESSAGE_PLAYER_NOT_IN_WORLD = Message.translation("server.commands.errors.playerNotInWorld");
+    private final String targetTab;
 
-    public UICommand() {
-        super("commands", "Ouvre l'interface utilisateur");
+    public UICommand(String name, String description, String targetTab, String... aliases) {
+        super(name, description);
+        this.targetTab = targetTab;
         this.setPermissionGroup(GameMode.Creative);
-        this.addAliases("c");
+        if (aliases.length > 0) {
+            this.addAliases(aliases);
+        }
     }
 
     @Override
     @Nonnull
     protected CompletableFuture<Void> executeAsync(@Nonnull CommandContext ctx) {
         if (!ctx.isPlayer()) {
-            ctx.sendMessage(Message.raw("Cette commande doit ??tre ex??cut??e par un joueur"));
+            ctx.sendMessage(Message.raw("Cette commande doit etre executee par un joueur"));
             return CompletableFuture.completedFuture(null);
         }
 
@@ -42,6 +46,7 @@ public class UICommand extends AbstractAsyncCommand {
         Store<EntityStore> store = playerRef.getStore();
         World world = store.getExternalData().getWorld();
 
+        final String tab = this.targetTab;
         return CompletableFuture.runAsync(() -> {
             PlayerRef playerRefComponent = store.getComponent(playerRef, PlayerRef.getComponentType());
             if (playerRefComponent == null) return;
@@ -49,9 +54,8 @@ public class UICommand extends AbstractAsyncCommand {
             Player playerComponent = store.getComponent(playerRef, Player.getComponentType());
             if (playerComponent == null) return;
 
-            SimpleUIPage uiPage = new SimpleUIPage(playerRefComponent);
+            SimpleUIPage uiPage = new SimpleUIPage(playerRefComponent, tab);
             playerComponent.getPageManager().openCustomPage(playerRef, store, uiPage);
         }, world);
     }
 }
-

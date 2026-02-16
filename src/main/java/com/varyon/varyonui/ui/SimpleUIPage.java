@@ -30,10 +30,15 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     private static final int MAX_BUTTONS = 50;
     private static final int BUTTONS_PER_ROW = 5;
 
-    private String activeTab = "home";
+    private String activeTab;
 
     public SimpleUIPage(@Nonnull PlayerRef playerRef) {
+        this(playerRef, "home");
+    }
+
+    public SimpleUIPage(@Nonnull PlayerRef playerRef, @Nonnull String initialTab) {
         super(playerRef, CustomPageLifetime.CanDismiss, EventDataClass.CODEC);
+        this.activeTab = initialTab;
     }
 
     @Override
@@ -52,12 +57,14 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#TutorielTab.Background", "tutoriel".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
         commandBuilder.set("#CommandesTab.Background", "commandes".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
         commandBuilder.set("#MisesAJourTab.Background", "misesajour".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
+        commandBuilder.set("#VaryonTab.Background", "varyon".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
         commandBuilder.set("#InfosTab.Background", "infos".equals(activeTab) ? "(Color: #2a4a6a)" : "(Color: #1e2d3d)");
 
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#HomeTab", EventData.of("Action", "tab").append("Tab", "home"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#TutorielTab", EventData.of("Action", "tab").append("Tab", "tutoriel"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandesTab", EventData.of("Action", "tab").append("Tab", "commandes"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#MisesAJourTab", EventData.of("Action", "tab").append("Tab", "misesajour"));
+        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#VaryonTab", EventData.of("Action", "tab").append("Tab", "varyon"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#InfosTab", EventData.of("Action", "tab").append("Tab", "infos"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", EventData.of("Action", "close"));
 
@@ -92,6 +99,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#TutorielContent.Visible", "tutoriel".equals(activeTab));
         commandBuilder.set("#CommandesContent.Visible", "commandes".equals(activeTab));
         commandBuilder.set("#MisesAJourContent.Visible", "misesajour".equals(activeTab));
+        commandBuilder.set("#VaryonContent.Visible", "varyon".equals(activeTab));
         commandBuilder.set("#InfosContent.Visible", "infos".equals(activeTab));
 
         String tabName = switch (activeTab) {
@@ -99,6 +107,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             case "tutoriel" -> "TUTORIEL";
             case "commandes" -> "COMMANDES";
             case "misesajour" -> "ACTUALIT\u00c9S";
+            case "varyon" -> "VARYON";
             case "infos" -> "INFOS";
             default -> "ACCUEIL";
         };
