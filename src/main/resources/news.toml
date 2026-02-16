@@ -1,0 +1,84 @@
+# VaryonUI News Configuration
+# Max 10 news entries
+# Each entry has: date, title, content (supports multiline with triple quotes)
+
+[[news]]
+date = "15/02/2026"
+title = "Bienvenue sur Varyon !"
+content = """
+Le serveur Varyon ouvre officiellement ses portes ! \
+Rejoignez-nous pour vivre une aventure unique dans un monde \
+rempli de mysteres et de decouvertes. \
+N'hesitez pas a explorer et a rencontrer d'autres joueurs !"""
+
+[[news]]
+date = "14/02/2026"
+title = "Mise a jour 1.1 - Nouveaux biomes"
+content = """
+De nouveaux biomes ont ete ajoutes au monde ! \
+Partez a la decouverte de la foret cristalline et des plaines volcaniques. \
+De nouvelles ressources et creatures vous y attendent."""
+
+[[news]]
+date = "13/02/2026"
+title = "Systeme de claims ameliore"
+content = """
+Le systeme de protection de bases a ete ameliore. \
+Vous pouvez maintenant gerer vos claims plus facilement \
+avec la commande /claims gui."""
+
+[[news]]
+date = "12/02/2026"
+title = "Event de la Saint-Valentin"
+content = """
+Un evenement special Saint-Valentin est en cours ! \
+Participez aux quetes speciales et obtenez des recompenses exclusives \
+disponibles uniquement pendant cet evenement."""
+
+[[news]]
+date = "11/02/2026"
+title = "Nouveau systeme MMO"
+content = """
+Le systeme de progression MMO est maintenant disponible ! \
+Gagnez de l'experience, montez en niveau et debloquez de nouvelles competences. \
+Tapez /xp pour voir votre progression."""
+
+[[news]]
+date = "10/02/2026"
+title = "Warp Fraktale ouvert"
+content = """
+Le warp Fraktale est maintenant accessible a tous les joueurs ! \
+Utilisez /warp fraktale pour vous y rendre et decouvrir \
+cette nouvelle zone de jeu."""
+
+[[news]]
+date = "09/02/2026"
+title = "Regles du serveur"
+content = """
+Rappel des regles principales du serveur : \
+Respectez les autres joueurs, pas de griefing, \
+pas de triche. Toute infraction sera sanctionnee."""
+
+[[news]]
+date = "08/02/2026"
+title = "Recrutement staff"
+content = """
+Nous recrutons des moderateurs ! \
+Si vous etes actif et motive, postulez sur notre Discord. \
+Rejoignez l'equipe pour nous aider a faire grandir Varyon."""
+
+[[news]]
+date = "07/02/2026"
+title = "Kits disponibles"
+content = """
+Plusieurs kits sont maintenant disponibles ! \
+Utilisez /kit pour voir la liste complete \
+et recuperer vos objets quotidiens."""
+
+[[news]]
+date = "06/02/2026"
+title = "Maintenance prevue"
+content = """
+Une maintenance est prevue le 20 fevrier. \
+Le serveur sera indisponible pendant environ 2 heures \
+pour une mise a jour importante."""

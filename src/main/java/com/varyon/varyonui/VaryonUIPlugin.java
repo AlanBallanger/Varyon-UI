@@ -4,6 +4,8 @@ import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.varyon.varyonui.config.CommandsConfig;
+import com.varyon.varyonui.config.NewsConfig;
+import com.varyon.varyonui.config.HomeConfig;
 
 import java.io.File;
 
@@ -21,6 +23,8 @@ public class VaryonUIPlugin extends JavaPlugin {
         this.dataFolder = this.getDataDirectory().toFile();
 
         CommandsConfig.getInstance();
+        NewsConfig.getInstance();
+        HomeConfig.getInstance();
 
         CommandManager mgr = CommandManager.get();
         mgr.register(new UICommand("commands", "Ouvre les commandes", "commandes", "c", "command"));

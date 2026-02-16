@@ -1,0 +1,22 @@
+# VaryonUI Home Configuration
+# Image path relative to Common/UI/Custom/ folder
+# Content supports multiline text
+
+image = "Icons/Varyon_Logo.jpg"
+
+content = """
+Bienvenue sur le serveur Varyon !
+
+Nous sommes ravis de vous accueillir dans notre communaute. \
+Voici quelques informations importantes pour bien demarrer :
+
+• Explorez le monde et decouvrez de nouveaux biomes
+• Utilisez /spawn pour revenir au point de depart
+• Protegez votre base avec /claims gui
+• Rejoignez notre Discord pour rester informe des nouveautes
+
+Le serveur est en constante evolution, n'hesitez pas a consulter \
+l'onglet Actualites pour voir les dernieres mises a jour !
+
+Bon jeu sur Varyon !
+"""

@@ -20,6 +20,8 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.varyon.varyonui.config.CommandsConfig;
+import com.varyon.varyonui.config.NewsConfig;
+import com.varyon.varyonui.config.HomeConfig;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -116,6 +118,9 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         if ("commandes".equals(activeTab)) {
             buildCommandsContent(commandBuilder);
         }
+        if ("home".equals(activeTab)) {
+            buildHomeContent(commandBuilder);
+        }
     }
 
     private void buildCommandsContent(@Nonnull UICommandBuilder commandBuilder) {
@@ -158,6 +163,30 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     commandBuilder.set("#CommandButton" + btnIdx + "Cmd.TextSpans", Message.raw(button.getCommand()));
                 }
             }
+        }
+    }
+
+    private static final int MAX_NEWS = 10;
+
+    private void buildHomeContent(@Nonnull UICommandBuilder commandBuilder) {
+        HomeConfig config = HomeConfig.getInstance();
+        commandBuilder.set("#HomeText.TextSpans", Message.raw(config.getContent()));
+    }
+
+    private void buildNewsContent(@Nonnull UICommandBuilder commandBuilder) {
+        List<NewsConfig.NewsEntry> entries = NewsConfig.getInstance().getEntries();
+
+        for (int i = 1; i <= MAX_NEWS; i++) {
+            commandBuilder.set("#NewsEntry" + i + ".Visible", false);
+        }
+
+        for (int i = 0; i < entries.size() && i < MAX_NEWS; i++) {
+            int idx = i + 1;
+            NewsConfig.NewsEntry entry = entries.get(i);
+            commandBuilder.set("#NewsEntry" + idx + ".Visible", true);
+            commandBuilder.set("#NewsDate" + idx + ".TextSpans", Message.raw(entry.getDate()));
+            commandBuilder.set("#NewsTitle" + idx + ".TextSpans", Message.raw(entry.getTitle()));
+            commandBuilder.set("#NewsContent" + idx + ".TextSpans", Message.raw(entry.getContent()));
         }
     }
 
