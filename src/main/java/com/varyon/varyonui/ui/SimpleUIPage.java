@@ -118,6 +118,9 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         if ("commandes".equals(activeTab)) {
             buildCommandsContent(commandBuilder);
         }
+        if ("misesajour".equals(activeTab)) {
+            buildNewsContent(commandBuilder);
+        }
         if ("home".equals(activeTab)) {
             buildHomeContent(commandBuilder);
         }
