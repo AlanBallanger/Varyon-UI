@@ -1,17 +1,26 @@
 # VaryonUI Commands Configuration
-# Each category can have up to 4 buttons per row
-# If more than 4 buttons, they wrap to the next row
-# Type can be: "execute" (runs command directly) or "chat" (opens chat with command)
+# Max 5 buttons per row, overflow wraps to next row
+# Type: "execute" (runs command directly) or "chat" (opens chat with command)
 
 ##################################################
-# COMMANDES UTILES (1)
+# COMMANDES DE TÉLÉPORTATION
 ##################################################
 [[category]]
-name = "Commandes utiles"
+name = "Commandes de téléportation"
 
 [[category.buttons]]
 label = "Aller au spawn"
 command = "/spawn"
+type = "execute"
+
+[[category.buttons]]
+label = "Demande de tp"
+command = "/tpa joueur"
+type = "chat"
+
+[[category.buttons]]
+label = "Accepter la tp"
+command = "/tpaccept"
 type = "execute"
 
 [[category.buttons]]
@@ -24,31 +33,11 @@ label = "Retour à son home"
 command = "/home"
 type = "execute"
 
-[[category.buttons]]
-label = "Tous les kits"
-command = "/kit"
-type = "execute"
-
 ##################################################
-# COMMANDES UTILES (2)
+# COMMANDES UTILES
 ##################################################
 [[category]]
-name = "Commandes utiles (2)"
-
-[[category.buttons]]
-label = "Téléportation aléatoire"
-command = "/rtp"
-type = "execute"
-
-[[category.buttons]]
-label = "Demande de téléportation"
-command = "/tpa joueur"
-type = "chat"
-
-[[category.buttons]]
-label = "Accepter la téléportation"
-command = "/tpaccept"
-type = "execute"
+name = "Commandes utiles"
 
 [[category.buttons]]
 label = "Message privé"
@@ -61,8 +50,18 @@ command = "/r message"
 type = "chat"
 
 [[category.buttons]]
-label = "Retour arrière"
+label = "Tous les kits"
+command = "/kit"
+type = "execute"
+
+[[category.buttons]]
+label = "Tp lieu de mort"
 command = "/back"
+type = "execute"
+
+[[category.buttons]]
+label = "Tp aléatoire"
+command = "/rtp"
 type = "execute"
 
 ##################################################

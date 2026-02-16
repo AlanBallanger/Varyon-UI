@@ -26,9 +26,9 @@ import java.util.List;
 
 public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventDataClass> {
 
-    private static final int MAX_CATEGORIES = 10;
-    private static final int MAX_BUTTONS = 40;
-    private static final int BUTTONS_PER_ROW = 4;
+    private static final int MAX_SLOTS = 10;
+    private static final int MAX_BUTTONS = 50;
+    private static final int BUTTONS_PER_ROW = 5;
 
     private String activeTab = "home";
 
@@ -68,13 +68,21 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
     private void buildCommandButtons(@Nonnull UICommandBuilder commandBuilder, @Nonnull UIEventBuilder eventBuilder) {
         List<CommandsConfig.CommandCategory> categories = CommandsConfig.getInstance().getCategories();
-        int buttonIndex = 0;
+        int slotIndex = 0;
         for (CommandsConfig.CommandCategory category : categories) {
-            for (CommandsConfig.CommandButton button : category.getButtons()) {
-                buttonIndex++;
-                if (buttonIndex > MAX_BUTTONS) return;
-                String action = button.getType() == CommandsConfig.CommandType.CHAT ? "chatcommand" : "command";
-                eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandButton" + buttonIndex, EventData.of("Action", action).append("Command", button.getCommand()));
+            List<CommandsConfig.CommandButton> buttons = category.getButtons();
+            for (int i = 0; i < buttons.size(); i += BUTTONS_PER_ROW) {
+                slotIndex++;
+                if (slotIndex > MAX_SLOTS) return;
+                int baseIdx = (slotIndex - 1) * BUTTONS_PER_ROW;
+                int count = Math.min(BUTTONS_PER_ROW, buttons.size() - i);
+                for (int j = 0; j < count; j++) {
+                    int btnIdx = baseIdx + j + 1;
+                    if (btnIdx > MAX_BUTTONS) return;
+                    CommandsConfig.CommandButton button = buttons.get(i + j);
+                    String action = button.getType() == CommandsConfig.CommandType.CHAT ? "chatcommand" : "command";
+                    eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandButton" + btnIdx, EventData.of("Action", action).append("Command", button.getCommand()));
+                }
             }
         }
     }
@@ -104,29 +112,42 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     private void buildCommandsContent(@Nonnull UICommandBuilder commandBuilder) {
         List<CommandsConfig.CommandCategory> categories = CommandsConfig.getInstance().getCategories();
 
+        for (int i = 1; i <= MAX_SLOTS; i++) {
+            commandBuilder.set("#CategoryTitle" + i + ".Visible", false);
+            commandBuilder.set("#ButtonRow" + i + ".Visible", false);
+        }
         for (int i = 1; i <= MAX_BUTTONS; i++) {
             commandBuilder.set("#CommandButton" + i + ".Visible", false);
         }
-        for (int i = 1; i <= MAX_CATEGORIES; i++) {
-            commandBuilder.set("#CategoryTitle" + i + ".Visible", false);
-        }
 
-        int buttonIndex = 0;
-        int catIndex = 0;
+        int slotIndex = 0;
 
         for (CommandsConfig.CommandCategory category : categories) {
-            catIndex++;
-            if (catIndex > MAX_CATEGORIES) break;
+            List<CommandsConfig.CommandButton> buttons = category.getButtons();
+            boolean isFirstRow = true;
 
-            commandBuilder.set("#CategoryTitle" + catIndex + ".Visible", true);
-            commandBuilder.set("#CategoryTitle" + catIndex + ".TextSpans", Message.raw(category.getName()));
+            for (int i = 0; i < buttons.size(); i += BUTTONS_PER_ROW) {
+                slotIndex++;
+                if (slotIndex > MAX_SLOTS) break;
 
-            for (CommandsConfig.CommandButton button : category.getButtons()) {
-                buttonIndex++;
-                if (buttonIndex > MAX_BUTTONS) break;
-                commandBuilder.set("#CommandButton" + buttonIndex + ".Visible", true);
-                commandBuilder.set("#CommandButton" + buttonIndex + "Label.TextSpans", Message.raw(button.getLabel()));
-                commandBuilder.set("#CommandButton" + buttonIndex + "Cmd.TextSpans", Message.raw(button.getCommand()));
+                if (isFirstRow) {
+                    commandBuilder.set("#CategoryTitle" + slotIndex + ".Visible", true);
+                    commandBuilder.set("#CategoryTitle" + slotIndex + ".TextSpans", Message.raw(category.getName()));
+                    isFirstRow = false;
+                }
+
+                commandBuilder.set("#ButtonRow" + slotIndex + ".Visible", true);
+
+                int baseIdx = (slotIndex - 1) * BUTTONS_PER_ROW;
+                int count = Math.min(BUTTONS_PER_ROW, buttons.size() - i);
+                for (int j = 0; j < count; j++) {
+                    int btnIdx = baseIdx + j + 1;
+                    if (btnIdx > MAX_BUTTONS) break;
+                    CommandsConfig.CommandButton button = buttons.get(i + j);
+                    commandBuilder.set("#CommandButton" + btnIdx + ".Visible", true);
+                    commandBuilder.set("#CommandButton" + btnIdx + "Label.TextSpans", Message.raw(button.getLabel()));
+                    commandBuilder.set("#CommandButton" + btnIdx + "Cmd.TextSpans", Message.raw(button.getCommand()));
+                }
             }
         }
     }

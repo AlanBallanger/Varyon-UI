@@ -146,7 +146,7 @@ $C.@PageOverlay {
               Padding: (Left: 40, Right: 8);
               
               Label {
-                Text: "ACTUALIT`u00c9S";
+                Text: "ACTUALITES";
                 Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
               }
             }
@@ -251,9 +251,10 @@ $C.@PageOverlay {
             Group #ButtonRow1 {
               LayoutMode: Left;
               Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
               
               Button #CommandButton1 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -280,7 +281,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton2 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -307,7 +308,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton3 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -334,7 +335,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton4 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -359,21 +360,9 @@ $C.@PageOverlay {
                   }
                 }
               }
-            }
-            
-            Label #CategoryTitle2 {
-              Text: "CATEGORY 2";
-              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Top: 8, Bottom: 8);
-              Visible: false;
-            }
-            
-            Group #ButtonRow2 {
-              LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton5 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -398,9 +387,23 @@ $C.@PageOverlay {
                   }
                 }
               }
+            }
+
+            
+            Label #CategoryTitle2 {
+              Text: "CATEGORY 2";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow2 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
               
               Button #CommandButton6 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -427,7 +430,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton7 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -454,7 +457,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton8 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -479,21 +482,9 @@ $C.@PageOverlay {
                   }
                 }
               }
-            }
-            
-            Label #CategoryTitle3 {
-              Text: "CATEGORY 3";
-              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Top: 8, Bottom: 8);
-              Visible: false;
-            }
-            
-            Group #ButtonRow3 {
-              LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton9 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -520,7 +511,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton10 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -545,9 +536,23 @@ $C.@PageOverlay {
                   }
                 }
               }
+            }
+
+            
+            Label #CategoryTitle3 {
+              Text: "CATEGORY 3";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow3 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
               
               Button #CommandButton11 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -574,7 +579,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton12 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -599,21 +604,9 @@ $C.@PageOverlay {
                   }
                 }
               }
-            }
-            
-            Label #CategoryTitle4 {
-              Text: "CATEGORY 4";
-              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Top: 8, Bottom: 8);
-              Visible: false;
-            }
-            
-            Group #ButtonRow4 {
-              LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton13 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -640,7 +633,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton14 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -667,7 +660,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton15 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -692,9 +685,23 @@ $C.@PageOverlay {
                   }
                 }
               }
+            }
+
+            
+            Label #CategoryTitle4 {
+              Text: "CATEGORY 4";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow4 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
               
               Button #CommandButton16 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -719,21 +726,9 @@ $C.@PageOverlay {
                   }
                 }
               }
-            }
-            
-            Label #CategoryTitle5 {
-              Text: "CATEGORY 5";
-              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Top: 8, Bottom: 8);
-              Visible: false;
-            }
-            
-            Group #ButtonRow5 {
-              LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton17 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -760,7 +755,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton18 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -787,7 +782,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton19 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -814,7 +809,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton20 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -840,20 +835,22 @@ $C.@PageOverlay {
                 }
               }
             }
+
             
-            Label #CategoryTitle6 {
-              Text: "CATEGORY 6";
+            Label #CategoryTitle5 {
+              Text: "CATEGORY 5";
               Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
               Anchor: (Top: 8, Bottom: 8);
               Visible: false;
             }
             
-            Group #ButtonRow6 {
+            Group #ButtonRow5 {
               LayoutMode: Left;
               Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
               
               Button #CommandButton21 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -880,7 +877,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton22 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -907,7 +904,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton23 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -934,7 +931,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton24 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -959,21 +956,9 @@ $C.@PageOverlay {
                   }
                 }
               }
-            }
-            
-            Label #CategoryTitle7 {
-              Text: "CATEGORY 7";
-              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Top: 8, Bottom: 8);
-              Visible: false;
-            }
-            
-            Group #ButtonRow7 {
-              LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton25 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -998,9 +983,23 @@ $C.@PageOverlay {
                   }
                 }
               }
+            }
+
+            
+            Label #CategoryTitle6 {
+              Text: "CATEGORY 6";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow6 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
               
               Button #CommandButton26 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1027,7 +1026,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton27 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1054,7 +1053,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton28 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1079,21 +1078,9 @@ $C.@PageOverlay {
                   }
                 }
               }
-            }
-            
-            Label #CategoryTitle8 {
-              Text: "CATEGORY 8";
-              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Top: 8, Bottom: 8);
-              Visible: false;
-            }
-            
-            Group #ButtonRow8 {
-              LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton29 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1120,7 +1107,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton30 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1145,9 +1132,23 @@ $C.@PageOverlay {
                   }
                 }
               }
+            }
+
+            
+            Label #CategoryTitle7 {
+              Text: "CATEGORY 7";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow7 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
               
               Button #CommandButton31 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1174,7 +1175,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton32 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1199,21 +1200,9 @@ $C.@PageOverlay {
                   }
                 }
               }
-            }
-            
-            Label #CategoryTitle9 {
-              Text: "CATEGORY 9";
-              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Top: 8, Bottom: 8);
-              Visible: false;
-            }
-            
-            Group #ButtonRow9 {
-              LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton33 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1240,7 +1229,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton34 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1267,7 +1256,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton35 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1292,9 +1281,23 @@ $C.@PageOverlay {
                   }
                 }
               }
+            }
+
+            
+            Label #CategoryTitle8 {
+              Text: "CATEGORY 8";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow8 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
               
               Button #CommandButton36 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1319,21 +1322,9 @@ $C.@PageOverlay {
                   }
                 }
               }
-            }
-            
-            Label #CategoryTitle10 {
-              Text: "CATEGORY 10";
-              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
-              Anchor: (Top: 8, Bottom: 8);
-              Visible: false;
-            }
-            
-            Group #ButtonRow10 {
-              LayoutMode: Left;
-              Anchor: (Height: 50, Bottom: 4);
               
               Button #CommandButton37 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1360,7 +1351,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton38 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1387,7 +1378,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton39 {
-                Anchor: (Width: 180, Height: 50, Right: 2);
+                Anchor: (Width: 162, Height: 50, Right: 2);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1414,7 +1405,7 @@ $C.@PageOverlay {
               }
               
               Button #CommandButton40 {
-                Anchor: (Width: 180, Height: 50);
+                Anchor: (Width: 162, Height: 50);
                 Background: (Color: #2a4a6a);
                 Visible: false;
                 Style: ButtonStyle(
@@ -1434,6 +1425,304 @@ $C.@PageOverlay {
                   }
                   
                   Label #CommandButton40Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+
+            
+            Label #CategoryTitle9 {
+              Text: "CATEGORY 9";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow9 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
+              
+              Button #CommandButton41 {
+                Anchor: (Width: 162, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton41Label {
+                    Text: "Button 41";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton41Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton42 {
+                Anchor: (Width: 162, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton42Label {
+                    Text: "Button 42";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton42Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton43 {
+                Anchor: (Width: 162, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton43Label {
+                    Text: "Button 43";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton43Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton44 {
+                Anchor: (Width: 162, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton44Label {
+                    Text: "Button 44";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton44Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton45 {
+                Anchor: (Width: 162, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton45Label {
+                    Text: "Button 45";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton45Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+            }
+
+            
+            Label #CategoryTitle10 {
+              Text: "CATEGORY 10";
+              Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff);
+              Anchor: (Top: 8, Bottom: 8);
+              Visible: false;
+            }
+            
+            Group #ButtonRow10 {
+              LayoutMode: Left;
+              Anchor: (Height: 50, Bottom: 4);
+              Visible: false;
+              
+              Button #CommandButton46 {
+                Anchor: (Width: 162, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton46Label {
+                    Text: "Button 46";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton46Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton47 {
+                Anchor: (Width: 162, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton47Label {
+                    Text: "Button 47";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton47Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton48 {
+                Anchor: (Width: 162, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton48Label {
+                    Text: "Button 48";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton48Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton49 {
+                Anchor: (Width: 162, Height: 50, Right: 2);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton49Label {
+                    Text: "Button 49";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton49Cmd {
+                    Text: "/command";
+                    Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
+                  }
+                }
+              }
+              
+              Button #CommandButton50 {
+                Anchor: (Width: 162, Height: 50);
+                Background: (Color: #2a4a6a);
+                Visible: false;
+                Style: ButtonStyle(
+                  Default: (Background: (Color: #2a4a6a)),
+                  Hovered: (Background: (Color: #3a5a7a)),
+                  Pressed: (Background: (Color: #2a4a6a))
+                );
+                
+                Group {
+                  LayoutMode: Top;
+                  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+                  
+                  Label #CommandButton50Label {
+                    Text: "Button 50";
+                    Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+                    Anchor: (Bottom: 2);
+                  }
+                  
+                  Label #CommandButton50Cmd {
                     Text: "/command";
                     Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center);
                   }
