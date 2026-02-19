@@ -1,22 +1,68 @@
 # VaryonUI Home Configuration
-# Image path relative to Common/UI/Custom/ folder
-# Content supports multiline text
+# Format: Utilisez [COLOR:#hexcode] pour les titres et [/COLOR] pour revenir au texte normal
+# Utilisez [SEPARATOR] pour une ligne de separation
+# Les lignes vides creent des espaces
 
-image = "Icons/Varyon_Logo.jpg"
+image = "Icons/Varyon_Logo.png"
 
 content = """
-Bienvenue sur le serveur Varyon !
+[COLOR:#4fc3f7]Bienvenue sur Varyon[/COLOR]
 
-Nous sommes ravis de vous accueillir dans notre communaute. \
-Voici quelques informations importantes pour bien demarrer :
+Ici tu vas pouvoir explorer les contrees de deux mondes principaux.
 
-• Explorez le monde et decouvrez de nouveaux biomes
-• Utilisez /spawn pour revenir au point de depart
-• Protegez votre base avec /claims gui
-• Rejoignez notre Discord pour rester informe des nouveautes
+Haven est la terre sanctuaire protegee par Gaïa. Tu peux y construire librement, faire ta base, profiter de toute l'experience vanilla du jeu, commercer ou rejoindre une ville. Pas de sanction liees a la mort, tu as acces a de nombreuses teleportations, retour a ton foyer etc.
 
-Le serveur est en constante evolution, n'hesitez pas a consulter \
-l'onglet Actualites pour voir les dernieres mises a jour !
+Varyon en revanche est une terre brisee. C'est la que tu trouveras plus de challenges... mais aussi d'equipements rares et inedits ! Creatures plus dangereuses, ressources rares, progression plus rapide des metiers… mais aucun retour facile. Une fois sur place, tu dois t'extraire en invoquant un portail et l'atteindre vivant. Mourir y est bien plus punitif.
 
-Bon jeu sur Varyon !
+[SEPARATOR]
+
+[COLOR:#66bb6a]Les Portails du Spawn[/COLOR]
+
+Au spawn, observe les portails autour de toi.
+
+Face a toi : la survie, la vraie ! Et la ou aller creer ta base, decouvrir les quetes du serveur ou bien rejoindre une ville ?
+
+A ta gauche : la capitale de la faction Fracture, pour les mordus d'aventure. (plus de details sur le site)
+
+A ta droite : la capitale de la faction Noyau, pour les aventuriers les plus perseverants. (plus de details sur le site)
+
+Tu peux aussi parler aux PNJ du spawn ou ouvrir le menu pour comprendre les ajouts faits sur le serveur, tu n'as pas besoin de tout lire, le serveur se decouvre en jouant.
+
+[SEPARATOR]
+
+[COLOR:#ffa726]Les Differentes Façons de Jouer[/COLOR]
+
+Certains joueurs creent leur base, produisent, echangent et progressent lentement.
+
+D'autres enchaînent les expeditions sur Varyon pour progresser vite et revenir riches… quand ils reviennent.
+
+Recolte, tue, mine, explore des zones de plus en plus lointaines pour decouvrir des objets inedits !
+
+Tu gagnes de l'argent en vendant tes ressources basiques, ou en commerçant tes equipements ou services.
+
+[SEPARATOR]
+
+[COLOR:#ab47bc]Villes et Commerce[/COLOR]
+
+Pour ce faire, les villes t'offrent protection, quetes et places de marche.
+
+Tu peux vivre au grand air dans ta base, ou dans la capitale voir meme creer ta ville.
+
+[SEPARATOR]
+
+[COLOR:#ef5350]La Logique du Serveur[/COLOR]
+
+Tu fais tes premieres armes sur Haven, et tu pars en quete d'exploration sur Varyon.
+
+Construis, equipe-toi, pars en expedition, extrais-toi, ameliore ton equipement, puis repars plus loin.
+
+[SEPARATOR]
+
+[COLOR:#26c6da]Pour Debuter[/COLOR]
+
+Si tu es perdu au debut, c'est normal. Commence simplement par poser ta base et tenter ta premiere sortie sur Varyon.
+
+Le reste vient naturellement en jouant.
+
+Au besoin un paquet de personnes se feront un plaisir de t'aider :)
 """

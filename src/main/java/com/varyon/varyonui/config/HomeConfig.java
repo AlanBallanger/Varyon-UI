@@ -51,6 +51,7 @@ public class HomeConfig {
                 this.imagePath = toml.getString("image", "");
                 this.content = toml.getString("content", "").trim();
                 System.out.println("[VaryonUI] Home config loaded");
+                System.out.println("[VaryonUI] Content preview: " + (content.length() > 100 ? content.substring(0, 100) + "..." : content));
             }
         } catch (IOException e) {
             System.err.println("[VaryonUI] Error loading home config:");

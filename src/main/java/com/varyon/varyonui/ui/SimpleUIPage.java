@@ -173,7 +173,44 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
     private void buildHomeContent(@Nonnull UICommandBuilder commandBuilder) {
         HomeConfig config = HomeConfig.getInstance();
-        commandBuilder.set("#HomeText.TextSpans", Message.raw(config.getContent()));
+        String content = config.getContent();
+        
+        commandBuilder.clear("#HomeTextContainer");
+        
+        String[] lines = content.split("\\R");
+        boolean previousWasTitle = false;
+        
+        for (String line : lines) {
+            line = line.trim();
+            
+            if (line.equals("[SEPARATOR]")) {
+                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 8); }");
+                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 1); Background: (Color: #4a5568); }");
+                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 8); }");
+                previousWasTitle = false;
+            } else if (line.isEmpty()) {
+                previousWasTitle = false;
+            } else if (line.startsWith("[COLOR:") && line.contains("]")) {
+                if (!previousWasTitle) {
+                    commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 8); }");
+                }
+                int colorEnd = line.indexOf("]");
+                String colorCode = line.substring(7, colorEnd);
+                String text = line.substring(colorEnd + 1).replace("[/COLOR]", "");
+                text = escapeForUI(text);
+                commandBuilder.appendInline("#HomeTextContainer", "Label { Text: \"" + text + "\"; Style: (FontSize: 16, TextColor: " + colorCode + ", RenderBold: true); }");
+                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 4); }");
+                previousWasTitle = true;
+            } else {
+                String text = escapeForUI(line);
+                commandBuilder.appendInline("#HomeTextContainer", "Label { Text: \"" + text + "\"; Style: (FontSize: 14, TextColor: #dddddd); }");
+                previousWasTitle = false;
+            }
+        }
+    }
+    
+    private String escapeForUI(String text) {
+        return text.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 
     private void buildNewsContent(@Nonnull UICommandBuilder commandBuilder) {
@@ -212,7 +249,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
             if (player != null && playerRefComponent != null) {
                 player.getPageManager().setPage(ref, store, Page.None);
-                playerRefComponent.getPacketHandler().write((Packet) new OpenChatWithCommand(data.command));
+                playerRefComponent.getPacketHandler().write(new OpenChatWithCommand(data.command));
             }
         } else if ("command".equals(data.action) && data.command != null) {
             Player player = store.getComponent(ref, Player.getComponentType());

@@ -182,6 +182,12 @@ $C.@PageOverlay {
                 Text: "VARYON";
                 Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
               }
+          
+          Group #VaryonIcon {
+            LayoutMode: Middle;
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 3);
+            Background: "Icons/Varyon.png";
+          }
             }
           }
         }
@@ -232,16 +238,13 @@ $C.@PageOverlay {
           Visible: true;
           Padding: (Top: 16, Bottom: 16, Left: 16, Right: 16);
           
-          Group #HomeImage {
-            Anchor: (Height: 200, Bottom: 16);
+                    Group #HomeImage {
+            Anchor: (Width: 600, Height: 400, Bottom: 16);
             LayoutMode: Middle;
-            Background: "Icons/Varyon_Logo.jpg";
+            Background: "Icons/Varyon_Logo.png";
           }
           
-          Label #HomeText {
-            Text: "Bienvenue sur Varyon";
-            Style: (FontSize: 14, TextColor: #dddddd);
-          }
+          Group #HomeTextContainer { LayoutMode: TopScrolling; }
         }
         Group #TutorielContent {
           FlexWeight: 1;
@@ -2075,3 +2078,4 @@ $C.@PageOverlay {
     }
   }
 }
+
