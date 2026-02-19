@@ -176,19 +176,19 @@ $C.@PageOverlay {
             
             Group {
               LayoutMode: Middle;
-              Padding: (Left: 8, Right: 8);
+              Padding: (Left: 40, Right: 8);
               
               Label {
                 Text: "VARYON";
                 Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
               }
+            }
+          }
           
           Group #VaryonIcon {
             LayoutMode: Middle;
             Anchor: (Width: 32, Height: 32, Left: 8, Top: 3);
             Background: "Icons/Varyon.png";
-          }
-            }
           }
         }
         
@@ -2078,4 +2078,5 @@ $C.@PageOverlay {
     }
   }
 }
+
 
