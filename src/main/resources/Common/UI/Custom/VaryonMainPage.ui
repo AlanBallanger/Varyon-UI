@@ -60,8 +60,7 @@ $C.@PageOverlay {
           }
           
           Group #HomeIcon {
-            LayoutMode: Middle;
-            Anchor: (Width: 32, Height: 32, Left: 8, Top: 3);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 6);
             Background: "Icons/Accueil.png";
           }
         }
@@ -91,8 +90,7 @@ $C.@PageOverlay {
           }
           
           Group #TutorielIcon {
-            LayoutMode: Middle;
-            Anchor: (Width: 32, Height: 32, Left: 8, Top: 3);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 6);
             Background: "Icons/Tutoriel.png";
           }
         }
@@ -122,8 +120,7 @@ $C.@PageOverlay {
           }
           
           Group #CommandesIcon {
-            LayoutMode: Middle;
-            Anchor: (Width: 32, Height: 32, Left: 8, Top: 3);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 6);
             Background: "Icons/Commandes.png";
           }
         }
@@ -153,8 +150,7 @@ $C.@PageOverlay {
           }
           
           Group #MisesAJourIcon {
-            LayoutMode: Middle;
-            Anchor: (Width: 32, Height: 32, Left: 8, Top: 3);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 6);
             Background: "Icons/Mises_a_jour.png";
           }
         }
@@ -186,8 +182,7 @@ $C.@PageOverlay {
           }
           
           Group #VaryonIcon {
-            LayoutMode: Middle;
-            Anchor: (Width: 32, Height: 32, Left: 8, Top: 3);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 6);
             Background: "Icons/Varyon.png";
           }
         }
@@ -217,8 +212,7 @@ $C.@PageOverlay {
           }
           
           Group #InfosIcon {
-            LayoutMode: Middle;
-            Anchor: (Width: 32, Height: 32, Left: 8, Top: 3);
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 6);
             Background: "Icons/Infos.png";
           }
         }
