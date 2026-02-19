@@ -56,11 +56,22 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     private void buildTabBar(@Nonnull UICommandBuilder commandBuilder,
                              @Nonnull UIEventBuilder eventBuilder) {
         commandBuilder.set("#HomeTab.Style.Default.Background", "home".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
+        commandBuilder.set("#HomeTabLabel.Style.TextColor", "home".equals(activeTab) ? "#ffffff" : "#8899aa");
+        
         commandBuilder.set("#TutorielTab.Style.Default.Background", "tutoriel".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
+        commandBuilder.set("#TutorielTabLabel.Style.TextColor", "tutoriel".equals(activeTab) ? "#ffffff" : "#8899aa");
+        
         commandBuilder.set("#CommandesTab.Style.Default.Background", "commandes".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
+        commandBuilder.set("#CommandesTabLabel.Style.TextColor", "commandes".equals(activeTab) ? "#ffffff" : "#8899aa");
+        
         commandBuilder.set("#MisesAJourTab.Style.Default.Background", "misesajour".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
+        commandBuilder.set("#MisesAJourTabLabel.Style.TextColor", "misesajour".equals(activeTab) ? "#ffffff" : "#8899aa");
+        
         commandBuilder.set("#VaryonTab.Style.Default.Background", "varyon".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
+        commandBuilder.set("#VaryonTabLabel.Style.TextColor", "varyon".equals(activeTab) ? "#ffffff" : "#8899aa");
+        
         commandBuilder.set("#InfosTab.Style.Default.Background", "infos".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
+        commandBuilder.set("#InfosTabLabel.Style.TextColor", "infos".equals(activeTab) ? "#ffffff" : "#8899aa");
 
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#HomeTab", EventData.of("Action", "tab").append("Tab", "home"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#TutorielTab", EventData.of("Action", "tab").append("Tab", "tutoriel"));

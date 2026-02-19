@@ -29,9 +29,9 @@ public class VaryonUIPlugin extends JavaPlugin {
         CommandManager mgr = CommandManager.get();
         mgr.register(new UICommand("commands", "Ouvre les commandes", "commandes", "c", "command"));
         mgr.register(new UICommand("tutorial", "Ouvre le tutoriel", "tutoriel", "tuto", "tutoriel", "t"));
-        mgr.register(new UICommand("help", "Ouvre l'accueil", "home"));
-        mgr.register(new UICommand("actus", "Ouvre les actualites", "misesajour", "actualites", "a"));
-        mgr.register(new UICommand("info", "Ouvre les infos", "infos", "infos", "i"));
+        mgr.register(new UICommand("home", "Ouvre l'accueil", "home", "accueil", "a", "h"));
+        mgr.register(new UICommand("actus", "Ouvre les actualites", "misesajour", "actualites", "actualités", "actu"));
+        mgr.register(new UICommand("info", "Ouvre les infos", "infos", "i"));
         mgr.register(new UICommand("varyon", "Ouvre la page Varyon", "varyon", "v"));
         mgr.register(new ReloadCommand());
     }
