@@ -23,7 +23,6 @@ public class UICommand extends AbstractAsyncCommand {
     public UICommand(String name, String description, String targetTab, String... aliases) {
         super(name, description);
         this.targetTab = targetTab;
-        this.setPermissionGroup(GameMode.Creative);
         if (aliases.length > 0) {
             this.addAliases(aliases);
         }

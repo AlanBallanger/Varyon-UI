@@ -64,6 +64,16 @@ label = "Tp aléatoire"
 command = "/rtp"
 type = "execute"
 
+[[category.buttons]]
+label = "Warp Fraktale"
+command = "/warp fraktale"
+type = "execute"
+
+[[category.buttons]]
+label = "Warp Novale"
+command = "/warp novale"
+type = "execute"
+
 ##################################################
 # SÉCURISER SA BASE
 ##################################################
@@ -81,25 +91,29 @@ command = "/claims list"
 type = "execute"
 
 ##################################################
-# MENU MMO
+# MENU JOUEUR
 ##################################################
 [[category]]
-name = "Menu MMO"
+name = "Menu joueur"
 
 [[category.buttons]]
-label = "Profil et progression"
+label = "Profil et métiers RPG"
 command = "/xp"
 type = "execute"
 
-##################################################
-# VISUALISER TOUS LES ITEMS
-##################################################
-[[category]]
-name = "Visualiser tous les items"
+[[category.buttons]]
+label = "Menu tous les objets"
+command = "/biv"
+type = "execute"
 
 [[category.buttons]]
-label = "Voir les objets"
-command = "/biv"
+label = "Toutes les armes"
+command = "/weapons"
+type = "execute"
+
+[[category.buttons]]
+label = "Partager un objet"
+command = "/share"
 type = "execute"
 
 ##################################################
@@ -114,11 +128,11 @@ command = "/vote"
 type = "execute"
 
 [[category.buttons]]
-label = "Warp Fraktale"
-command = "/warp fraktale"
+label = "Top votants"
+command = "/votetop"
 type = "execute"
 
 [[category.buttons]]
-label = "Warp Novale"
-command = "/warp novale"
+label = "Top temps de jeu"
+command = "/pt menu"
 type = "execute"
