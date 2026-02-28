@@ -3,6 +3,7 @@ package com.varyon.varyonui;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractAsyncCommand;
+import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
 import com.varyon.varyonui.config.HomeConfig;
@@ -21,6 +22,7 @@ public class ReloadCommand extends AbstractAsyncCommand {
     @Nonnull
     protected CompletableFuture<Void> executeAsync(@Nonnull CommandContext ctx) {
         CommandsConfig.getInstance().reload();
+        AdminCommandsConfig.getInstance().reload();
         NewsConfig.getInstance().reload();
         HomeConfig.getInstance().reload();
         ctx.sendMessage(Message.raw("VaryonUI configuration reloaded!"));

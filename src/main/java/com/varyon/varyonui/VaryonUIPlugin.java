@@ -3,6 +3,7 @@ package com.varyon.varyonui;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
+import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
 import com.varyon.varyonui.config.HomeConfig;
@@ -23,6 +24,7 @@ public class VaryonUIPlugin extends JavaPlugin {
         this.dataFolder = this.getDataDirectory().toFile();
 
         CommandsConfig.getInstance();
+        AdminCommandsConfig.getInstance();
         NewsConfig.getInstance();
         HomeConfig.getInstance();
 

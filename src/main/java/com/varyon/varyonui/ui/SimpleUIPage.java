@@ -19,6 +19,7 @@ import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
+import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
 import com.varyon.varyonui.config.HomeConfig;
@@ -33,14 +34,20 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     private static final int BUTTONS_PER_ROW = 5;
 
     private String activeTab;
+    private final boolean isAdmin;
 
     public SimpleUIPage(@Nonnull PlayerRef playerRef) {
-        this(playerRef, "home");
+        this(playerRef, "home", false);
     }
 
     public SimpleUIPage(@Nonnull PlayerRef playerRef, @Nonnull String initialTab) {
+        this(playerRef, initialTab, false);
+    }
+
+    public SimpleUIPage(@Nonnull PlayerRef playerRef, @Nonnull String initialTab, boolean isAdmin) {
         super(playerRef, CustomPageLifetime.CanDismiss, EventDataClass.CODEC);
-        this.activeTab = initialTab;
+        this.isAdmin = isAdmin;
+        this.activeTab = (initialTab.equals("admin") && !isAdmin) ? "home" : initialTab;
     }
 
     @Override
@@ -73,6 +80,12 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#InfosTab.Style.Default.Background", "infos".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
         commandBuilder.set("#InfosTabLabel.Style.TextColor", "infos".equals(activeTab) ? "#ffffff" : "#8899aa");
 
+        commandBuilder.set("#AdminTabContainer.Visible", isAdmin);
+        if (isAdmin) {
+            commandBuilder.set("#AdminTab.Style.Default.Background", "admin".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
+            commandBuilder.set("#AdminTabLabel.Style.TextColor", "admin".equals(activeTab) ? "#ffffff" : "#8899aa");
+        }
+
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#HomeTab", EventData.of("Action", "tab").append("Tab", "home"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#TutorielTab", EventData.of("Action", "tab").append("Tab", "tutoriel"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandesTab", EventData.of("Action", "tab").append("Tab", "commandes"));
@@ -81,8 +94,15 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#InfosTab", EventData.of("Action", "tab").append("Tab", "infos"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", EventData.of("Action", "close"));
 
+        if (isAdmin) {
+            eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#AdminTab", EventData.of("Action", "tab").append("Tab", "admin"));
+        }
+
         if ("commandes".equals(activeTab)) {
             buildCommandButtons(commandBuilder, eventBuilder);
+        }
+        if ("admin".equals(activeTab) && isAdmin) {
+            buildAdminCommandButtons(commandBuilder, eventBuilder);
         }
     }
 
@@ -107,6 +127,30 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
     }
 
+    private void buildAdminCommandButtons(@Nonnull UICommandBuilder commandBuilder, @Nonnull UIEventBuilder eventBuilder) {
+        List<CommandsConfig.CommandCategory> categories = AdminCommandsConfig.getInstance().getCategories();
+        int listIdx = 0;
+        for (CommandsConfig.CommandCategory category : categories) {
+            List<CommandsConfig.CommandButton> buttons = category.getButtons();
+            if (buttons.isEmpty()) continue;
+            listIdx++;
+            for (int i = 0; i < buttons.size(); i += BUTTONS_PER_ROW) {
+                int rowListIdx = listIdx;
+                listIdx++;
+                int count = Math.min(BUTTONS_PER_ROW, buttons.size() - i);
+                for (int j = 0; j < count; j++) {
+                    CommandsConfig.CommandButton button = buttons.get(i + j);
+                    String action = button.getType() == CommandsConfig.CommandType.CHAT ? "chatcommand" : "command";
+                    eventBuilder.addEventBinding(
+                        CustomUIEventBindingType.Activating,
+                        "#AdminCommandesList[" + rowListIdx + "][" + j + "]",
+                        EventData.of("Action", action).append("Command", button.getCommand())
+                    );
+                }
+            }
+        }
+    }
+
     private void buildContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull UIEventBuilder eventBuilder, @Nonnull Store<EntityStore> store, @Nonnull Ref<EntityStore> ref) {
         commandBuilder.set("#HomeContent.Visible", "home".equals(activeTab));
         commandBuilder.set("#TutorielContent.Visible", "tutoriel".equals(activeTab));
@@ -114,6 +158,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#MisesAJourContent.Visible", "misesajour".equals(activeTab));
         commandBuilder.set("#VaryonContent.Visible", "varyon".equals(activeTab));
         commandBuilder.set("#InfosContent.Visible", "infos".equals(activeTab));
+        commandBuilder.set("#AdminContent.Visible", "admin".equals(activeTab) && isAdmin);
 
         String tabName = switch (activeTab) {
             case "home" -> "ACCUEIL";
@@ -122,12 +167,16 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             case "misesajour" -> "ACTUALIT\u00c9S";
             case "varyon" -> "VARYON";
             case "infos" -> "INFOS";
+            case "admin" -> "ADMIN";
             default -> "ACCUEIL";
         };
         commandBuilder.set("#MenuTitle.TextSpans", Message.raw("VARYON - " + tabName));
 
         if ("commandes".equals(activeTab)) {
             buildCommandsContent(commandBuilder);
+        }
+        if ("admin".equals(activeTab) && isAdmin) {
+            buildAdminCommandsContent(commandBuilder);
         }
         if ("misesajour".equals(activeTab)) {
             buildNewsContent(commandBuilder);
@@ -175,6 +224,53 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     commandBuilder.set("#CommandButton" + btnIdx + ".Visible", true);
                     commandBuilder.set("#CommandButton" + btnIdx + "Label.TextSpans", Message.raw(button.getLabel()));
                     commandBuilder.set("#CommandButton" + btnIdx + "Cmd.TextSpans", Message.raw(button.getCommand()));
+                }
+            }
+        }
+    }
+
+    private static final String ADMIN_BTN_STYLE =
+        "Background: (Color: #2a4a6a); Style: ButtonStyle(" +
+        "Default: (Background: (Color: #2a4a6a)), " +
+        "Hovered: (Background: (Color: #3a5a7a)), " +
+        "Pressed: (Background: (Color: #2a4a6a)));";
+
+    private void buildAdminCommandsContent(@Nonnull UICommandBuilder commandBuilder) {
+        commandBuilder.clear("#AdminCommandesList");
+
+        List<CommandsConfig.CommandCategory> categories = AdminCommandsConfig.getInstance().getCategories();
+        int listIdx = 0;
+
+        for (CommandsConfig.CommandCategory category : categories) {
+            List<CommandsConfig.CommandButton> buttons = category.getButtons();
+            if (buttons.isEmpty()) continue;
+
+            String titleText = escapeForUI(category.getName().toUpperCase());
+            commandBuilder.appendInline("#AdminCommandesList",
+                "Label { Text: \"" + titleText + "\"; Style: (FontSize: 20, RenderBold: true, TextColor: #aaddff); Anchor: (Top: 8, Bottom: 8); }");
+            listIdx++;
+
+            for (int i = 0; i < buttons.size(); i += BUTTONS_PER_ROW) {
+                int rowListIdx = listIdx;
+                commandBuilder.appendInline("#AdminCommandesList",
+                    "Group { LayoutMode: Left; Anchor: (Height: 54, Bottom: 4); }");
+                listIdx++;
+
+                int count = Math.min(BUTTONS_PER_ROW, buttons.size() - i);
+                for (int j = 0; j < count; j++) {
+                    CommandsConfig.CommandButton button = buttons.get(i + j);
+                    String btnLabel = escapeForUI(button.getLabel());
+                    String btnCmd = escapeForUI(button.getCommand());
+                    boolean isLast = (j == count - 1);
+                    String anchor = isLast ?
+                        "Anchor: (Width: 162, Height: 50);" :
+                        "Anchor: (Width: 162, Height: 50, Right: 2);";
+                    commandBuilder.appendInline("#AdminCommandesList[" + rowListIdx + "]",
+                        "Button { " + anchor + " " + ADMIN_BTN_STYLE +
+                        " Group { LayoutMode: Top; Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);" +
+                        " Label { Text: \"" + btnLabel + "\"; Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center); Anchor: (Bottom: 2); }" +
+                        " Label { Text: \"" + btnCmd + "\"; Style: (FontSize: 10, TextColor: #aaaaaa, HorizontalAlignment: Center); }" +
+                        " } }");
                 }
             }
         }
@@ -244,6 +340,9 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     @Override
     public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull EventDataClass data) {
         if ("tab".equals(data.action) && data.tab != null) {
+            if ("admin".equals(data.tab) && !isAdmin) {
+                return;
+            }
             activeTab = data.tab;
             UICommandBuilder commandBuilder = new UICommandBuilder();
             UIEventBuilder eventBuilder = new UIEventBuilder();

@@ -46,6 +46,7 @@ public class UICommand extends AbstractAsyncCommand {
         World world = store.getExternalData().getWorld();
 
         final String tab = this.targetTab;
+        final boolean isAdmin = ctx.sender().hasPermission("varyonui.admin");
         return CompletableFuture.runAsync(() -> {
             PlayerRef playerRefComponent = store.getComponent(playerRef, PlayerRef.getComponentType());
             if (playerRefComponent == null) return;
@@ -53,7 +54,7 @@ public class UICommand extends AbstractAsyncCommand {
             Player playerComponent = store.getComponent(playerRef, Player.getComponentType());
             if (playerComponent == null) return;
 
-            SimpleUIPage uiPage = new SimpleUIPage(playerRefComponent, tab);
+            SimpleUIPage uiPage = new SimpleUIPage(playerRefComponent, tab, isAdmin);
             playerComponent.getPageManager().openCustomPage(playerRef, store, uiPage);
         }, world);
     }

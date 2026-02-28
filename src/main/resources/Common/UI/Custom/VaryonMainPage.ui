@@ -218,6 +218,37 @@ $C.@PageOverlay {
         }
         
         Label { FlexWeight: 1; }
+        
+        Group #AdminTabContainer {
+          Anchor: (Height: 50, Bottom: 6);
+          Visible: false;
+          
+          Button #AdminTab {
+            Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 6);
+            Style: ButtonStyle(
+              Default: (Background: (Color: #1e2d3d)),
+              Hovered: (Background: (Color: #2a3a4a)),
+              Pressed: (Background: (Color: #2a4a6a))
+            );
+            OutlineColor: #1a2a3a;
+            OutlineSize: 3;
+            
+            Group {
+              LayoutMode: Middle;
+              Padding: (Left: 40, Right: 8);
+              
+              Label #AdminTabLabel {
+                Text: "ADMIN";
+                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              }
+            }
+          }
+          
+          Group #AdminIcon {
+            Anchor: (Width: 32, Height: 32, Left: 8, Top: 6);
+            Background: "Icons/Commandes.png";
+          }
+        }
       }
       
       Group #ContentArea {
@@ -2066,6 +2097,16 @@ $C.@PageOverlay {
           Label {
             Text: "Info Page";
             Style: (FontSize: 16, TextColor: #ffffff);
+          }
+        }
+        
+        Group #AdminContent {
+          FlexWeight: 1;
+          LayoutMode: TopScrolling;
+          Visible: false;
+          
+          Group #AdminCommandesList {
+            LayoutMode: Top;
           }
         }
       }
