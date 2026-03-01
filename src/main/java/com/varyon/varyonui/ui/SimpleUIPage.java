@@ -64,26 +64,33 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                              @Nonnull UIEventBuilder eventBuilder) {
         commandBuilder.set("#HomeTab.Style.Default.Background", "home".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
         commandBuilder.set("#HomeTabLabel.Style.TextColor", "home".equals(activeTab) ? "#ffffff" : "#8899aa");
-        
+        commandBuilder.set("#HomeTabShortcut.Visible", "home".equals(activeTab));
+
         commandBuilder.set("#TutorielTab.Style.Default.Background", "tutoriel".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
         commandBuilder.set("#TutorielTabLabel.Style.TextColor", "tutoriel".equals(activeTab) ? "#ffffff" : "#8899aa");
-        
+        commandBuilder.set("#TutorielTabShortcut.Visible", "tutoriel".equals(activeTab));
+
         commandBuilder.set("#CommandesTab.Style.Default.Background", "commandes".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
         commandBuilder.set("#CommandesTabLabel.Style.TextColor", "commandes".equals(activeTab) ? "#ffffff" : "#8899aa");
-        
+        commandBuilder.set("#CommandesTabShortcut.Visible", "commandes".equals(activeTab));
+
         commandBuilder.set("#MisesAJourTab.Style.Default.Background", "misesajour".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
         commandBuilder.set("#MisesAJourTabLabel.Style.TextColor", "misesajour".equals(activeTab) ? "#ffffff" : "#8899aa");
-        
+        commandBuilder.set("#MisesAJourTabShortcut.Visible", "misesajour".equals(activeTab));
+
         commandBuilder.set("#VaryonTab.Style.Default.Background", "varyon".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
         commandBuilder.set("#VaryonTabLabel.Style.TextColor", "varyon".equals(activeTab) ? "#ffffff" : "#8899aa");
-        
+        commandBuilder.set("#VaryonTabShortcut.Visible", "varyon".equals(activeTab));
+
         commandBuilder.set("#InfosTab.Style.Default.Background", "infos".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
         commandBuilder.set("#InfosTabLabel.Style.TextColor", "infos".equals(activeTab) ? "#ffffff" : "#8899aa");
+        commandBuilder.set("#InfosTabShortcut.Visible", "infos".equals(activeTab));
 
         commandBuilder.set("#AdminTabContainer.Visible", isAdmin);
         if (isAdmin) {
             commandBuilder.set("#AdminTab.Style.Default.Background", "admin".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
             commandBuilder.set("#AdminTabLabel.Style.TextColor", "admin".equals(activeTab) ? "#ffffff" : "#8899aa");
+            commandBuilder.set("#AdminTabShortcut.Visible", "admin".equals(activeTab));
         }
 
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#HomeTab", EventData.of("Action", "tab").append("Tab", "home"));

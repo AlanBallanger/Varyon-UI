@@ -52,9 +52,19 @@ $C.@PageOverlay {
               LayoutMode: Middle;
               Padding: (Left: 40, Right: 8);
               
-              Label #HomeTabLabel {
-                Text: "ACCUEIL";
-                Style: (FontSize: 14, TextColor: #88ccff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              Group {
+                LayoutMode: Top;
+                
+                Label #HomeTabLabel {
+                  Text: "ACCUEIL";
+                  Style: (FontSize: 14, TextColor: #88ccff, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center);
+                }
+                
+                Label #HomeTabShortcut {
+                  Text: "/home, /h";
+                  Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
+                  Visible: false;
+                }
               }
             }
           }
@@ -82,9 +92,19 @@ $C.@PageOverlay {
               LayoutMode: Middle;
               Padding: (Left: 40, Right: 8);
               
-              Label #TutorielTabLabel {
-                Text: "TUTORIEL";
-                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              Group {
+                LayoutMode: Top;
+                
+                Label #TutorielTabLabel {
+                  Text: "TUTORIEL";
+                  Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center);
+                }
+                
+                Label #TutorielTabShortcut {
+                  Text: "/tuto, /t";
+                  Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
+                  Visible: false;
+                }
               }
             }
           }
@@ -112,9 +132,19 @@ $C.@PageOverlay {
               LayoutMode: Middle;
               Padding: (Left: 40, Right: 8);
               
-              Label #CommandesTabLabel {
-                Text: "COMMANDES";
-                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              Group {
+                LayoutMode: Top;
+                
+                Label #CommandesTabLabel {
+                  Text: "COMMANDES";
+                  Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center);
+                }
+                
+                Label #CommandesTabShortcut {
+                  Text: "/c, /commands";
+                  Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
+                  Visible: false;
+                }
               }
             }
           }
@@ -142,9 +172,19 @@ $C.@PageOverlay {
               LayoutMode: Middle;
               Padding: (Left: 40, Right: 8);
               
-              Label #MisesAJourTabLabel {
-                Text: "ACTUALITES";
-                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              Group {
+                LayoutMode: Top;
+                
+                Label #MisesAJourTabLabel {
+                  Text: "ACTUALITES";
+                  Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center);
+                }
+                
+                Label #MisesAJourTabShortcut {
+                  Text: "/actus, /actu";
+                  Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
+                  Visible: false;
+                }
               }
             }
           }
@@ -174,9 +214,19 @@ $C.@PageOverlay {
               LayoutMode: Middle;
               Padding: (Left: 40, Right: 8);
               
-              Label #VaryonTabLabel {
-                Text: "VARYON";
-                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              Group {
+                LayoutMode: Top;
+                
+                Label #VaryonTabLabel {
+                  Text: "VARYON";
+                  Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center);
+                }
+                
+                Label #VaryonTabShortcut {
+                  Text: "/varyon, /v";
+                  Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
+                  Visible: false;
+                }
               }
             }
           }
@@ -204,9 +254,19 @@ $C.@PageOverlay {
               LayoutMode: Middle;
               Padding: (Left: 40, Right: 8);
               
-              Label #InfosTabLabel {
-                Text: "INFO";
-                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              Group {
+                LayoutMode: Top;
+                
+                Label #InfosTabLabel {
+                  Text: "INFO";
+                  Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center);
+                }
+                
+                Label #InfosTabShortcut {
+                  Text: "/info, /i";
+                  Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
+                  Visible: false;
+                }
               }
             }
           }
@@ -237,9 +297,19 @@ $C.@PageOverlay {
               LayoutMode: Middle;
               Padding: (Left: 40, Right: 8);
               
-              Label #AdminTabLabel {
-                Text: "ADMIN";
-                Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center, VerticalAlignment: Center);
+              Group {
+                LayoutMode: Top;
+                
+                Label #AdminTabLabel {
+                  Text: "ADMIN";
+                  Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center);
+                }
+                
+                Label #AdminTabShortcut {
+                  Text: "/a";
+                  Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
+                  Visible: false;
+                }
               }
             }
           }

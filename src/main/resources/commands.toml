@@ -102,6 +102,11 @@ command = "/xp"
 type = "execute"
 
 [[category.buttons]]
+label = "Menu overlay mmo"
+command = "/skillhud"
+type = "execute"
+
+[[category.buttons]]
 label = "Menu tous les objets"
 command = "/biv"
 type = "execute"
@@ -123,6 +128,11 @@ type = "execute"
 name = "Commandes serveur"
 
 [[category.buttons]]
+label = "Echange avec un joueur"
+command = "/trade <joueur>"
+type = "chat"
+
+[[category.buttons]]
 label = "Voter pour le serveur"
 command = "/vote"
 type = "execute"
@@ -135,4 +145,9 @@ type = "execute"
 [[category.buttons]]
 label = "Top temps de jeu"
 command = "/pt menu"
+type = "execute"
+
+[[category.buttons]]
+label = "Récupérer vote hors ligne"
+command = "/claimvotes"
 type = "execute"
