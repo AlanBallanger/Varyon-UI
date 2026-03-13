@@ -61,7 +61,7 @@ $C.@PageOverlay {
                 }
                 
                 Label #HomeTabShortcut {
-                  Text: "/home, /h";
+                  Text: "/acc, /accueil";
                   Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
                   Visible: false;
                 }
@@ -101,7 +101,7 @@ $C.@PageOverlay {
                 }
                 
                 Label #TutorielTabShortcut {
-                  Text: "/tuto, /t";
+                  Text: "/tuto, /tutoriel";
                   Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
                   Visible: false;
                 }
@@ -223,7 +223,7 @@ $C.@PageOverlay {
                 }
                 
                 Label #VaryonTabShortcut {
-                  Text: "/varyon, /v";
+                  Text: "/var, /varyon";
                   Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
                   Visible: false;
                 }
@@ -237,10 +237,10 @@ $C.@PageOverlay {
           }
         }
         
-        Group #InfosTabContainer {
+        Group #ParametresTabContainer {
           Anchor: (Height: 50, Bottom: 6);
           
-          Button #InfosTab {
+          Button #ParametresTab {
             Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 6);
             Style: ButtonStyle(
               Default: (Background: (Color: #1e2d3d)),
@@ -257,13 +257,13 @@ $C.@PageOverlay {
               Group {
                 LayoutMode: Top;
                 
-                Label #InfosTabLabel {
-                  Text: "INFO";
+                Label #ParametresTabLabel {
+                  Text: "PARAMETRES";
                   Style: (FontSize: 14, TextColor: #8899aa, RenderBold: true, RenderUppercase: true, HorizontalAlignment: Center);
                 }
                 
-                Label #InfosTabShortcut {
-                  Text: "/info, /i";
+                Label #ParametresTabShortcut {
+                  Text: "/param, /parametres";
                   Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
                   Visible: false;
                 }
@@ -271,7 +271,7 @@ $C.@PageOverlay {
             }
           }
           
-          Group #InfosIcon {
+          Group #ParametresIcon {
             Anchor: (Width: 32, Height: 32, Left: 8, Top: 6);
             Background: "Icons/Infos.png";
           }
@@ -306,7 +306,7 @@ $C.@PageOverlay {
                 }
                 
                 Label #AdminTabShortcut {
-                  Text: "/a";
+                  Text: "/ad";
                   Style: (FontSize: 10, TextColor: #778899, HorizontalAlignment: Center);
                   Visible: false;
                 }
@@ -343,13 +343,11 @@ $C.@PageOverlay {
         }
         Group #TutorielContent {
           FlexWeight: 1;
-          LayoutMode: Top;
+          LayoutMode: TopScrolling;
           Visible: false;
+          Padding: (Top: 16, Bottom: 16, Left: 16, Right: 16);
           
-          Label {
-            Text: "Tutorial Page";
-            Style: (FontSize: 16, TextColor: #ffffff);
-          }
+          Group #TutorielTextContainer { LayoutMode: TopScrolling; }
         }
         
         Group #CommandesContent {
@@ -1875,18 +1873,13 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent1 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent1 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator1 {
               Anchor: (Height: 1);
               Background: (Color: #2a3a4a);
             }
           }
-          
           Group #NewsEntry2 {
             LayoutMode: Top;
             Anchor: (Bottom: 12);
@@ -1904,18 +1897,13 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent2 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent2 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator2 {
               Anchor: (Height: 1);
               Background: (Color: #2a3a4a);
             }
           }
-          
           Group #NewsEntry3 {
             LayoutMode: Top;
             Anchor: (Bottom: 12);
@@ -1933,18 +1921,13 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent3 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent3 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator3 {
               Anchor: (Height: 1);
               Background: (Color: #2a3a4a);
             }
           }
-          
           Group #NewsEntry4 {
             LayoutMode: Top;
             Anchor: (Bottom: 12);
@@ -1962,18 +1945,13 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent4 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent4 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator4 {
               Anchor: (Height: 1);
               Background: (Color: #2a3a4a);
             }
           }
-          
           Group #NewsEntry5 {
             LayoutMode: Top;
             Anchor: (Bottom: 12);
@@ -1991,18 +1969,13 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent5 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent5 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator5 {
               Anchor: (Height: 1);
               Background: (Color: #2a3a4a);
             }
           }
-          
           Group #NewsEntry6 {
             LayoutMode: Top;
             Anchor: (Bottom: 12);
@@ -2020,18 +1993,13 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent6 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent6 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator6 {
               Anchor: (Height: 1);
               Background: (Color: #2a3a4a);
             }
           }
-          
           Group #NewsEntry7 {
             LayoutMode: Top;
             Anchor: (Bottom: 12);
@@ -2049,18 +2017,13 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent7 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent7 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator7 {
               Anchor: (Height: 1);
               Background: (Color: #2a3a4a);
             }
           }
-          
           Group #NewsEntry8 {
             LayoutMode: Top;
             Anchor: (Bottom: 12);
@@ -2078,18 +2041,13 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent8 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent8 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator8 {
               Anchor: (Height: 1);
               Background: (Color: #2a3a4a);
             }
           }
-          
           Group #NewsEntry9 {
             LayoutMode: Top;
             Anchor: (Bottom: 12);
@@ -2107,18 +2065,13 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent9 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent9 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator9 {
               Anchor: (Height: 1);
               Background: (Color: #2a3a4a);
             }
           }
-          
           Group #NewsEntry10 {
             LayoutMode: Top;
             Anchor: (Bottom: 12);
@@ -2136,11 +2089,7 @@ $C.@PageOverlay {
               Anchor: (Bottom: 4);
             }
             
-            Label #NewsContent10 {
-              Text: "Content";
-              Style: (FontSize: 13, TextColor: #cccccc);
-              Anchor: (Bottom: 6);
-            }
+            Label #NewsContent10 { Text: "Content"; Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); Anchor: (Bottom: 6, Width: 600); }
             
             Group #NewsSeparator10 {
               Anchor: (Height: 1);
@@ -2148,25 +2097,34 @@ $C.@PageOverlay {
             }
           }
         }
+        
         Group #VaryonContent {
           FlexWeight: 1;
-          LayoutMode: Top;
+          LayoutMode: TopScrolling;
           Visible: false;
+          Padding: (Top: 16, Bottom: 16, Left: 16, Right: 16);
           
-          Label {
-            Text: "Varyon Page";
-            Style: (FontSize: 16, TextColor: #ffffff);
-          }
+          Group #VaryonTextContainer { LayoutMode: TopScrolling; }
         }
         
-        Group #InfosContent {
+        Group #ParametresContent {
           FlexWeight: 1;
-          LayoutMode: Top;
+          LayoutMode: TopScrolling;
           Visible: false;
+          Padding: (Top: 16, Bottom: 16, Left: 16, Right: 16);
           
-          Label {
-            Text: "Info Page";
-            Style: (FontSize: 16, TextColor: #ffffff);
+          Group #AccueilHintSetting {
+            LayoutMode: Left;
+            Anchor: (Height: 28, Bottom: 8);
+            
+            $C.@CheckBox #AccueilHintCheckBox {
+            }
+            
+            Label #AccueilHintLabel {
+              Text: "Astuce /accueil affichée";
+              Style: (FontSize: 14, TextColor: #dddddd, VerticalAlignment: Center);
+              Anchor: (Right: 30, Left: 11);
+            }
           }
         }
         
@@ -2183,5 +2141,4 @@ $C.@PageOverlay {
     }
   }
 }
-
 

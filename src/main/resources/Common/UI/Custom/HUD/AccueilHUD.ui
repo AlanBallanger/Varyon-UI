@@ -1,0 +1,19 @@
+Group {
+  LayoutMode: Center;
+
+  Group #AccueilHudRoot {
+    Anchor: (Width: 500, Height: 24, Bottom: 140, Horizontal: 50);
+    LayoutMode: Center;
+
+    Label #AccueilHint {
+      Text: "/accueil pour découvrir ce que propose le serveur (désactivable)";
+      Style: (
+        FontSize: 16,
+        TextColor: #ffffff,
+        HorizontalAlignment: Center,
+        VerticalAlignment: Center
+      );
+      Anchor: (Width: 500, Height: 24);
+    }
+  }
+}

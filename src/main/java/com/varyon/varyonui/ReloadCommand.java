@@ -7,6 +7,8 @@ import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
 import com.varyon.varyonui.config.HomeConfig;
+import com.varyon.varyonui.config.TutorielConfig;
+import com.varyon.varyonui.config.VaryonConfig;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.CompletableFuture;
@@ -25,6 +27,8 @@ public class ReloadCommand extends AbstractAsyncCommand {
         AdminCommandsConfig.getInstance().reload();
         NewsConfig.getInstance().reload();
         HomeConfig.getInstance().reload();
+        TutorielConfig.getInstance().reload();
+        VaryonConfig.getInstance().reload();
         ctx.sendMessage(Message.raw("VaryonUI configuration reloaded!"));
         
         return CompletableFuture.completedFuture(null);

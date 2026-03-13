@@ -1,0 +1,48 @@
+# VaryonUI Tutoriel Configuration
+# Format: [COLOR:#hexcode] pour les titres, [/COLOR] pour revenir au texte normal
+# [SEPARATOR] pour une ligne de séparation
+
+content = """
+[COLOR:#4fc3f7]En bref[/COLOR]
+
+Bienvenue sur Varyon, un serveur semi-RP construit autour de l'équilibre entre deux mondes : Haven et Varyon.
+Haven, c'est le coeur du serveur. Les capitales des factions se font face au centre du monde accompagnées des villes joueurs. Et tout autour de ça, tu es libre d'installer ta base où tu veux.
+Varyon par contre est un monde dangereux, où les créatures sont dangereuses, la difficulté croissante et où tu peux améliorer tes compétences.
+
+Te voilà arrivé au spawn, plusieurs voies s'ouvrent à toi.
+Tu peux rejoindre une faction et visiter ta capitale, partir construire ta propre base, intégrer une ville de joueurs, te spécialiser dans un métier ou commencer à faire ta première expédition.
+
+[SEPARATOR]
+
+[COLOR:#66bb6a]Progression[/COLOR]
+
+Au fil de ta progression, tu pourras te créer ou loot de meilleurs équipements qui augmenteront ta puissance. En parallèle, les métiers te permettront de gagner des niveaux et choisir des statistiques supplémentaires.
+
+Ces niveaux débloquent un arbre de récompenses dans lequel tu peux choisir les talents qui correspondent à ton style de jeu. Le serveur propose également des métiers annexes qui offrent des bonus uniques et ouvrent de nouvelles façons de progresser.
+
+[SEPARATOR]
+
+[COLOR:#ffa726]L'Économie[/COLOR]
+
+L'économie repose sur différents tiers de Coins, qui existe sous forme physique et virtuelle.
+
+Tu peux en obtenir de différentes manières : en combattant des monstres, en minant des ressources, en récoltant du bois, en accomplissant des quêtes ou en commerçant avec d'autres joueurs. Les ressources récoltées peuvent également être revendues auprès de PNJ.
+
+Le commerce entre joueurs occupe une place importante, surtout en fin de jeu, pour les objets non craftables notamment. Le marché dans la capitale, les boutiques dans les villes joueurs et les échanges te permettront surement de forger ton empire et inscrire ta légende à tout jamais dans le classement saisonnier du serveur.
+
+[SEPARATOR]
+
+[COLOR:#ab47bc]Saisonnalité[/COLOR]
+
+Le serveur n'est pas construit comme beaucoup d'autres, il essaie de s'éloigner de la logique qu'on retrouve classiquement depuis plus de 10 ans sur ce jeu... tu sais si ce jeu la...
+Haven, c'est ta base, c'est l'économie et c'est le jeu vanilla avec ses petits ajouts de qualité de vie.
+Varyon par contre c'est plus de défi, des boss, des évènements aléatoires, une progression poussée avec des nouveaux minerais, tiers d'armes et d'armures et nouveaux objets uniques. Et tout cela, rythmé par des saisons, chaque saison entraîne un reset, pour rafraichir l'expérience joueur, mais également pour préparer de nouveaux contenus et remettre à zéro les compteurs. Mais pas de panique ! Tout ce que tu as accumulé sur Varyon et Haven lors de la saison précédente, tu le garderas. Tu ne pourras simplement pas utiliser ton equipement au lancement de la nouvelle saison dans Varyon.
+
+[SEPARATOR]
+
+[COLOR:#ef5350]Factions et villes[/COLOR]
+
+Ici, deux factions s'opposent : le Noyau, qui cherche à préserver l'équilibre de Haven, et la Fracture, qui préfère exploiter les forces dangereuses de Varyon.
+De cette rivalité sont nées les deux cités rivales, Novale et Fraktale. Ces cités se font la guerre depuis des décennies et divisent joueurs et monde dans des batailles sanglantes. Dans la capitale de la faction que tu as choisi tu pourras retrouver tout ce dont tu as besoin, réaliser toutes les quêtes qui sont à ta disposition, commercer ...
+Si tu souhaites rejoindre ou même créer ta ville, c'est à la mairie de ta capitale que tu pourras trouver toutes les informations. Mais en résumé acheter une ville te coute de l'argent mais te procure certains avantages. Rejoindre une ville en tant que citoyen t'octroyera également certains avantages et une zone protégée ou entreposer tes butins.
+"""

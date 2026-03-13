@@ -23,6 +23,10 @@ import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
 import com.varyon.varyonui.config.HomeConfig;
+import com.varyon.varyonui.config.TutorielConfig;
+import com.varyon.varyonui.config.VaryonConfig;
+import com.varyon.varyonui.VaryonUIPlugin;
+import com.varyon.varyonui.hud.AccueilHUDManager;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -82,9 +86,9 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#VaryonTabLabel.Style.TextColor", "varyon".equals(activeTab) ? "#ffffff" : "#8899aa");
         commandBuilder.set("#VaryonTabShortcut.Visible", "varyon".equals(activeTab));
 
-        commandBuilder.set("#InfosTab.Style.Default.Background", "infos".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
-        commandBuilder.set("#InfosTabLabel.Style.TextColor", "infos".equals(activeTab) ? "#ffffff" : "#8899aa");
-        commandBuilder.set("#InfosTabShortcut.Visible", "infos".equals(activeTab));
+        commandBuilder.set("#ParametresTab.Style.Default.Background", "parametres".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
+        commandBuilder.set("#ParametresTabLabel.Style.TextColor", "parametres".equals(activeTab) ? "#ffffff" : "#8899aa");
+        commandBuilder.set("#ParametresTabShortcut.Visible", "parametres".equals(activeTab));
 
         commandBuilder.set("#AdminTabContainer.Visible", isAdmin);
         if (isAdmin) {
@@ -98,7 +102,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandesTab", EventData.of("Action", "tab").append("Tab", "commandes"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#MisesAJourTab", EventData.of("Action", "tab").append("Tab", "misesajour"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#VaryonTab", EventData.of("Action", "tab").append("Tab", "varyon"));
-        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#InfosTab", EventData.of("Action", "tab").append("Tab", "infos"));
+        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ParametresTab", EventData.of("Action", "tab").append("Tab", "parametres"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", EventData.of("Action", "close"));
 
         if (isAdmin) {
@@ -164,7 +168,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#CommandesContent.Visible", "commandes".equals(activeTab));
         commandBuilder.set("#MisesAJourContent.Visible", "misesajour".equals(activeTab));
         commandBuilder.set("#VaryonContent.Visible", "varyon".equals(activeTab));
-        commandBuilder.set("#InfosContent.Visible", "infos".equals(activeTab));
+        commandBuilder.set("#ParametresContent.Visible", "parametres".equals(activeTab));
         commandBuilder.set("#AdminContent.Visible", "admin".equals(activeTab) && isAdmin);
 
         String tabName = switch (activeTab) {
@@ -173,7 +177,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             case "commandes" -> "COMMANDES";
             case "misesajour" -> "ACTUALIT\u00c9S";
             case "varyon" -> "VARYON";
-            case "infos" -> "INFOS";
+            case "parametres" -> "PARAMÈTRES";
             case "admin" -> "ADMIN";
             default -> "ACCUEIL";
         };
@@ -188,8 +192,17 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         if ("misesajour".equals(activeTab)) {
             buildNewsContent(commandBuilder);
         }
+        if ("tutoriel".equals(activeTab)) {
+            buildTutorielContent(commandBuilder);
+        }
+        if ("varyon".equals(activeTab)) {
+            buildVaryonContent(commandBuilder);
+        }
         if ("home".equals(activeTab)) {
             buildHomeContent(commandBuilder);
+        }
+        if ("parametres".equals(activeTab)) {
+            buildParametresContent(commandBuilder, eventBuilder, store, ref);
         }
     }
 
@@ -299,7 +312,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             
             if (line.equals("[SEPARATOR]")) {
                 commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 8); }");
-                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 1); Background: (Color: #4a5568); }");
+                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 1, Left: 0, Right: 0); Background: (Color: #4a5568); }");
                 commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 8); }");
                 previousWasTitle = false;
             } else if (line.isEmpty()) {
@@ -312,17 +325,29 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 String colorCode = line.substring(7, colorEnd);
                 String text = line.substring(colorEnd + 1).replace("[/COLOR]", "");
                 text = escapeForUI(text);
-                commandBuilder.appendInline("#HomeTextContainer", "Label { Text: \"" + text + "\"; Style: (FontSize: 16, TextColor: " + colorCode + ", RenderBold: true); }");
+                commandBuilder.appendInline("#HomeTextContainer", "Label { Text: \"" + text + "\"; Style: (FontSize: 16, TextColor: " + colorCode + ", RenderBold: true, Wrap: true); Anchor: (Left: 0, Right: 0); }");
                 commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 4); }");
                 previousWasTitle = true;
             } else {
                 String text = escapeForUI(line);
-                commandBuilder.appendInline("#HomeTextContainer", "Label { Text: \"" + text + "\"; Style: (FontSize: 14, TextColor: #dddddd); }");
+                commandBuilder.appendInline("#HomeTextContainer", "Label { Text: \"" + text + "\"; Style: (FontSize: 14, TextColor: #dddddd, Wrap: true); Anchor: (Left: 0, Right: 0); }");
                 previousWasTitle = false;
             }
         }
     }
     
+    private void buildParametresContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull UIEventBuilder eventBuilder, @Nonnull Store<EntityStore> store, @Nonnull Ref<EntityStore> ref) {
+        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+        if (playerRef == null) return;
+
+        AccueilHUDManager hudManager = VaryonUIPlugin.getInstance().getAccueilHUDManager();
+        boolean accueilHintEnabled = hudManager.isAccueilHintEnabled(playerRef.getUuid());
+
+        commandBuilder.set("#AccueilHintCheckBox.Value", accueilHintEnabled);
+        eventBuilder.addEventBinding(CustomUIEventBindingType.ValueChanged, "#AccueilHintCheckBox",
+                EventData.of("Action", "accueilHint"), false);
+    }
+
     private String escapeForUI(String text) {
         return text.replace("\\", "\\\\").replace("\"", "\\\"");
     }
@@ -341,6 +366,49 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             commandBuilder.set("#NewsDate" + idx + ".TextSpans", Message.raw(entry.getDate()));
             commandBuilder.set("#NewsTitle" + idx + ".TextSpans", Message.raw(entry.getTitle()));
             commandBuilder.set("#NewsContent" + idx + ".TextSpans", Message.raw(entry.getContent()));
+        }
+    }
+
+    private void buildTutorielContent(@Nonnull UICommandBuilder commandBuilder) {
+        buildScrollableTextContent(commandBuilder, "#TutorielTextContainer", TutorielConfig.getInstance().getContent());
+    }
+
+    private void buildVaryonContent(@Nonnull UICommandBuilder commandBuilder) {
+        buildScrollableTextContent(commandBuilder, "#VaryonTextContainer", VaryonConfig.getInstance().getContent());
+    }
+
+    private void buildScrollableTextContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull String containerId, @Nonnull String content) {
+        commandBuilder.clear(containerId);
+
+        String[] lines = content.split("\\R");
+        boolean previousWasTitle = false;
+
+        for (String line : lines) {
+            line = line.trim();
+
+            if (line.equals("[SEPARATOR]")) {
+                commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 8); }");
+                commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 1, Left: 0, Right: 0); Background: (Color: #4a5568); }");
+                commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 8); }");
+                previousWasTitle = false;
+            } else if (line.isEmpty()) {
+                previousWasTitle = false;
+            } else if (line.startsWith("[COLOR:") && line.contains("]")) {
+                if (!previousWasTitle) {
+                    commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 8); }");
+                }
+                int colorEnd = line.indexOf("]");
+                String colorCode = line.substring(7, colorEnd);
+                String text = line.substring(colorEnd + 1).replace("[/COLOR]", "");
+                text = escapeForUI(text);
+                commandBuilder.appendInline(containerId, "Label { Text: \"" + text + "\"; Style: (FontSize: 16, TextColor: " + colorCode + ", RenderBold: true, Wrap: true); Anchor: (Bottom: 4, Left: 0, Right: 0); }");
+                commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 4); }");
+                previousWasTitle = true;
+            } else {
+                String text = escapeForUI(line);
+                commandBuilder.appendInline(containerId, "Label { Text: \"" + text + "\"; Style: (FontSize: 14, TextColor: #dddddd, Wrap: true); Anchor: (Bottom: 4, Left: 0, Right: 0); }");
+                previousWasTitle = false;
+            }
         }
     }
 
@@ -375,6 +443,20 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 player.getPageManager().setPage(ref, store, Page.None);
                 String command = data.command.startsWith("/") ? data.command.substring(1) : data.command;
                 CommandManager.get().handleCommand(playerRefComponent, command);
+            }
+        } else if ("accueilHint".equals(data.action)) {
+            PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
+            Player playerComponent = store.getComponent(ref, Player.getComponentType());
+            if (playerRefComponent != null && playerComponent != null) {
+                AccueilHUDManager hudManager = VaryonUIPlugin.getInstance().getAccueilHUDManager();
+                boolean current = hudManager.isAccueilHintEnabled(playerRefComponent.getUuid());
+                hudManager.setAccueilHintEnabled(playerRefComponent.getUuid(), !current);
+                hudManager.refreshPlayer(playerComponent, playerRefComponent);
+                UICommandBuilder cb = new UICommandBuilder();
+                UIEventBuilder eb = new UIEventBuilder();
+                buildTabBar(cb, eb);
+                buildContent(cb, eb, store, ref);
+                sendUpdate(cb, eb, false);
             }
         }
     }

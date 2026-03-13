@@ -18,6 +18,7 @@ dependencies {
     compileOnly(libs.jetbrains.annotations)
     compileOnly(libs.jspecify)
     implementation("com.moandjiezana.toml:toml4j:0.7.2")
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 hytale {
@@ -77,7 +78,7 @@ tasks.named<Jar>("jar") {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     doFirst {
         from(configurations.runtimeClasspath.get()
-            .filter { it.name.contains("toml4j") }
+            .filter { it.name.contains("toml4j") || it.name.contains("gson") }
             .map { zipTree(it) })
     }
 }
