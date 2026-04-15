@@ -13,6 +13,8 @@ import com.hypixel.hytale.protocol.Packet;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
+import com.hypixel.hytale.server.core.ui.PatchStyle;
+import com.hypixel.hytale.server.core.ui.Value;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
@@ -25,9 +27,6 @@ import com.varyon.varyonui.config.NewsConfig;
 import com.varyon.varyonui.config.HomeConfig;
 import com.varyon.varyonui.config.TutorielConfig;
 import com.varyon.varyonui.config.VaryonConfig;
-import com.varyon.varyonui.VaryonUIPlugin;
-import com.varyon.varyonui.hud.AccueilHUDManager;
-
 import javax.annotation.Nonnull;
 import java.util.List;
 
@@ -66,35 +65,44 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
     private void buildTabBar(@Nonnull UICommandBuilder commandBuilder,
                              @Nonnull UIEventBuilder eventBuilder) {
-        commandBuilder.set("#HomeTab.Style.Default.Background", "home".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
-        commandBuilder.set("#HomeTabLabel.Style.TextColor", "home".equals(activeTab) ? "#ffffff" : "#8899aa");
+        String tabTextInactive = "#ffffff";
+        String tabTextActive = "#ffb347";
+        String tabShortcutInactive = "#aab8c8";
+        String tabShortcutActive = "#d4dce8";
+
+        commandBuilder.set("#HomeTabLabel.Style.TextColor", "home".equals(activeTab) ? tabTextActive : tabTextInactive);
         commandBuilder.set("#HomeTabShortcut.Visible", "home".equals(activeTab));
+        commandBuilder.set("#HomeTabShortcut.Style.TextColor", "home".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
 
-        commandBuilder.set("#TutorielTab.Style.Default.Background", "tutoriel".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
-        commandBuilder.set("#TutorielTabLabel.Style.TextColor", "tutoriel".equals(activeTab) ? "#ffffff" : "#8899aa");
+        commandBuilder.set("#TutorielTabLabel.Style.TextColor", "tutoriel".equals(activeTab) ? tabTextActive : tabTextInactive);
         commandBuilder.set("#TutorielTabShortcut.Visible", "tutoriel".equals(activeTab));
+        commandBuilder.set("#TutorielTabShortcut.Style.TextColor", "tutoriel".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
 
-        commandBuilder.set("#CommandesTab.Style.Default.Background", "commandes".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
-        commandBuilder.set("#CommandesTabLabel.Style.TextColor", "commandes".equals(activeTab) ? "#ffffff" : "#8899aa");
+        commandBuilder.set("#CommandesTabLabel.Style.TextColor", "commandes".equals(activeTab) ? tabTextActive : tabTextInactive);
         commandBuilder.set("#CommandesTabShortcut.Visible", "commandes".equals(activeTab));
+        commandBuilder.set("#CommandesTabShortcut.Style.TextColor", "commandes".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
 
-        commandBuilder.set("#MisesAJourTab.Style.Default.Background", "misesajour".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
-        commandBuilder.set("#MisesAJourTabLabel.Style.TextColor", "misesajour".equals(activeTab) ? "#ffffff" : "#8899aa");
+        commandBuilder.set("#MisesAJourTabLabel.Style.TextColor", "misesajour".equals(activeTab) ? tabTextActive : tabTextInactive);
         commandBuilder.set("#MisesAJourTabShortcut.Visible", "misesajour".equals(activeTab));
+        commandBuilder.set("#MisesAJourTabShortcut.Style.TextColor", "misesajour".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
 
-        commandBuilder.set("#VaryonTab.Style.Default.Background", "varyon".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
-        commandBuilder.set("#VaryonTabLabel.Style.TextColor", "varyon".equals(activeTab) ? "#ffffff" : "#8899aa");
+        commandBuilder.set("#VaryonTabLabel.Style.TextColor", "varyon".equals(activeTab) ? tabTextActive : tabTextInactive);
         commandBuilder.set("#VaryonTabShortcut.Visible", "varyon".equals(activeTab));
+        commandBuilder.set("#VaryonTabShortcut.Style.TextColor", "varyon".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
 
-        commandBuilder.set("#ParametresTab.Style.Default.Background", "parametres".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
-        commandBuilder.set("#ParametresTabLabel.Style.TextColor", "parametres".equals(activeTab) ? "#ffffff" : "#8899aa");
+        commandBuilder.set("#ProfilTabLabel.Style.TextColor", "profil".equals(activeTab) ? tabTextActive : tabTextInactive);
+        commandBuilder.set("#ProfilTabShortcut.Visible", "profil".equals(activeTab));
+        commandBuilder.set("#ProfilTabShortcut.Style.TextColor", "profil".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
+
+        commandBuilder.set("#ParametresTabLabel.Style.TextColor", "parametres".equals(activeTab) ? tabTextActive : tabTextInactive);
         commandBuilder.set("#ParametresTabShortcut.Visible", "parametres".equals(activeTab));
+        commandBuilder.set("#ParametresTabShortcut.Style.TextColor", "parametres".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
 
         commandBuilder.set("#AdminTabContainer.Visible", isAdmin);
         if (isAdmin) {
-            commandBuilder.set("#AdminTab.Style.Default.Background", "admin".equals(activeTab) ? "#2a4a6a" : "#1e2d3d");
-            commandBuilder.set("#AdminTabLabel.Style.TextColor", "admin".equals(activeTab) ? "#ffffff" : "#8899aa");
+            commandBuilder.set("#AdminTabLabel.Style.TextColor", "admin".equals(activeTab) ? tabTextActive : tabTextInactive);
             commandBuilder.set("#AdminTabShortcut.Visible", "admin".equals(activeTab));
+            commandBuilder.set("#AdminTabShortcut.Style.TextColor", "admin".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
         }
 
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#HomeTab", EventData.of("Action", "tab").append("Tab", "home"));
@@ -102,6 +110,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandesTab", EventData.of("Action", "tab").append("Tab", "commandes"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#MisesAJourTab", EventData.of("Action", "tab").append("Tab", "misesajour"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#VaryonTab", EventData.of("Action", "tab").append("Tab", "varyon"));
+        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ProfilTab", EventData.of("Action", "tab").append("Tab", "profil"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ParametresTab", EventData.of("Action", "tab").append("Tab", "parametres"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", EventData.of("Action", "close"));
 
@@ -168,6 +177,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#CommandesContent.Visible", "commandes".equals(activeTab));
         commandBuilder.set("#MisesAJourContent.Visible", "misesajour".equals(activeTab));
         commandBuilder.set("#VaryonContent.Visible", "varyon".equals(activeTab));
+        commandBuilder.set("#ProfilContent.Visible", "profil".equals(activeTab));
         commandBuilder.set("#ParametresContent.Visible", "parametres".equals(activeTab));
         commandBuilder.set("#AdminContent.Visible", "admin".equals(activeTab) && isAdmin);
 
@@ -177,6 +187,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             case "commandes" -> "COMMANDES";
             case "misesajour" -> "ACTUALIT\u00c9S";
             case "varyon" -> "VARYON";
+            case "profil" -> "PROFIL";
             case "parametres" -> "PARAMÈTRES";
             case "admin" -> "ADMIN";
             default -> "ACCUEIL";
@@ -201,16 +212,13 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         if ("home".equals(activeTab)) {
             buildHomeContent(commandBuilder);
         }
-        if ("parametres".equals(activeTab)) {
-            buildParametresContent(commandBuilder, eventBuilder, store, ref);
-        }
     }
 
     private void buildCommandsContent(@Nonnull UICommandBuilder commandBuilder) {
         List<CommandsConfig.CommandCategory> categories = CommandsConfig.getInstance().getCategories();
 
         for (int i = 1; i <= MAX_SLOTS; i++) {
-            commandBuilder.set("#CategoryTitle" + i + ".Visible", false);
+            commandBuilder.set("#CategoryHeader" + i + ".Visible", false);
             commandBuilder.set("#ButtonRow" + i + ".Visible", false);
         }
         for (int i = 1; i <= MAX_BUTTONS; i++) {
@@ -228,8 +236,15 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 if (slotIndex > MAX_SLOTS) break;
 
                 if (isFirstRow) {
-                    commandBuilder.set("#CategoryTitle" + slotIndex + ".Visible", true);
-                    commandBuilder.set("#CategoryTitle" + slotIndex + ".TextSpans", Message.raw(category.getName()));
+                    String catName = category.getName();
+                    if (catName != null && !catName.isBlank()) {
+                        commandBuilder.set("#CategoryHeader" + slotIndex + ".Visible", true);
+                        commandBuilder.set("#CategoryTitle" + slotIndex + ".TextSpans", Message.raw(catName));
+                    }
+                    String headerIcon = category.getHeaderIcon();
+                    if (headerIcon != null && !headerIcon.isBlank()) {
+                        applyCategoryHeaderIcon(commandBuilder, slotIndex, headerIcon);
+                    }
                     isFirstRow = false;
                 }
 
@@ -244,9 +259,56 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     commandBuilder.set("#CommandButton" + btnIdx + ".Visible", true);
                     commandBuilder.set("#CommandButton" + btnIdx + "Label.TextSpans", Message.raw(button.getLabel()));
                     commandBuilder.set("#CommandButton" + btnIdx + "Cmd.TextSpans", Message.raw(button.getCommand()));
+                    applyCommandButtonIcon(commandBuilder, btnIdx, button.getIconUrl());
+                    applyCommandButtonBlueSmallBackground(commandBuilder, btnIdx);
                 }
             }
         }
+    }
+
+    private static final String COMMAND_BLUE_SMALL_BG = "Icons/Blue_Button_small.png";
+    private static final String COMMAND_BLUE_SMALL_BG_HOVERED = "Icons/Blue_Button_small_Hovered.png";
+
+    private static void applyCommandButtonBlueSmallBackground(@Nonnull UICommandBuilder commandBuilder, int btnIdx) {
+        if (btnIdx <= 5) {
+            return;
+        }
+        PatchStyle bg = new PatchStyle().setTexturePath(Value.of(COMMAND_BLUE_SMALL_BG));
+        PatchStyle bgHovered = new PatchStyle().setTexturePath(Value.of(COMMAND_BLUE_SMALL_BG_HOVERED));
+        String base = "#CommandButton" + btnIdx + ".Style";
+        commandBuilder.setObject(base + ".Default.Background", bg);
+        commandBuilder.setObject(base + ".Hovered.Background", bgHovered);
+        commandBuilder.setObject(base + ".Pressed.Background", bgHovered);
+    }
+
+    private static boolean commandButtonHasIconSlot(int btnIdx) {
+        return btnIdx >= 1 && btnIdx <= 35;
+    }
+
+    private static void applyCategoryHeaderIcon(@Nonnull UICommandBuilder commandBuilder, int slotIndex, String iconUrl) {
+        String path = normalizeIconUrl(iconUrl.trim());
+        commandBuilder.setObject(
+            "#CategoryHeader" + slotIndex + "Icon.Background",
+            new PatchStyle().setTexturePath(Value.of(path))
+        );
+    }
+
+    private static void applyCommandButtonIcon(@Nonnull UICommandBuilder commandBuilder, int btnIdx, String iconUrl) {
+        if (!commandButtonHasIconSlot(btnIdx) || iconUrl == null || iconUrl.isBlank()) {
+            return;
+        }
+        String path = normalizeIconUrl(iconUrl.trim());
+        commandBuilder.setObject(
+            "#CommandButton" + btnIdx + "Icon.Background",
+            new PatchStyle().setTexturePath(Value.of(path))
+        );
+    }
+
+    private static String normalizeIconUrl(String raw) {
+        if (raw.startsWith("/")) {
+            return raw.substring(1);
+        }
+        return raw;
     }
 
     private static final String ADMIN_BTN_STYLE =
@@ -273,7 +335,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             for (int i = 0; i < buttons.size(); i += BUTTONS_PER_ROW) {
                 int rowListIdx = listIdx;
                 commandBuilder.appendInline("#AdminCommandesList",
-                    "Group { LayoutMode: Left; Anchor: (Height: 54, Bottom: 4); }");
+                    "Group { LayoutMode: Left; Anchor: (Height: 53, Bottom: 4); }");
                 listIdx++;
 
                 int count = Math.min(BUTTONS_PER_ROW, buttons.size() - i);
@@ -283,8 +345,8 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     String btnCmd = escapeForUI(button.getCommand());
                     boolean isLast = (j == count - 1);
                     String anchor = isLast ?
-                        "Anchor: (Width: 162, Height: 50);" :
-                        "Anchor: (Width: 162, Height: 50, Right: 2);";
+                        "Anchor: (Width: 152, Height: 53);" :
+                        "Anchor: (Width: 152, Height: 53, Right: 12);";
                     commandBuilder.appendInline("#AdminCommandesList[" + rowListIdx + "]",
                         "Button { " + anchor + " " + ADMIN_BTN_STYLE +
                         " Group { LayoutMode: Top; Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);" +
@@ -336,18 +398,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
     }
     
-    private void buildParametresContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull UIEventBuilder eventBuilder, @Nonnull Store<EntityStore> store, @Nonnull Ref<EntityStore> ref) {
-        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
-        if (playerRef == null) return;
-
-        AccueilHUDManager hudManager = VaryonUIPlugin.getInstance().getAccueilHUDManager();
-        boolean accueilHintEnabled = hudManager.isAccueilHintEnabled(playerRef.getUuid());
-
-        commandBuilder.set("#AccueilHintCheckBox.Value", accueilHintEnabled);
-        eventBuilder.addEventBinding(CustomUIEventBindingType.ValueChanged, "#AccueilHintCheckBox",
-                EventData.of("Action", "accueilHint"), false);
-    }
-
     private String escapeForUI(String text) {
         return text.replace("\\", "\\\\").replace("\"", "\\\"");
     }
@@ -443,20 +493,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 player.getPageManager().setPage(ref, store, Page.None);
                 String command = data.command.startsWith("/") ? data.command.substring(1) : data.command;
                 CommandManager.get().handleCommand(playerRefComponent, command);
-            }
-        } else if ("accueilHint".equals(data.action)) {
-            PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
-            Player playerComponent = store.getComponent(ref, Player.getComponentType());
-            if (playerRefComponent != null && playerComponent != null) {
-                AccueilHUDManager hudManager = VaryonUIPlugin.getInstance().getAccueilHUDManager();
-                boolean current = hudManager.isAccueilHintEnabled(playerRefComponent.getUuid());
-                hudManager.setAccueilHintEnabled(playerRefComponent.getUuid(), !current);
-                hudManager.refreshPlayer(playerComponent, playerRefComponent);
-                UICommandBuilder cb = new UICommandBuilder();
-                UIEventBuilder eb = new UIEventBuilder();
-                buildTabBar(cb, eb);
-                buildContent(cb, eb, store, ref);
-                sendUpdate(cb, eb, false);
             }
         }
     }

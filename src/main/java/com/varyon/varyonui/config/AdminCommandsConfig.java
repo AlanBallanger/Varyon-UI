@@ -74,7 +74,7 @@ public class AdminCommandsConfig {
                                     ? CommandsConfig.CommandType.CHAT
                                     : CommandsConfig.CommandType.EXECUTE;
 
-                                buttons.add(new CommandsConfig.CommandButton(label, command, cmdType));
+                                buttons.add(new CommandsConfig.CommandButton(label, command, cmdType, null));
                             }
                         }
 

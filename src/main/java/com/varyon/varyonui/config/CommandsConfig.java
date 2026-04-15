@@ -61,6 +61,7 @@ public class CommandsConfig {
                 if (categoryList != null) {
                     for (Toml categoryToml : categoryList) {
                         String name = categoryToml.getString("name");
+                        String headerIcon = categoryToml.getString("header_icon");
                         List<Toml> buttonsList = categoryToml.getTables("buttons");
                         
                         List<CommandButton> buttons = new ArrayList<>();
@@ -69,16 +70,17 @@ public class CommandsConfig {
                                 String label = buttonToml.getString("label");
                                 String command = buttonToml.getString("command");
                                 String type = buttonToml.getString("type");
+                                String iconUrl = buttonToml.getString("icon_url");
                                 
                                 CommandType cmdType = "chat".equalsIgnoreCase(type) 
                                     ? CommandType.CHAT 
                                     : CommandType.EXECUTE;
                                 
-                                buttons.add(new CommandButton(label, command, cmdType));
+                                buttons.add(new CommandButton(label, command, cmdType, iconUrl));
                             }
                         }
                         
-                        categories.add(new CommandCategory(name, buttons));
+                        categories.add(new CommandCategory(name, buttons, headerIcon));
                     }
                 }
                 System.out.println("[VaryonUI] Loaded " + categories.size() + " categories");
@@ -96,10 +98,16 @@ public class CommandsConfig {
     public static class CommandCategory {
         private final String name;
         private final List<CommandButton> buttons;
+        private final String headerIcon;
 
         public CommandCategory(String name, List<CommandButton> buttons) {
+            this(name, buttons, null);
+        }
+
+        public CommandCategory(String name, List<CommandButton> buttons, String headerIcon) {
             this.name = name;
             this.buttons = buttons;
+            this.headerIcon = headerIcon;
         }
 
         public String getName() {
@@ -109,17 +117,23 @@ public class CommandsConfig {
         public List<CommandButton> getButtons() {
             return buttons;
         }
+
+        public String getHeaderIcon() {
+            return headerIcon;
+        }
     }
 
     public static class CommandButton {
         private final String label;
         private final String command;
         private final CommandType type;
+        private final String iconUrl;
 
-        public CommandButton(String label, String command, CommandType type) {
+        public CommandButton(String label, String command, CommandType type, String iconUrl) {
             this.label = label;
             this.command = command;
             this.type = type;
+            this.iconUrl = iconUrl;
         }
 
         public String getLabel() {
@@ -132,6 +146,10 @@ public class CommandsConfig {
 
         public CommandType getType() {
             return type;
+        }
+
+        public String getIconUrl() {
+            return iconUrl;
         }
     }
 
