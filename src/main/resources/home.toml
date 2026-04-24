@@ -1,68 +1,67 @@
 # VaryonUI Home Configuration
-# Format: Utilisez [COLOR:#hexcode] pour les titres et [/COLOR] pour revenir au texte normal
-# Utilisez [SEPARATOR] pour une ligne de separation
-# Les lignes vides creent des espaces
+# [COLOR:#...] = titre (blanc en jeu) ; [SEPARATOR] ; [B]...[/B] = gras
+# Mots colorés + gras : Haven/Gaïa, Varyon, Fracture/Fraktale, Noyau/Novale
 
 image = "Icons/Varyon_Logo.png"
 
 content = """
-[COLOR:#4fc3f7]Bienvenue sur Varyon[/COLOR]
+[COLOR:#ffffff]Bienvenue sur Varyon[/COLOR]
 
-Ici tu vas pouvoir explorer les contrees de deux mondes principaux.
+Ici tu vas pouvoir explorer les contrées de [B]deux mondes principaux[/B].
 
-Haven est la terre sanctuaire protegee par Gaïa. Tu peux y construire librement, faire ta base, profiter de toute l'experience vanilla du jeu, commercer ou rejoindre une ville. Pas de sanction liees a la mort, tu as acces a de nombreuses teleportations, retour a ton foyer etc.
+Haven est la terre sanctuaire protégée par Gaïa. Tu peux y [B]construire librement, faire ta base[/B], profiter de toute l'expérience vanilla du jeu, commercer ou rejoindre une ville. Pas de sanctions liées à la mort, tu as accès à de nombreuses téléportations, retour à ton foyer etc.
 
-Varyon en revanche est une terre brisee. C'est la que tu trouveras plus de challenges... mais aussi d'equipements rares et inedits ! Creatures plus dangereuses, ressources rares, progression plus rapide des metiers… mais aucun retour facile. Une fois sur place, tu dois t'extraire en invoquant un portail et l'atteindre vivant. Mourir y est bien plus punitif.
+Varyon en revanche est une terre brisée. C'est là que tu trouveras [B]plus de challenges[/B]... mais aussi d'[B]équipements rares et inédits[/B] ! Créatures plus dangereuses, ressources rares, progression plus rapide des métiers… mais aucun retour facile. Une fois sur place, tu dois [B]t'extraire en invoquant un portail[/B] et l'atteindre vivant. Mourir y est bien plus punitif.
 
 [SEPARATOR]
 
-[COLOR:#66bb6a]Les Portails du Spawn[/COLOR]
+[COLOR:#ffffff]Les Portails du Spawn[/COLOR]
 
 Au spawn, observe les portails autour de toi.
 
-Face a toi : la survie, la vraie ! Et la ou aller creer ta base, decouvrir les quetes du serveur ou bien rejoindre une ville ?
+[B]Face à toi, la survie, la vraie[/B] ! Et là où aller créer ta base, découvrir les quêtes du serveur ou bien rejoindre une ville ?
 
-A ta gauche : la capitale de la faction Fracture, pour les mordus d'aventure. (plus de details sur le site)
+À ta gauche : [B]la capitale de la faction[/B] Fracture, pour les mordus d'aventure. (plus de détails sur le site)
 
-A ta droite : la capitale de la faction Noyau, pour les aventuriers les plus perseverants. (plus de details sur le site)
+À ta droite : [B]la capitale de la faction[/B] Noyau, pour les aventuriers les plus persévérants. (plus de détails sur le site)
 
-Tu peux aussi parler aux PNJ du spawn ou ouvrir le menu pour comprendre les ajouts faits sur le serveur, tu n'as pas besoin de tout lire, le serveur se decouvre en jouant.
-
-[SEPARATOR]
-
-[COLOR:#ffa726]Les Differentes Façons de Jouer[/COLOR]
-
-Certains joueurs creent leur base, produisent, echangent et progressent lentement.
-
-D'autres enchaînent les expeditions sur Varyon pour progresser vite et revenir riches… quand ils reviennent.
-
-Recolte, tue, mine, explore des zones de plus en plus lointaines pour decouvrir des objets inedits !
-
-Tu gagnes de l'argent en vendant tes ressources basiques, ou en commerçant tes equipements ou services.
+Tu peux aussi parler aux PNJ du spawn ou ouvrir le menu pour comprendre les ajouts faits sur le serveur, tu n'as pas besoin de tout lire, [B]le serveur se découvre en jouant[/B].
 
 [SEPARATOR]
 
-[COLOR:#ab47bc]Villes et Commerce[/COLOR]
+[COLOR:#ffffff]Les Différentes Façons de Jouer[/COLOR]
 
-Pour ce faire, les villes t'offrent protection, quetes et places de marche.
+Certains joueurs [B]créent leur base[/B], produisent, échangent et progressent lentement.
 
-Tu peux vivre au grand air dans ta base, ou dans la capitale voir meme creer ta ville.
+D'autres [B]enchaînent les expéditions[/B] sur Varyon pour progresser vite et revenir riches… quand ils reviennent.
 
-[SEPARATOR]
+Récolte, tue, mine, explore des zones de plus en plus lointaines pour découvrir des [B]objets inédits[/B] !
 
-[COLOR:#ef5350]La Logique du Serveur[/COLOR]
-
-Tu fais tes premieres armes sur Haven, et tu pars en quete d'exploration sur Varyon.
-
-Construis, equipe-toi, pars en expedition, extrais-toi, ameliore ton equipement, puis repars plus loin.
+Tu gagnes de l'argent en vendant tes ressources basiques, ou en commerçant tes équipements ou services.
 
 [SEPARATOR]
 
-[COLOR:#26c6da]Pour Debuter[/COLOR]
+[COLOR:#ffffff]Villes et Commerce[/COLOR]
 
-Si tu es perdu au debut, c'est normal. Commence simplement par poser ta base et tenter ta premiere sortie sur Varyon.
+Pour ce faire, les villes t'offrent [B]protection, quêtes et places de marché[/B].
+
+Tu peux vivre au grand air dans ta base, ou dans la capitale voire même créer ta ville.
+
+[SEPARATOR]
+
+[COLOR:#ffffff]La Logique du Serveur[/COLOR]
+
+Tu fais tes premières armes sur Haven, et tu pars en quête d'exploration sur Varyon.
+
+Construis, équipe-toi, pars en expédition, extrais-toi, améliore ton équipement, puis repars plus loin.
+
+[SEPARATOR]
+
+[COLOR:#ffffff]Pour Débuter[/COLOR]
+
+Si tu es perdu au début, c'est normal. Commence simplement par poser ta base et tenter ta première sortie sur Varyon.
 
 Le reste vient naturellement en jouant.
 
-Au besoin un paquet de personnes se feront un plaisir de t'aider :)
+Au besoin un paquet de personnes se feront un plaisir de [B]te guider[/B] :)
 """

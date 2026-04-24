@@ -20,18 +20,26 @@ import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
+import com.hypixel.hytale.server.core.universe.world.World;
 import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
 import com.varyon.varyonui.config.HomeConfig;
 import com.varyon.varyonui.config.TutorielConfig;
 import com.varyon.varyonui.config.VaryonConfig;
+import com.varyon.varyonui.integration.CombatProfilBridge;
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventDataClass> {
 
+    private static final long COMMAND_EXECUTE_DELAY_MS = 50L;
     private static final int MAX_SLOTS = 10;
     private static final int MAX_BUTTONS = 50;
     private static final int BUTTONS_PER_ROW = 5;
@@ -121,10 +129,49 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         if ("commandes".equals(activeTab)) {
             buildCommandButtons(commandBuilder, eventBuilder);
         }
+        if ("varyon".equals(activeTab)) {
+            buildVaryonQuickButtonEvents(eventBuilder);
+        }
         if ("admin".equals(activeTab) && isAdmin) {
             buildAdminCommandButtons(commandBuilder, eventBuilder);
         }
     }
+
+    private static void buildVaryonQuickButtonEvents(@Nonnull UIEventBuilder eventBuilder) {
+        for (int i = 0; i < VARYON_QUICK_COMMANDS.length; i++) {
+            int n = i + 1;
+            String action = VARYON_QUICK_CHAT[i] ? "chatcommand" : "command";
+            eventBuilder.addEventBinding(
+                CustomUIEventBindingType.Activating,
+                "#VaryonQuickButton" + n,
+                EventData.of("Action", action).append("Command", VARYON_QUICK_COMMANDS[i])
+            );
+        }
+    }
+
+    private static final String[] VARYON_QUICK_COMMANDS = {
+        "/extract",
+        "/return",
+        "/join joueur ",
+        "/rtpv 1",
+        "/essence",
+    };
+
+    private static final boolean[] VARYON_QUICK_CHAT = {
+        false,
+        false,
+        true,
+        false,
+        false,
+    };
+
+    private static final String[] VARYON_QUICK_LABELS = {
+        "Extraction",
+        "Retour mort",
+        "Rejoindre ami",
+        "TP aléatoire",
+        "Qté essence",
+    };
 
     private void buildCommandButtons(@Nonnull UICommandBuilder commandBuilder, @Nonnull UIEventBuilder eventBuilder) {
         List<CommandsConfig.CommandCategory> categories = CommandsConfig.getInstance().getCategories();
@@ -211,6 +258,10 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
         if ("home".equals(activeTab)) {
             buildHomeContent(commandBuilder);
+        }
+        if ("profil".equals(activeTab)) {
+            Player player = store.getComponent(ref, Player.getComponentType());
+            CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
         }
     }
 
@@ -360,42 +411,160 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
     private static final int MAX_NEWS = 10;
 
-    private void buildHomeContent(@Nonnull UICommandBuilder commandBuilder) {
-        HomeConfig config = HomeConfig.getInstance();
-        String content = config.getContent();
-        
-        commandBuilder.clear("#HomeTextContainer");
-        
+    private static final String KW_GREEN = "#66bb6a";
+    private static final String KW_PURPLE = "#ab47bc";
+    private static final String KW_ORANGE = "#ffa726";
+    private static final String KW_BLUE = "#42a5f5";
+
+    private static final Pattern KEYWORD_PATTERN = Pattern.compile(
+        "(?iu)\\b(Fraktale|Fracture|Haven|Gaïa|Gaia|Varyon|Novale|Noyau)\\b");
+
+    private static Message buildRichSegment(@Nonnull String text, boolean boldPlainParts) {
+        if (text.isEmpty()) {
+            return Message.raw("");
+        }
+        Matcher m = KEYWORD_PATTERN.matcher(text);
+        Message out = Message.empty();
+        int last = 0;
+        while (m.find()) {
+            if (m.start() > last) {
+                Message plain = Message.raw(text.substring(last, m.start()));
+                if (boldPlainParts) {
+                    plain = plain.bold(true);
+                }
+                out.insert(plain);
+            }
+            String matched = text.substring(m.start(), m.end());
+            out.insert(Message.raw(matched).color(keywordColor(matched)).bold(true));
+            last = m.end();
+        }
+        if (last < text.length()) {
+            Message plain = Message.raw(text.substring(last));
+            if (boldPlainParts) {
+                plain = plain.bold(true);
+            }
+            out.insert(plain);
+        }
+        return out;
+    }
+
+    private static Message buildLineWithBoldMarkup(@Nonnull String line) {
+        Message out = Message.empty();
+        int pos = 0;
+        while (true) {
+            int b = line.indexOf("[B]", pos);
+            if (b < 0) {
+                out.insert(buildRichSegment(line.substring(pos), false));
+                break;
+            }
+            if (b > pos) {
+                out.insert(buildRichSegment(line.substring(pos, b), false));
+            }
+            int close = line.indexOf("[/B]", b + 3);
+            if (close < 0) {
+                out.insert(buildRichSegment(line.substring(b), false));
+                break;
+            }
+            String inner = line.substring(b + 3, close);
+            out.insert(buildRichSegment(inner, true));
+            pos = close + 4;
+        }
+        return out;
+    }
+
+    private static String keywordColor(@Nonnull String word) {
+        String w = word.toLowerCase(Locale.ROOT);
+        return switch (w) {
+            case "haven", "gaïa", "gaia" -> KW_GREEN;
+            case "varyon" -> KW_PURPLE;
+            case "fracture", "fraktale" -> KW_ORANGE;
+            case "noyau", "novale" -> KW_BLUE;
+            default -> "#dddddd";
+        };
+    }
+
+    private static void appendRichLabelLine(
+        @Nonnull UICommandBuilder commandBuilder,
+        @Nonnull String containerId,
+        @Nonnull String lineIdPrefix,
+        @Nonnull int[] lineCounter,
+        @Nonnull Message textSpans,
+        int fontSize,
+        @Nonnull String defaultTextColor,
+        boolean bold,
+        boolean useBottomAnchor
+    ) {
+        String id = lineIdPrefix + lineCounter[0]++;
+        String anchor = useBottomAnchor ? "Anchor: (Bottom: 4, Left: 0, Right: 0);" : "Anchor: (Left: 0, Right: 0);";
+        commandBuilder.appendInline(
+            containerId,
+            "Label #" + id + " { " + anchor + " Style: (FontSize: " + fontSize + ", TextColor: " + defaultTextColor + ", RenderBold: " + bold + ", Wrap: true); }");
+        commandBuilder.set("#" + id + ".TextSpans", textSpans);
+    }
+
+    private void buildScrollableRichContent(
+        @Nonnull UICommandBuilder commandBuilder,
+        @Nonnull String containerId,
+        @Nonnull String content,
+        @Nonnull String lineIdPrefix,
+        boolean useBottomAnchorOnLabels
+    ) {
+        commandBuilder.clear(containerId);
+        int[] nextLine = {0};
         String[] lines = content.split("\\R");
         boolean previousWasTitle = false;
-        
-        for (String line : lines) {
-            line = line.trim();
-            
+
+        for (String rawLine : lines) {
+            String line = rawLine.trim();
+
             if (line.equals("[SEPARATOR]")) {
-                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 8); }");
-                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 1, Left: 0, Right: 0); Background: (Color: #4a5568); }");
-                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 8); }");
+                commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 8); }");
+                commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 1, Left: 0, Right: 0); Background: (Color: #4a5568); }");
+                commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 8); }");
                 previousWasTitle = false;
             } else if (line.isEmpty()) {
                 previousWasTitle = false;
             } else if (line.startsWith("[COLOR:") && line.contains("]")) {
                 if (!previousWasTitle) {
-                    commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 8); }");
+                    commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 8); }");
                 }
                 int colorEnd = line.indexOf("]");
-                String colorCode = line.substring(7, colorEnd);
-                String text = line.substring(colorEnd + 1).replace("[/COLOR]", "");
-                text = escapeForUI(text);
-                commandBuilder.appendInline("#HomeTextContainer", "Label { Text: \"" + text + "\"; Style: (FontSize: 16, TextColor: " + colorCode + ", RenderBold: true, Wrap: true); Anchor: (Left: 0, Right: 0); }");
-                commandBuilder.appendInline("#HomeTextContainer", "Group { Anchor: (Height: 4); }");
+                String titleText = line.substring(colorEnd + 1).replace("[/COLOR]", "");
+                appendRichLabelLine(
+                    commandBuilder,
+                    containerId,
+                    lineIdPrefix,
+                    nextLine,
+                    buildLineWithBoldMarkup(titleText),
+                    18,
+                    "#ffffff",
+                    true,
+                    useBottomAnchorOnLabels);
+                commandBuilder.appendInline(containerId, "Group { Anchor: (Height: 4); }");
                 previousWasTitle = true;
             } else {
-                String text = escapeForUI(line);
-                commandBuilder.appendInline("#HomeTextContainer", "Label { Text: \"" + text + "\"; Style: (FontSize: 14, TextColor: #dddddd, Wrap: true); Anchor: (Left: 0, Right: 0); }");
+                appendRichLabelLine(
+                    commandBuilder,
+                    containerId,
+                    lineIdPrefix,
+                    nextLine,
+                    buildLineWithBoldMarkup(line),
+                    14,
+                    "#dddddd",
+                    false,
+                    useBottomAnchorOnLabels);
                 previousWasTitle = false;
             }
         }
+    }
+
+    private void buildHomeContent(@Nonnull UICommandBuilder commandBuilder) {
+        buildScrollableRichContent(
+            commandBuilder,
+            "#HomeTextContainer",
+            HomeConfig.getInstance().getContent(),
+            "HomeLn",
+            false);
     }
     
     private String escapeForUI(String text) {
@@ -420,11 +589,29 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     }
 
     private void buildTutorielContent(@Nonnull UICommandBuilder commandBuilder) {
-        buildScrollableTextContent(commandBuilder, "#TutorielTextContainer", TutorielConfig.getInstance().getContent());
+        buildScrollableRichContent(
+            commandBuilder,
+            "#TutorielTextContainer",
+            TutorielConfig.getInstance().getContent(),
+            "TutoLn",
+            true);
     }
 
     private void buildVaryonContent(@Nonnull UICommandBuilder commandBuilder) {
+        buildVaryonQuickRow(commandBuilder);
         buildScrollableTextContent(commandBuilder, "#VaryonTextContainer", VaryonConfig.getInstance().getContent());
+    }
+
+    private static final String VARYON_QUICK_ICON = "Icons/Varyon_Icon.png";
+
+    private void buildVaryonQuickRow(@Nonnull UICommandBuilder commandBuilder) {
+        PatchStyle iconStyle = new PatchStyle().setTexturePath(Value.of(normalizeIconUrl(VARYON_QUICK_ICON)));
+        for (int i = 0; i < VARYON_QUICK_LABELS.length; i++) {
+            int n = i + 1;
+            commandBuilder.set("#VaryonQuickButton" + n + "Label.TextSpans", Message.raw(VARYON_QUICK_LABELS[i]));
+            commandBuilder.set("#VaryonQuickButton" + n + "Cmd.TextSpans", Message.raw(VARYON_QUICK_COMMANDS[i].trim()));
+            commandBuilder.setObject("#VaryonQuickButton" + n + "Icon.Background", iconStyle);
+        }
     }
 
     private void buildScrollableTextContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull String containerId, @Nonnull String content) {
@@ -492,7 +679,19 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             if (player != null && playerRefComponent != null) {
                 player.getPageManager().setPage(ref, store, Page.None);
                 String command = data.command.startsWith("/") ? data.command.substring(1) : data.command;
-                CommandManager.get().handleCommand(playerRefComponent, command);
+                String cmd = command;
+                PlayerRef pref = playerRefComponent;
+                World world = player.getWorld();
+                Runnable runCommand = () -> CommandManager.get().handleCommand(pref, cmd);
+                if (world != null) {
+                    HytaleServer.SCHEDULED_EXECUTOR.schedule(
+                        () -> world.execute(runCommand),
+                        COMMAND_EXECUTE_DELAY_MS,
+                        TimeUnit.MILLISECONDS
+                    );
+                } else {
+                    HytaleServer.SCHEDULED_EXECUTOR.schedule(runCommand, COMMAND_EXECUTE_DELAY_MS, TimeUnit.MILLISECONDS);
+                }
             }
         }
     }
