@@ -46,11 +46,6 @@ public final class CombatProfilBridge {
             clearProfilStats(ui);
             return;
         }
-        if (!invokeBoolean(data, "hasClass")) {
-            clearProfilStats(ui);
-            return;
-        }
-
         ui.set("#ProfilStatHPValueMain.TextSpans", Message.raw(String.valueOf(invokeInt(data, "getMaxHp"))));
         ui.set("#ProfilStatHPValuePct.TextSpans", Message.raw(""));
 

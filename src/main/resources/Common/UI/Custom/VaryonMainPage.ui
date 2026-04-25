@@ -2774,8 +2774,8 @@ $C.@PageOverlay {
             Group #ProfilStatsRow1 {
               LayoutMode: Left;
               Anchor: (Height: 86);
-              Padding: (Left: 35, Right: 35);
 
+              Group { FlexWeight: 1; }
               Group #ProfilStatHP {
                 LayoutMode: Top;
                 Anchor: (Width: 230, Height: 80);
@@ -2897,6 +2897,7 @@ $C.@PageOverlay {
                   Label { Anchor: (Height: 21); Text: "Endurance"; Style: (FontSize: 15, HorizontalAlignment: Center, TextColor: #9E9585); }
                 }
               }
+              Group { FlexWeight: 1; }
             }
 
             Group { Anchor: (Height: 6); }
@@ -2904,8 +2905,8 @@ $C.@PageOverlay {
             Group #ProfilStatsRow2 {
               LayoutMode: Left;
               Anchor: (Height: 86);
-              Padding: (Left: 35, Right: 35);
 
+              Group { FlexWeight: 1; }
               Group #ProfilStatATK {
                 LayoutMode: Top;
                 Anchor: (Width: 230, Height: 80);
@@ -2991,7 +2992,7 @@ $C.@PageOverlay {
 
               Group #ProfilStatCritDamage {
                 LayoutMode: Top;
-                Anchor: (Width: 230, Height: 80);
+                Anchor: (Width: 260, Height: 80);
                 Background: PatchStyle(Color: #1A2535C0);
                 Padding: (Top: 2, Left: 8, Right: 8);
                 Group {
@@ -3027,6 +3028,7 @@ $C.@PageOverlay {
                   Label { Anchor: (Height: 21); Text: "Degats crit"; Style: (FontSize: 15, HorizontalAlignment: Center, TextColor: #9E9585); }
                 }
               }
+              Group { FlexWeight: 1; }
             }
           }
         }
