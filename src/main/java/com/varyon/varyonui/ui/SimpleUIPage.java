@@ -291,10 +291,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     if (catName != null && !catName.isBlank()) {
                         commandBuilder.set("#CategoryHeader" + slotIndex + ".Visible", true);
                         commandBuilder.set("#CategoryTitle" + slotIndex + ".TextSpans", Message.raw(catName));
-                    }
-                    String headerIcon = category.getHeaderIcon();
-                    if (headerIcon != null && !headerIcon.isBlank()) {
-                        applyCategoryHeaderIcon(commandBuilder, slotIndex, headerIcon);
+                        applyCategoryHeaderIconSolidBackground(commandBuilder, slotIndex);
                     }
                     isFirstRow = false;
                 }
@@ -310,48 +307,47 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     commandBuilder.set("#CommandButton" + btnIdx + ".Visible", true);
                     commandBuilder.set("#CommandButton" + btnIdx + "Label.TextSpans", Message.raw(button.getLabel()));
                     commandBuilder.set("#CommandButton" + btnIdx + "Cmd.TextSpans", Message.raw(button.getCommand()));
-                    applyCommandButtonIcon(commandBuilder, btnIdx, button.getIconUrl());
-                    applyCommandButtonBlueSmallBackground(commandBuilder, btnIdx);
+                    applyCommandButtonIconSlotSolidBackground(commandBuilder, btnIdx);
+                    applyCommandButtonSolidBackground(commandBuilder, btnIdx);
                 }
             }
         }
     }
 
-    private static final String COMMAND_BLUE_SMALL_BG = "Icons/Blue_Button_small.png";
-    private static final String COMMAND_BLUE_SMALL_BG_HOVERED = "Icons/Blue_Button_small_Hovered.png";
+    private static final String COMMAND_CATEGORY_HEADER_ICON_COLOR = "#243548";
+    private static final String COMMAND_BUTTON_ICON_SLOT_COLOR = "#1e3348";
+    private static final String COMMAND_BUTTON_DEFAULT_COLOR = "#2a4a6a";
+    private static final String COMMAND_BUTTON_HOVERED_COLOR = "#3a5a7a";
 
-    private static void applyCommandButtonBlueSmallBackground(@Nonnull UICommandBuilder commandBuilder, int btnIdx) {
-        if (btnIdx <= 5) {
-            return;
-        }
-        PatchStyle bg = new PatchStyle().setTexturePath(Value.of(COMMAND_BLUE_SMALL_BG));
-        PatchStyle bgHovered = new PatchStyle().setTexturePath(Value.of(COMMAND_BLUE_SMALL_BG_HOVERED));
+    private static void applyCommandButtonSolidBackground(@Nonnull UICommandBuilder commandBuilder, int btnIdx) {
+        PatchStyle def = new PatchStyle().setColor(Value.of(COMMAND_BUTTON_DEFAULT_COLOR));
+        PatchStyle hov = new PatchStyle().setColor(Value.of(COMMAND_BUTTON_HOVERED_COLOR));
         String base = "#CommandButton" + btnIdx + ".Style";
-        commandBuilder.setObject(base + ".Default.Background", bg);
-        commandBuilder.setObject(base + ".Hovered.Background", bgHovered);
-        commandBuilder.setObject(base + ".Pressed.Background", bgHovered);
+        commandBuilder.setObject(base + ".Default.Background", def);
+        commandBuilder.setObject(base + ".Hovered.Background", hov);
+        commandBuilder.setObject(base + ".Pressed.Background", hov);
     }
 
     private static boolean commandButtonHasIconSlot(int btnIdx) {
         return btnIdx >= 1 && btnIdx <= 35;
     }
 
-    private static void applyCategoryHeaderIcon(@Nonnull UICommandBuilder commandBuilder, int slotIndex, String iconUrl) {
-        String path = normalizeIconUrl(iconUrl.trim());
+    private static void applyCategoryHeaderIconSolidBackground(
+            @Nonnull UICommandBuilder commandBuilder, int slotIndex) {
         commandBuilder.setObject(
             "#CategoryHeader" + slotIndex + "Icon.Background",
-            new PatchStyle().setTexturePath(Value.of(path))
+            new PatchStyle().setColor(Value.of(COMMAND_CATEGORY_HEADER_ICON_COLOR))
         );
     }
 
-    private static void applyCommandButtonIcon(@Nonnull UICommandBuilder commandBuilder, int btnIdx, String iconUrl) {
-        if (!commandButtonHasIconSlot(btnIdx) || iconUrl == null || iconUrl.isBlank()) {
+    private static void applyCommandButtonIconSlotSolidBackground(
+            @Nonnull UICommandBuilder commandBuilder, int btnIdx) {
+        if (!commandButtonHasIconSlot(btnIdx)) {
             return;
         }
-        String path = normalizeIconUrl(iconUrl.trim());
         commandBuilder.setObject(
             "#CommandButton" + btnIdx + "Icon.Background",
-            new PatchStyle().setTexturePath(Value.of(path))
+            new PatchStyle().setColor(Value.of(COMMAND_BUTTON_ICON_SLOT_COLOR))
         );
     }
 

@@ -5,13 +5,20 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.hud.HudManager;
+import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
+import com.hypixel.hytale.server.core.io.adapter.PacketAdapters;
+import com.hypixel.hytale.server.core.io.adapter.PacketFilter;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.varyon.varyonui.hud.VaryonMenuHud;
+import com.varyon.varyonui.input.VaryonAccueilAltKeyFilter;
+import com.varyon.varyonui.input.VaryonAccueilOKeyFilter;
+import com.varyon.varyonui.input.VaryonOKeyChangeGameModeSystem;
+import com.varyon.varyonui.input.VaryonOKeyPending;
 import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
@@ -20,6 +27,7 @@ import com.varyon.varyonui.config.TutorielConfig;
 import com.varyon.varyonui.config.VaryonConfig;
 
 import java.io.File;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +37,9 @@ public class VaryonUIPlugin extends JavaPlugin {
 
     private static VaryonUIPlugin instance;
     private File dataFolder;
+    private PacketFilter accueilOKeyPacketFilter;
+    private PacketFilter accueilAltPacketFilter;
+    private VaryonAccueilAltKeyFilter accueilAltKeyFilter;
 
     public VaryonUIPlugin(JavaPluginInit init) {
         super(init);
@@ -57,7 +68,40 @@ public class VaryonUIPlugin extends JavaPlugin {
         mgr.register(new UICommand("var", "Ouvre la page Varyon", "varyon", "varyon"));
         mgr.register(new ReloadCommand());
 
+        accueilOKeyPacketFilter = PacketAdapters.registerInbound(new VaryonAccueilOKeyFilter());
+        accueilAltKeyFilter = new VaryonAccueilAltKeyFilter();
+        accueilAltPacketFilter = PacketAdapters.registerInbound(accueilAltKeyFilter);
+
+        getEntityStoreRegistry().registerSystem(new VaryonOKeyChangeGameModeSystem());
+
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, this::onPlayerReady);
+        getEventRegistry().register(PlayerDisconnectEvent.class, this::onPlayerDisconnect);
+    }
+
+    @Override
+    protected void shutdown() {
+        if (accueilOKeyPacketFilter != null) {
+            PacketAdapters.deregisterInbound(accueilOKeyPacketFilter);
+            accueilOKeyPacketFilter = null;
+        }
+        if (accueilAltPacketFilter != null) {
+            PacketAdapters.deregisterInbound(accueilAltPacketFilter);
+            accueilAltPacketFilter = null;
+        }
+        accueilAltKeyFilter = null;
+    }
+
+    private void onPlayerDisconnect(PlayerDisconnectEvent event) {
+        if (event.getPlayerRef() == null) {
+            return;
+        }
+        UUID uuid = event.getPlayerRef().getUuid();
+        if (uuid != null) {
+            VaryonOKeyPending.clear(uuid);
+        }
+        if (accueilAltKeyFilter != null && uuid != null) {
+            accueilAltKeyFilter.clearPlayer(uuid);
+        }
     }
 
     private void onPlayerReady(PlayerReadyEvent event) {
