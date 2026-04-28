@@ -2,31 +2,11 @@ $C = "Common.ui";
 
 $C.@PageOverlay {
   
-  $C.@DecoratedContainer {
+  Group {
     Anchor: (Width: 1125, Height: 775);
-    
-    #Title {
-      Group {
-        LayoutMode: Left;
-        
-        Label #MenuTitle {
-          FlexWeight: 1;
-          Text: "VARYON - HOME";
-          Style: (FontSize: 23, RenderBold: true, TextColor: #ffffff, VerticalAlignment: Center, HorizontalAlignment: Center);
-        }
-        
-        TextButton #CloseButton {
-          Text: "X";
-          Anchor: (Width: 30, Height: 30, Top: 2, Right: 10);
-          Style: TextButtonStyle(
-            Default: (LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-            Hovered: (Background: (Color: #cc4444), LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
-          );
-        }
-      }
-    }
-    
-    #Content {
+    Background: (Color: #151b24);
+
+    Group #Content {
       LayoutMode: Left;
       
       Group #TabBar {
@@ -334,6 +314,17 @@ $C.@PageOverlay {
           Group {
             Anchor: (Height: 1, Left: 0, Right: 0, Bottom: 0);
             Background: (Color: #151b24);
+          }
+        }
+
+        Group #PlayerSkinPreviewWrap {
+          Anchor: (Height: 136);
+          LayoutMode: Middle;
+          Padding: (Top: 4, Bottom: 4, Left: 12, Right: 12);
+
+          Group #PlayerSkinPreview {
+            Anchor: (Width: 96, Height: 128);
+            Background: (Color: #1e2838);
           }
         }
         
@@ -3162,6 +3153,14 @@ $C.@PageOverlay {
         }
       }
     }
+
+    TextButton #CloseButton {
+      Text: "X";
+      Anchor: (Width: 30, Height: 30, Top: 8, Right: 12);
+      Style: TextButtonStyle(
+        Default: (LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+        Hovered: (Background: (Color: #cc4444), LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+      );
+    }
   }
 }
-

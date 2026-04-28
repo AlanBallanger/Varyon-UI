@@ -33,6 +33,8 @@ import com.varyon.varyonui.config.TutorielConfig;
 import com.varyon.varyonui.config.VaryonConfig;
 import com.varyon.varyonui.hud.VaryonMenuHud;
 import com.varyon.varyonui.integration.CombatProfilBridge;
+import com.varyon.varyonui.integration.HytlSkinPreview;
+import com.varyon.varyonui.VaryonUIPlugin;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
@@ -163,6 +165,9 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#AdminTab", EventData.of("Action", "tab").append("Tab", "admin"));
         }
 
+        HytlSkinPreview.applyPlaceholder(commandBuilder);
+        scheduleSkinHeadshotFetch();
+
         if ("commandes".equals(activeTab)) {
             buildCommandButtons(commandBuilder, eventBuilder);
         }
@@ -172,6 +177,19 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         if ("admin".equals(activeTab) && isAdmin) {
             buildAdminCommandButtons(commandBuilder, eventBuilder);
         }
+    }
+
+    private void scheduleSkinHeadshotFetch() {
+        UUID uuid = playerRef.getUuid();
+        if (uuid == null) {
+            return;
+        }
+        HytaleServer.SCHEDULED_EXECUTOR.execute(() -> {
+            byte[] png = HytlSkinPreview.fetchHeadshotPng(uuid);
+            UICommandBuilder cb = new UICommandBuilder();
+            HytlSkinPreview.applyPngToPreview(cb, uuid, png, VaryonUIPlugin.getInstance());
+            sendUpdate(cb, false);
+        });
     }
 
     private static void buildVaryonQuickButtonEvents(@Nonnull UIEventBuilder eventBuilder) {
@@ -264,19 +282,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#ProfilContent.Visible", "profil".equals(activeTab));
         commandBuilder.set("#ParametresContent.Visible", "parametres".equals(activeTab));
         commandBuilder.set("#AdminContent.Visible", "admin".equals(activeTab) && isAdmin);
-
-        String tabName = switch (activeTab) {
-            case "home" -> "ACCUEIL";
-            case "tutoriel" -> "TUTORIEL";
-            case "commandes" -> "COMMANDES";
-            case "misesajour" -> "ACTUALIT\u00c9S";
-            case "varyon" -> "VARYON";
-            case "profil" -> "PROFIL";
-            case "parametres" -> "PARAM\u00c8TRES";
-            case "admin" -> "ADMIN";
-            default -> "ACCUEIL";
-        };
-        commandBuilder.set("#MenuTitle.TextSpans", Message.raw("VARYON - " + tabName));
 
         if ("commandes".equals(activeTab)) {
             buildCommandsContent(commandBuilder);

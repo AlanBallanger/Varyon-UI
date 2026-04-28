@@ -25,6 +25,7 @@ import com.varyon.varyonui.config.NewsConfig;
 import com.varyon.varyonui.config.HomeConfig;
 import com.varyon.varyonui.config.TutorielConfig;
 import com.varyon.varyonui.config.VaryonConfig;
+import com.varyon.varyonui.integration.HytlSkinPreview;
 
 import java.io.File;
 import java.util.UUID;
@@ -76,6 +77,8 @@ public class VaryonUIPlugin extends JavaPlugin {
 
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, this::onPlayerReady);
         getEventRegistry().register(PlayerDisconnectEvent.class, this::onPlayerDisconnect);
+
+        HytlSkinPreview.preparePortraitPackAtStartup(this);
     }
 
     @Override
