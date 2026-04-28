@@ -4,7 +4,6 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.entity.entities.player.hud.HudManager;
 import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.io.adapter.PacketAdapters;
@@ -18,6 +17,8 @@ import com.varyon.varyonui.hud.VaryonMenuHud;
 import com.varyon.varyonui.input.VaryonAccueilAltKeyFilter;
 import com.varyon.varyonui.input.VaryonAccueilKeyHelper;
 import com.varyon.varyonui.input.VaryonAccueilOKeyFilter;
+import com.varyon.varyonui.config.AccueilShortcutConfig;
+import com.varyon.varyonui.config.MenuShortcutTargetConfig;
 import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
@@ -55,6 +56,8 @@ public class VaryonUIPlugin extends JavaPlugin {
         HomeConfig.getInstance();
         TutorielConfig.getInstance();
         VaryonConfig.getInstance();
+        AccueilShortcutConfig.getInstance();
+        MenuShortcutTargetConfig.getInstance();
 
         CommandManager mgr = CommandManager.get();
         mgr.register(new UICommand("commands", "Ouvre les commandes", "commandes", "c", "command"));
@@ -124,11 +127,7 @@ public class VaryonUIPlugin extends JavaPlugin {
                 if (playerRef == null) {
                     return;
                 }
-                HudManager hudManager = player.getHudManager();
-                if (hudManager == null) {
-                    return;
-                }
-                hudManager.setCustomHud(playerRef, new VaryonMenuHud(playerRef));
+                VaryonMenuHud.attach(player, playerRef);
             } catch (Exception e) {
                 LOG.log(Level.WARNING, "Failed to register Varyon menu HUD", e);
             }

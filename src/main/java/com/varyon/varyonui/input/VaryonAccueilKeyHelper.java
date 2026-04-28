@@ -6,6 +6,7 @@ import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.varyon.varyonui.config.MenuShortcutTargetConfig;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;
@@ -16,7 +17,6 @@ import java.util.logging.Logger;
 public final class VaryonAccueilKeyHelper {
 
     private static final Logger LOG = Logger.getLogger("VaryonUI");
-    private static final String ACCUEIL_COMMAND = "accueil";
     private static final ConcurrentHashMap<UUID, Long> OPEN_KEY_DEBOUNCE_AT_MS = new ConcurrentHashMap<>();
     private static final long OPEN_KEY_DEBOUNCE_MS = 400L;
 
@@ -67,9 +67,10 @@ public final class VaryonAccueilKeyHelper {
             }
             world.execute(() -> {
                 try {
-                    CommandManager.get().handleCommand(playerRef, ACCUEIL_COMMAND);
+                    String cmd = MenuShortcutTargetConfig.getInstance().getCommandName(playerRef.getUuid());
+                    CommandManager.get().handleCommand(playerRef, cmd);
                 } catch (Exception e) {
-                    LOG.log(Level.WARNING, "VaryonUI: /accueil from key", e);
+                    LOG.log(Level.WARNING, "VaryonUI: menu shortcut command from key", e);
                 }
             });
         } catch (Exception e) {

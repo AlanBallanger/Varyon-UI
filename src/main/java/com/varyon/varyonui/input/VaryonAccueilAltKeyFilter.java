@@ -3,6 +3,7 @@ package com.varyon.varyonui.input;
 import com.hypixel.hytale.protocol.Packet;
 import com.hypixel.hytale.server.core.io.adapter.PlayerPacketFilter;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.varyon.varyonui.config.AccueilShortcutConfig;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
@@ -37,6 +38,10 @@ public final class VaryonAccueilAltKeyFilter implements PlayerPacketFilter {
     }
 
     private void processMovement(PlayerRef playerRef, UUID uuid, Packet packet) {
+        if (uuid != null && AccueilShortcutConfig.getInstance().getMode(uuid) != AccueilShortcutConfig.Mode.ALT) {
+            byPlayer.remove(uuid);
+            return;
+        }
         long now = System.currentTimeMillis();
         Object posObj = getFieldOrGetter(packet, "absolutePosition");
         double[] pos = null;

@@ -23,17 +23,22 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.varyon.varyonui.config.AccueilShortcutConfig;
+import com.varyon.varyonui.config.MenuShortcutTargetConfig;
 import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
 import com.varyon.varyonui.config.HomeConfig;
 import com.varyon.varyonui.config.TutorielConfig;
 import com.varyon.varyonui.config.VaryonConfig;
+import com.varyon.varyonui.hud.VaryonMenuHud;
 import com.varyon.varyonui.integration.CombatProfilBridge;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -121,6 +126,38 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ProfilTab", EventData.of("Action", "tab").append("Tab", "profil"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ParametresTab", EventData.of("Action", "tab").append("Tab", "parametres"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", EventData.of("Action", "close"));
+
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#ParametresMenuShortcutAlt",
+            EventData.of("Action", "accueilshortcut").append("ShortcutMode", "alt")
+        );
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#ParametresMenuShortcutO",
+            EventData.of("Action", "accueilshortcut").append("ShortcutMode", "o")
+        );
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#ParametresMenuShortcutDisable",
+            EventData.of("Action", "accueilshortcut").append("ShortcutMode", "disable")
+        );
+
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#ParametresMenuTargetAccueil",
+            EventData.of("Action", "menushortcuttarget").append("MenuShortcutTarget", "accueil")
+        );
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#ParametresMenuTargetCommandes",
+            EventData.of("Action", "menushortcuttarget").append("MenuShortcutTarget", "commandes")
+        );
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#ParametresMenuTargetVaryon",
+            EventData.of("Action", "menushortcuttarget").append("MenuShortcutTarget", "varyon")
+        );
 
         if (isAdmin) {
             eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#AdminTab", EventData.of("Action", "tab").append("Tab", "admin"));
@@ -235,7 +272,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             case "misesajour" -> "ACTUALIT\u00c9S";
             case "varyon" -> "VARYON";
             case "profil" -> "PROFIL";
-            case "parametres" -> "PARAMÈTRES";
+            case "parametres" -> "PARAM\u00c8TRES";
             case "admin" -> "ADMIN";
             default -> "ACCUEIL";
         };
@@ -263,6 +300,53 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             Player player = store.getComponent(ref, Player.getComponentType());
             CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
         }
+        if ("parametres".equals(activeTab)) {
+            PlayerRef pref = store.getComponent(ref, PlayerRef.getComponentType());
+            applyParametresShortcutAppearance(commandBuilder, pref != null ? pref.getUuid() : null);
+        }
+    }
+
+    private static void applyParametresShortcutAppearance(
+            @Nonnull UICommandBuilder commandBuilder,
+            @Nullable UUID uuid) {
+        AccueilShortcutConfig.Mode mode = uuid == null
+            ? AccueilShortcutConfig.Mode.defaultMode()
+            : AccueilShortcutConfig.getInstance().getMode(uuid);
+        applyShortcutToggle(commandBuilder, "ParametresMenuShortcutAlt", "ParametresMenuShortcutAltLabel",
+            mode == AccueilShortcutConfig.Mode.ALT);
+        applyShortcutToggle(commandBuilder, "ParametresMenuShortcutO", "ParametresMenuShortcutOLabel",
+            mode == AccueilShortcutConfig.Mode.O);
+        applyShortcutToggle(commandBuilder, "ParametresMenuShortcutDisable", "ParametresMenuShortcutDisableLabel",
+            mode == AccueilShortcutConfig.Mode.DISABLE);
+        MenuShortcutTargetConfig.Target menuTarget = uuid == null
+            ? MenuShortcutTargetConfig.Target.defaultTarget()
+            : MenuShortcutTargetConfig.getInstance().getTarget(uuid);
+        applyShortcutToggle(commandBuilder, "ParametresMenuTargetAccueil", "ParametresMenuTargetAccueilLabel",
+            menuTarget == MenuShortcutTargetConfig.Target.ACCUEIL);
+        applyShortcutToggle(commandBuilder, "ParametresMenuTargetCommandes", "ParametresMenuTargetCommandesLabel",
+            menuTarget == MenuShortcutTargetConfig.Target.COMMANDES);
+        applyShortcutToggle(commandBuilder, "ParametresMenuTargetVaryon", "ParametresMenuTargetVaryonLabel",
+            menuTarget == MenuShortcutTargetConfig.Target.VARYON);
+    }
+
+    private static void applyShortcutToggle(
+            @Nonnull UICommandBuilder cb,
+            @Nonnull String btnId,
+            @Nonnull String labelId,
+            boolean selected) {
+        String selBg = "#356cb0";
+        String idleBg = "#1a2838";
+        String selHov = "#447ccd";
+        String idleHov = "#243448";
+        String bg = selected ? selBg : idleBg;
+        String hov = selected ? selHov : idleHov;
+        PatchStyle def = new PatchStyle().setColor(Value.of(bg));
+        PatchStyle hovS = new PatchStyle().setColor(Value.of(hov));
+        String base = "#" + btnId + ".Style";
+        cb.setObject(base + ".Default.Background", def);
+        cb.setObject(base + ".Hovered.Background", hovS);
+        cb.setObject(base + ".Pressed.Background", def);
+        cb.set("#" + labelId + ".Style.TextColor", selected ? "#e8f4ff" : "#8899aa");
     }
 
     private void buildCommandsContent(@Nonnull UICommandBuilder commandBuilder) {
@@ -291,7 +375,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     if (catName != null && !catName.isBlank()) {
                         commandBuilder.set("#CategoryHeader" + slotIndex + ".Visible", true);
                         commandBuilder.set("#CategoryTitle" + slotIndex + ".TextSpans", Message.raw(catName));
-                        applyCategoryHeaderIconSolidBackground(commandBuilder, slotIndex);
+                        applyCategoryHeaderIcon(commandBuilder, slotIndex, category.getHeaderIcon());
                     }
                     isFirstRow = false;
                 }
@@ -307,7 +391,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     commandBuilder.set("#CommandButton" + btnIdx + ".Visible", true);
                     commandBuilder.set("#CommandButton" + btnIdx + "Label.TextSpans", Message.raw(button.getLabel()));
                     commandBuilder.set("#CommandButton" + btnIdx + "Cmd.TextSpans", Message.raw(button.getCommand()));
-                    applyCommandButtonIconSlotSolidBackground(commandBuilder, btnIdx);
+                    applyCommandButtonIconBackground(commandBuilder, btnIdx, button.getIconUrl());
                     applyCommandButtonSolidBackground(commandBuilder, btnIdx);
                 }
             }
@@ -319,36 +403,55 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     private static final String COMMAND_BUTTON_DEFAULT_COLOR = "#2a4a6a";
     private static final String COMMAND_BUTTON_HOVERED_COLOR = "#3a5a7a";
 
-    private static void applyCommandButtonSolidBackground(@Nonnull UICommandBuilder commandBuilder, int btnIdx) {
+    private static void applySolidChromeButtonStyle(
+            @Nonnull UICommandBuilder commandBuilder, @Nonnull String buttonSelector) {
         PatchStyle def = new PatchStyle().setColor(Value.of(COMMAND_BUTTON_DEFAULT_COLOR));
         PatchStyle hov = new PatchStyle().setColor(Value.of(COMMAND_BUTTON_HOVERED_COLOR));
-        String base = "#CommandButton" + btnIdx + ".Style";
+        String base = buttonSelector + ".Style";
         commandBuilder.setObject(base + ".Default.Background", def);
         commandBuilder.setObject(base + ".Hovered.Background", hov);
         commandBuilder.setObject(base + ".Pressed.Background", hov);
+    }
+
+    private static void applyCommandButtonSolidBackground(@Nonnull UICommandBuilder commandBuilder, int btnIdx) {
+        applySolidChromeButtonStyle(commandBuilder, "#CommandButton" + btnIdx);
     }
 
     private static boolean commandButtonHasIconSlot(int btnIdx) {
         return btnIdx >= 1 && btnIdx <= 35;
     }
 
-    private static void applyCategoryHeaderIconSolidBackground(
-            @Nonnull UICommandBuilder commandBuilder, int slotIndex) {
-        commandBuilder.setObject(
-            "#CategoryHeader" + slotIndex + "Icon.Background",
-            new PatchStyle().setColor(Value.of(COMMAND_CATEGORY_HEADER_ICON_COLOR))
-        );
+    private static void applyCategoryHeaderIcon(
+            @Nonnull UICommandBuilder commandBuilder, int slotIndex, @Nullable String headerIcon) {
+        String path = headerIcon != null ? headerIcon.trim() : "";
+        if (!path.isEmpty()) {
+            PatchStyle style = new PatchStyle().setTexturePath(Value.of(normalizeIconUrl(path)));
+            commandBuilder.setObject("#CategoryHeader" + slotIndex + "Icon.Background", style);
+        } else {
+            commandBuilder.setObject(
+                "#CategoryHeader" + slotIndex + "Icon.Background",
+                new PatchStyle().setColor(Value.of(COMMAND_CATEGORY_HEADER_ICON_COLOR))
+            );
+        }
     }
 
-    private static void applyCommandButtonIconSlotSolidBackground(
-            @Nonnull UICommandBuilder commandBuilder, int btnIdx) {
+    private static void applyCommandButtonIconBackground(
+            @Nonnull UICommandBuilder commandBuilder, int btnIdx, @Nullable String iconUrl) {
         if (!commandButtonHasIconSlot(btnIdx)) {
             return;
         }
-        commandBuilder.setObject(
-            "#CommandButton" + btnIdx + "Icon.Background",
-            new PatchStyle().setColor(Value.of(COMMAND_BUTTON_ICON_SLOT_COLOR))
-        );
+        String path = iconUrl != null ? iconUrl.trim() : "";
+        if (!path.isEmpty()) {
+            PatchStyle style = new PatchStyle().setTexturePath(Value.of(normalizeIconUrl(path)));
+            commandBuilder.setObject("#CommandButton" + btnIdx + "Icon.Background", style);
+            return;
+        }
+        if (btnIdx > 5) {
+            commandBuilder.setObject(
+                "#CommandButton" + btnIdx + "Icon.Background",
+                new PatchStyle().setColor(Value.of(COMMAND_BUTTON_ICON_SLOT_COLOR))
+            );
+        }
     }
 
     private static String normalizeIconUrl(String raw) {
@@ -604,6 +707,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         PatchStyle iconStyle = new PatchStyle().setTexturePath(Value.of(normalizeIconUrl(VARYON_QUICK_ICON)));
         for (int i = 0; i < VARYON_QUICK_LABELS.length; i++) {
             int n = i + 1;
+            applySolidChromeButtonStyle(commandBuilder, "#VaryonQuickButton" + n);
             commandBuilder.set("#VaryonQuickButton" + n + "Label.TextSpans", Message.raw(VARYON_QUICK_LABELS[i]));
             commandBuilder.set("#VaryonQuickButton" + n + "Cmd.TextSpans", Message.raw(VARYON_QUICK_COMMANDS[i].trim()));
             commandBuilder.setObject("#VaryonQuickButton" + n + "Icon.Background", iconStyle);
@@ -662,6 +766,31 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             if (player != null) {
                 player.getPageManager().setPage(ref, store, Page.None);
             }
+        } else if ("accueilshortcut".equals(data.action) && data.shortcutMode != null) {
+            PlayerRef playerRefComp = store.getComponent(ref, PlayerRef.getComponentType());
+            Player playerComp = store.getComponent(ref, Player.getComponentType());
+            if (playerRefComp != null && playerRefComp.getUuid() != null) {
+                AccueilShortcutConfig.Mode m = AccueilShortcutConfig.Mode.fromKey(data.shortcutMode);
+                AccueilShortcutConfig.getInstance().setMode(playerRefComp.getUuid(), m);
+                VaryonMenuHud.attach(playerComp, playerRefComp);
+                UICommandBuilder commandBuilder = new UICommandBuilder();
+                UIEventBuilder eventBuilder = new UIEventBuilder();
+                buildTabBar(commandBuilder, eventBuilder);
+                buildContent(commandBuilder, eventBuilder, store, ref);
+                sendUpdate(commandBuilder, eventBuilder, false);
+            }
+        } else if ("menushortcuttarget".equals(data.action) && data.menuShortcutTarget != null) {
+            PlayerRef playerRefComp = store.getComponent(ref, PlayerRef.getComponentType());
+            if (playerRefComp != null && playerRefComp.getUuid() != null) {
+                MenuShortcutTargetConfig.Target t =
+                    MenuShortcutTargetConfig.Target.fromKey(data.menuShortcutTarget);
+                MenuShortcutTargetConfig.getInstance().setTarget(playerRefComp.getUuid(), t);
+                UICommandBuilder commandBuilder = new UICommandBuilder();
+                UIEventBuilder eventBuilder = new UIEventBuilder();
+                buildTabBar(commandBuilder, eventBuilder);
+                buildContent(commandBuilder, eventBuilder, store, ref);
+                sendUpdate(commandBuilder, eventBuilder, false);
+            }
         } else if ("chatcommand".equals(data.action) && data.command != null) {
             Player player = store.getComponent(ref, Player.getComponentType());
             PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
@@ -698,10 +827,14 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 .addField(new KeyedCodec<>("Action", Codec.STRING), (entry, s) -> entry.action = s, entry -> entry.action)
                 .addField(new KeyedCodec<>("Tab", Codec.STRING), (entry, s) -> entry.tab = s, entry -> entry.tab)
                 .addField(new KeyedCodec<>("Command", Codec.STRING), (entry, s) -> entry.command = s, entry -> entry.command)
+                .addField(new KeyedCodec<>("ShortcutMode", Codec.STRING), (entry, s) -> entry.shortcutMode = s, entry -> entry.shortcutMode)
+                .addField(new KeyedCodec<>("MenuShortcutTarget", Codec.STRING), (entry, s) -> entry.menuShortcutTarget = s, entry -> entry.menuShortcutTarget)
                 .build();
 
         public String action;
         public String tab;
         public String command;
+        public String shortcutMode;
+        public String menuShortcutTarget;
     }
 }

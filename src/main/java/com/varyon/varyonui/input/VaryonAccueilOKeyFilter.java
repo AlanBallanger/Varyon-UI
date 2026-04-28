@@ -7,14 +7,20 @@ import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChain;
 import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChains;
 import com.hypixel.hytale.server.core.io.adapter.PlayerPacketFilter;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.varyon.varyonui.config.AccueilShortcutConfig;
 
 import javax.annotation.Nonnull;
 import java.util.Locale;
+import java.util.UUID;
 
 public final class VaryonAccueilOKeyFilter implements PlayerPacketFilter {
 
     @Override
     public boolean test(@Nonnull PlayerRef playerRef, @Nonnull Packet packet) {
+        UUID uuid = playerRef.getUuid();
+        if (uuid == null || AccueilShortcutConfig.getInstance().getMode(uuid) != AccueilShortcutConfig.Mode.O) {
+            return false;
+        }
         if (packet instanceof ChatMessage cm) {
             String text = extractChatText(cm);
             if (!isGmOpenKeyShortcut(text)) {
