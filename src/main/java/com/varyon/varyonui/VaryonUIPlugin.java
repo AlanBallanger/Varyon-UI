@@ -16,9 +16,8 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.varyon.varyonui.hud.VaryonMenuHud;
 import com.varyon.varyonui.input.VaryonAccueilAltKeyFilter;
+import com.varyon.varyonui.input.VaryonAccueilKeyHelper;
 import com.varyon.varyonui.input.VaryonAccueilOKeyFilter;
-import com.varyon.varyonui.input.VaryonOKeyChangeGameModeSystem;
-import com.varyon.varyonui.input.VaryonOKeyPending;
 import com.varyon.varyonui.config.AdminCommandsConfig;
 import com.varyon.varyonui.config.CommandsConfig;
 import com.varyon.varyonui.config.NewsConfig;
@@ -72,8 +71,6 @@ public class VaryonUIPlugin extends JavaPlugin {
         accueilAltKeyFilter = new VaryonAccueilAltKeyFilter();
         accueilAltPacketFilter = PacketAdapters.registerInbound(accueilAltKeyFilter);
 
-        getEntityStoreRegistry().registerSystem(new VaryonOKeyChangeGameModeSystem());
-
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, this::onPlayerReady);
         getEventRegistry().register(PlayerDisconnectEvent.class, this::onPlayerDisconnect);
     }
@@ -97,7 +94,7 @@ public class VaryonUIPlugin extends JavaPlugin {
         }
         UUID uuid = event.getPlayerRef().getUuid();
         if (uuid != null) {
-            VaryonOKeyPending.clear(uuid);
+            VaryonAccueilKeyHelper.clearOpenKeyDebounce(uuid);
         }
         if (accueilAltKeyFilter != null && uuid != null) {
             accueilAltKeyFilter.clearPlayer(uuid);

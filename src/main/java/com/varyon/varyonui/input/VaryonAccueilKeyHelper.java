@@ -8,6 +8,8 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 import javax.annotation.Nonnull;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,8 +17,34 @@ public final class VaryonAccueilKeyHelper {
 
     private static final Logger LOG = Logger.getLogger("VaryonUI");
     private static final String ACCUEIL_COMMAND = "accueil";
+    private static final ConcurrentHashMap<UUID, Long> OPEN_KEY_DEBOUNCE_AT_MS = new ConcurrentHashMap<>();
+    private static final long OPEN_KEY_DEBOUNCE_MS = 400L;
 
     private VaryonAccueilKeyHelper() {
+    }
+
+    public static void clearOpenKeyDebounce(@Nonnull UUID uuid) {
+        OPEN_KEY_DEBOUNCE_AT_MS.remove(uuid);
+    }
+
+    public static void runAccueilOpenKeyDebounced(@Nonnull PlayerRef playerRef) {
+        UUID uuid = playerRef.getUuid();
+        if (uuid == null) {
+            runAccueil(playerRef);
+            return;
+        }
+        long now = System.currentTimeMillis();
+        final boolean[] fire = {false};
+        OPEN_KEY_DEBOUNCE_AT_MS.compute(uuid, (k, prev) -> {
+            if (prev != null && now - prev < OPEN_KEY_DEBOUNCE_MS) {
+                return prev;
+            }
+            fire[0] = true;
+            return now;
+        });
+        if (fire[0]) {
+            runAccueil(playerRef);
+        }
     }
 
     public static void runAccueil(@Nonnull PlayerRef playerRef) {
