@@ -32,6 +32,8 @@ public class VaryonMenuHud extends CustomUIHud {
     private static final int KEY_LABEL_W = 32;
     private static final int KEY_NUDGE_DOWN_PX = 1;
 
+    private static final int MENU_UP_PX = 56;
+
     private static final int ANCHOR_HEIGHT = 24 + 28 + IMG_H + MENU_LIFT_PX;
 
     public VaryonMenuHud(@Nonnull PlayerRef playerRef) {
@@ -65,7 +67,7 @@ public class VaryonMenuHud extends CustomUIHud {
         builder.setObject("#VaryonMenuTitle.Anchor", title);
 
         int stackLeft = (ANCHOR_WIDTH - IMG_W) / 2;
-        int stackTop = 28 + menuOffsetY;
+        int stackTop = 28 + menuOffsetY - MENU_UP_PX;
 
         Anchor stack = new Anchor();
         stack.setLeft(Value.of(stackLeft));
