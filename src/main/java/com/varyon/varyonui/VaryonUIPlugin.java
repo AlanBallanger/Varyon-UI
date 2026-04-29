@@ -138,24 +138,16 @@ public class VaryonUIPlugin extends JavaPlugin {
             return;
         }
         PlayerRef foundRef = null;
-        Player foundPlayer = null;
         for (PlayerRef pref : universe.getPlayers()) {
-            if (pref == null || !uuid.equals(pref.getUuid())) {
-                continue;
+            if (pref != null && uuid.equals(pref.getUuid())) {
+                foundRef = pref;
+                break;
             }
-            foundRef = pref;
-            try {
-                foundPlayer = pref.getComponent(Player.getComponentType());
-            } catch (Exception ignored) {
-            }
-            break;
         }
-        if (foundRef == null || foundPlayer == null) {
+        if (foundRef == null) {
             return;
         }
-        final PlayerRef playerRef = foundRef;
-        final Player player = foundPlayer;
-        Ref<?> entityRef = playerRef.getReference();
+        Ref<?> entityRef = foundRef.getReference();
         if (entityRef == null || !entityRef.isValid()) {
             return;
         }
@@ -168,9 +160,14 @@ public class VaryonUIPlugin extends JavaPlugin {
         if (world == null) {
             return;
         }
+        final PlayerRef playerRef = foundRef;
         world.execute(() -> {
             try {
                 if (!playerRef.isValid()) {
+                    return;
+                }
+                Player player = playerRef.getComponent(Player.getComponentType());
+                if (player == null) {
                     return;
                 }
                 VaryonMenuHud.attach(player, playerRef);

@@ -33,6 +33,7 @@ import com.varyon.varyonui.config.TutorielConfig;
 import com.varyon.varyonui.config.VaryonConfig;
 import com.varyon.varyonui.hud.VaryonMenuHud;
 import com.varyon.varyonui.integration.CombatProfilBridge;
+import com.varyon.varyonui.integration.MenuRpgBridge;
 import com.varyon.varyonui.integration.HytlSkinPreview;
 import com.varyon.varyonui.VaryonUIPlugin;
 import javax.annotation.Nonnull;
@@ -320,6 +321,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
         Player player = store.getComponent(ref, Player.getComponentType());
         CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
+        MenuRpgBridge.applyMenuXp(playerRef.getUuid(), commandBuilder);
         if ("parametres".equals(activeTab)) {
             PlayerRef pref = store.getComponent(ref, PlayerRef.getComponentType());
             applyParametresShortcutAppearance(commandBuilder, pref != null ? pref.getUuid() : null);
