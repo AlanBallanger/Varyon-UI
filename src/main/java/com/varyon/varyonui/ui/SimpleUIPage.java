@@ -78,48 +78,63 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         buildContent(commandBuilder, eventBuilder, store, ref);
     }
 
+    private void applyTabIconTextures(@Nonnull UICommandBuilder cb) {
+        applyOneTabIcon(cb, "HomeIcon", "Icons/Accueil.png", "Icons/Accueil_Hovered.png", "home");
+        applyOneTabIcon(cb, "TutorielIcon", "Icons/Tutoriel.png", "Icons/Tutoriel_Hovered.png", "tutoriel");
+        applyOneTabIcon(cb, "CommandesIcon", "Icons/Commandes.png", "Icons/Commandes_Hovered.png", "commandes");
+        applyOneTabIcon(cb, "MisesAJourIcon", "Icons/Mises_a_jour.png", "Icons/Mises_a_jour_Hovered.png", "misesajour");
+        applyOneTabIcon(cb, "VaryonIcon", "Icons/Varyon.png", "Icons/Varyon_Hovered.png", "varyon");
+        applyOneTabIcon(cb, "ProfilIcon", "Icons/Infos.png", "Icons/Infos_Hovered.png", "profil");
+        applyOneTabIcon(cb, "ParametresIcon", "Icons/Infos.png", "Icons/Infos_Hovered.png", "parametres");
+        if (isAdmin) {
+            applyOneTabIcon(cb, "AdminIcon", "Icons/Commandes.png", "Icons/Commandes_Hovered.png", "admin");
+        }
+    }
+
+    private void applyOneTabIcon(
+            @Nonnull UICommandBuilder cb,
+            @Nonnull String iconId,
+            @Nonnull String normalPath,
+            @Nonnull String hoveredPath,
+            @Nonnull String tabKey) {
+        boolean useHovered = tabKey.equals(activeTab);
+        String path = useHovered ? hoveredPath : normalPath;
+        PatchStyle ps =
+            new PatchStyle().setTexturePath(Value.of(normalizeIconUrl(path))).setBorder(Value.of(0));
+        cb.setObject("#" + iconId + ".Background", ps);
+    }
+
     private void buildTabBar(@Nonnull UICommandBuilder commandBuilder,
                              @Nonnull UIEventBuilder eventBuilder) {
-        String tabTextInactive = "#ffffff";
-        String tabTextActive = "#ffb347";
-        String tabShortcutInactive = "#aab8c8";
-        String tabShortcutActive = "#d4dce8";
+        patchTabBarAppearance(commandBuilder);
+        appendTabBarEvents(commandBuilder, eventBuilder);
+        HytlSkinPreview.applyPlaceholder(commandBuilder);
+        scheduleSkinHeadshotFetch();
+    }
 
-        commandBuilder.set("#HomeTabLabel.Style.TextColor", "home".equals(activeTab) ? tabTextActive : tabTextInactive);
-        commandBuilder.set("#HomeTabShortcut.Visible", "home".equals(activeTab));
-        commandBuilder.set("#HomeTabShortcut.Style.TextColor", "home".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
-
-        commandBuilder.set("#TutorielTabLabel.Style.TextColor", "tutoriel".equals(activeTab) ? tabTextActive : tabTextInactive);
-        commandBuilder.set("#TutorielTabShortcut.Visible", "tutoriel".equals(activeTab));
-        commandBuilder.set("#TutorielTabShortcut.Style.TextColor", "tutoriel".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
-
-        commandBuilder.set("#CommandesTabLabel.Style.TextColor", "commandes".equals(activeTab) ? tabTextActive : tabTextInactive);
-        commandBuilder.set("#CommandesTabShortcut.Visible", "commandes".equals(activeTab));
-        commandBuilder.set("#CommandesTabShortcut.Style.TextColor", "commandes".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
-
-        commandBuilder.set("#MisesAJourTabLabel.Style.TextColor", "misesajour".equals(activeTab) ? tabTextActive : tabTextInactive);
-        commandBuilder.set("#MisesAJourTabShortcut.Visible", "misesajour".equals(activeTab));
-        commandBuilder.set("#MisesAJourTabShortcut.Style.TextColor", "misesajour".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
-
-        commandBuilder.set("#VaryonTabLabel.Style.TextColor", "varyon".equals(activeTab) ? tabTextActive : tabTextInactive);
-        commandBuilder.set("#VaryonTabShortcut.Visible", "varyon".equals(activeTab));
-        commandBuilder.set("#VaryonTabShortcut.Style.TextColor", "varyon".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
-
-        commandBuilder.set("#ProfilTabLabel.Style.TextColor", "profil".equals(activeTab) ? tabTextActive : tabTextInactive);
-        commandBuilder.set("#ProfilTabShortcut.Visible", "profil".equals(activeTab));
-        commandBuilder.set("#ProfilTabShortcut.Style.TextColor", "profil".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
-
-        commandBuilder.set("#ParametresTabLabel.Style.TextColor", "parametres".equals(activeTab) ? tabTextActive : tabTextInactive);
-        commandBuilder.set("#ParametresTabShortcut.Visible", "parametres".equals(activeTab));
-        commandBuilder.set("#ParametresTabShortcut.Style.TextColor", "parametres".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
-
+    private void patchTabBarAppearance(@Nonnull UICommandBuilder commandBuilder) {
         commandBuilder.set("#AdminTabContainer.Visible", isAdmin);
-        if (isAdmin) {
-            commandBuilder.set("#AdminTabLabel.Style.TextColor", "admin".equals(activeTab) ? tabTextActive : tabTextInactive);
-            commandBuilder.set("#AdminTabShortcut.Visible", "admin".equals(activeTab));
-            commandBuilder.set("#AdminTabShortcut.Style.TextColor", "admin".equals(activeTab) ? tabShortcutActive : tabShortcutInactive);
-        }
 
+        applyTabIconTextures(commandBuilder);
+        applyTabUnderlineVisibility(commandBuilder);
+    }
+
+    private void applyTabUnderlineVisibility(@Nonnull UICommandBuilder commandBuilder) {
+        commandBuilder.set("#HomeTabUnderline.Visible", "home".equals(activeTab));
+        commandBuilder.set("#TutorielTabUnderline.Visible", "tutoriel".equals(activeTab));
+        commandBuilder.set("#CommandesTabUnderline.Visible", "commandes".equals(activeTab));
+        commandBuilder.set("#MisesAJourTabUnderline.Visible", "misesajour".equals(activeTab));
+        commandBuilder.set("#VaryonTabUnderline.Visible", "varyon".equals(activeTab));
+        commandBuilder.set("#ProfilTabUnderline.Visible", "profil".equals(activeTab));
+        commandBuilder.set("#ParametresTabUnderline.Visible", "parametres".equals(activeTab));
+        if (isAdmin) {
+            commandBuilder.set("#AdminTabUnderline.Visible", "admin".equals(activeTab));
+        }
+    }
+
+    private void appendTabBarEvents(
+            @Nonnull UICommandBuilder commandBuilder,
+            @Nonnull UIEventBuilder eventBuilder) {
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#HomeTab", EventData.of("Action", "tab").append("Tab", "home"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#TutorielTab", EventData.of("Action", "tab").append("Tab", "tutoriel"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandesTab", EventData.of("Action", "tab").append("Tab", "commandes"));
@@ -165,9 +180,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#AdminTab", EventData.of("Action", "tab").append("Tab", "admin"));
         }
 
-        HytlSkinPreview.applyPlaceholder(commandBuilder);
-        scheduleSkinHeadshotFetch();
-
         if ("commandes".equals(activeTab)) {
             buildCommandButtons(commandBuilder, eventBuilder);
         }
@@ -186,9 +198,16 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
         HytaleServer.SCHEDULED_EXECUTOR.execute(() -> {
             byte[] png = HytlSkinPreview.fetchHeadshotPng(uuid);
+            Ref<EntityStore> ref = playerRef.getReference();
+            if (ref == null || !ref.isValid()) {
+                return;
+            }
             UICommandBuilder cb = new UICommandBuilder();
+            UIEventBuilder eb = new UIEventBuilder();
+            patchTabBarAppearance(cb);
+            appendTabBarEvents(cb, eb);
             HytlSkinPreview.applyPngToPreview(cb, uuid, png, VaryonUIPlugin.getInstance());
-            sendUpdate(cb, false);
+            sendUpdate(cb, eb, false);
         });
     }
 
