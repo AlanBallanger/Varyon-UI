@@ -2,6 +2,8 @@ package com.varyon.varyonui.integration;
 
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.ui.PatchStyle;
 import com.hypixel.hytale.server.core.ui.Value;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
@@ -31,64 +33,45 @@ public final class CombatProfilBridge {
     public static void applyCombatProfil(@Nonnull PlayerRef playerRef, Player player, @Nonnull UICommandBuilder ui) {
         Object rpg = getRpgInstance();
         if (rpg == null) {
-            clearProfilStats(ui);
+            clearSidebarStats(ui);
             return;
         }
         Object module = invokeNoArg(rpg, "getClassModule");
         if (module == null) {
-            clearProfilStats(ui);
+            clearSidebarStats(ui);
             return;
         }
         UUID playerId = playerRef.getUuid();
         Object dataManager = invokeNoArg(module, "getDataManager");
         Object data = invoke(dataManager, "getOrCreate", new Class[]{UUID.class}, new Object[]{playerId});
         if (data == null) {
-            clearProfilStats(ui);
+            clearSidebarStats(ui);
             return;
         }
         int maxHp = invokeInt(data, "getMaxHp");
+        int liveCur = readLiveHealthCurrent(playerRef);
+        int liveMax = readLiveHealthMax(playerRef);
+        int currentHp = liveCur >= 0 ? liveCur : invokeInt(data, "getCurrentHp");
+        int displayMaxHp = liveMax >= 0 ? liveMax : maxHp;
         int weaponDmg = readWeaponDisplayDamage(player);
         int armor = invokeInt(data, "getBaseArmor");
-        int stamina = invokeInt(data, "getMaxStamina");
+        int maxStaminaData = invokeInt(data, "getMaxStamina");
+        int liveStaCur = readLiveStaminaCurrent(playerRef);
+        int liveStaMax = readLiveStaminaMax(playerRef);
+        int displayMaxSta = liveStaMax >= 0 ? liveStaMax : maxStaminaData;
+        int currentSta = liveStaCur >= 0 ? liveStaCur : displayMaxSta;
         int critPct = invokeInt(data, "getCritChancePercent");
         int critBonus = invokeInt(data, "getCritDamageBonusPercent");
 
-        ui.set("#ProfilStatHPValueMain.TextSpans", Message.raw(String.valueOf(maxHp)));
-        ui.set("#ProfilStatHPValuePct.TextSpans", Message.raw(""));
-        ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(String.valueOf(maxHp)));
-        ui.set("#SidebarStatHPValuePct.TextSpans", Message.raw(""));
+        int critDamageTotalPct = 100 + critBonus;
 
-        ui.set("#ProfilStatATKValueMain.TextSpans", Message.raw(String.valueOf(Math.max(0, weaponDmg))));
-        ui.set("#ProfilStatATKValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(currentHp + " / " + displayMaxHp));
         ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(String.valueOf(Math.max(0, weaponDmg))));
-        ui.set("#SidebarStatATKValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(armor + "%"));
+        ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(currentSta + " / " + displayMaxSta));
+        ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(critPct + "%"));
+        ui.set("#SidebarStatCritDamageValueMain.TextSpans", Message.raw(critDamageTotalPct + "%"));
 
-        ui.set("#ProfilStatArmorValueMain.TextSpans", Message.raw(String.valueOf(armor)));
-        ui.set("#ProfilStatArmorValuePct.TextSpans", Message.raw("%"));
-        ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(String.valueOf(armor)));
-        ui.set("#SidebarStatArmorValuePct.TextSpans", Message.raw("%"));
-
-        ui.set("#ProfilStatStaminaValueMain.TextSpans", Message.raw(String.valueOf(stamina)));
-        ui.set("#ProfilStatStaminaValuePct.TextSpans", Message.raw(""));
-        ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(String.valueOf(stamina)));
-        ui.set("#SidebarStatStaminaValuePct.TextSpans", Message.raw(""));
-
-        ui.set("#ProfilStatCritChanceValueMain.TextSpans", Message.raw(String.valueOf(critPct)));
-        ui.set("#ProfilStatCritChanceValuePct.TextSpans", Message.raw("%"));
-        ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(String.valueOf(critPct)));
-        ui.set("#SidebarStatCritChanceValuePct.TextSpans", Message.raw("%"));
-
-        ui.set("#ProfilStatCritDamageValueMain.TextSpans", Message.raw("+" + critBonus));
-        ui.set("#ProfilStatCritDamageValuePct.TextSpans", Message.raw("%"));
-        ui.set("#SidebarStatCritDamageValueMain.TextSpans", Message.raw("+" + critBonus));
-        ui.set("#SidebarStatCritDamageValuePct.TextSpans", Message.raw("%"));
-
-        setIconTexture(ui, "#ProfilStatHPIcon", ICON_HP);
-        setIconTexture(ui, "#ProfilStatATKIcon", ICON_ATK);
-        setIconTexture(ui, "#ProfilStatArmorIcon", ICON_ARM);
-        setIconTexture(ui, "#ProfilStatStaminaIcon", ICON_STA);
-        setIconTexture(ui, "#ProfilStatCritChanceIcon", ICON_CRIT_CHANCE);
-        setIconTexture(ui, "#ProfilStatCritDamageIcon", ICON_CRIT_DAMAGE);
         setIconTexture(ui, "#SidebarStatHPIcon", ICON_HP);
         setIconTexture(ui, "#SidebarStatATKIcon", ICON_ATK);
         setIconTexture(ui, "#SidebarStatArmorIcon", ICON_ARM);
@@ -97,37 +80,13 @@ public final class CombatProfilBridge {
         setIconTexture(ui, "#SidebarStatCritDamageIcon", ICON_CRIT_DAMAGE);
     }
 
-    private static void clearProfilStats(@Nonnull UICommandBuilder ui) {
-        ui.set("#ProfilStatHPValueMain.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatHPValuePct.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatATKValueMain.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatATKValuePct.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatArmorValueMain.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatArmorValuePct.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatStaminaValueMain.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatStaminaValuePct.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatCritChanceValueMain.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatCritChanceValuePct.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatCritDamageValueMain.TextSpans", Message.raw(""));
-        ui.set("#ProfilStatCritDamageValuePct.TextSpans", Message.raw(""));
-        ui.setObject("#ProfilStatHPIcon.Background", CLEAR_ICON_BG);
-        ui.setObject("#ProfilStatATKIcon.Background", CLEAR_ICON_BG);
-        ui.setObject("#ProfilStatArmorIcon.Background", CLEAR_ICON_BG);
-        ui.setObject("#ProfilStatStaminaIcon.Background", CLEAR_ICON_BG);
-        ui.setObject("#ProfilStatCritChanceIcon.Background", CLEAR_ICON_BG);
-        ui.setObject("#ProfilStatCritDamageIcon.Background", CLEAR_ICON_BG);
+    private static void clearSidebarStats(@Nonnull UICommandBuilder ui) {
         ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(""));
-        ui.set("#SidebarStatHPValuePct.TextSpans", Message.raw(""));
         ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(""));
-        ui.set("#SidebarStatATKValuePct.TextSpans", Message.raw(""));
         ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(""));
-        ui.set("#SidebarStatArmorValuePct.TextSpans", Message.raw(""));
         ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(""));
-        ui.set("#SidebarStatStaminaValuePct.TextSpans", Message.raw(""));
         ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(""));
-        ui.set("#SidebarStatCritChanceValuePct.TextSpans", Message.raw(""));
         ui.set("#SidebarStatCritDamageValueMain.TextSpans", Message.raw(""));
-        ui.set("#SidebarStatCritDamageValuePct.TextSpans", Message.raw(""));
         ui.setObject("#SidebarStatHPIcon.Background", CLEAR_ICON_BG);
         ui.setObject("#SidebarStatATKIcon.Background", CLEAR_ICON_BG);
         ui.setObject("#SidebarStatArmorIcon.Background", CLEAR_ICON_BG);
@@ -203,5 +162,85 @@ public final class CombatProfilBridge {
         } catch (Throwable ignored) {
         }
         return -1;
+    }
+
+    private static int readLiveHealthCurrent(PlayerRef playerRef) {
+        if (playerRef == null || !playerRef.isValid()) {
+            return -1;
+        }
+        try {
+            EntityStatMap statMap = playerRef.getComponent(EntityStatMap.getComponentType());
+            if (statMap == null) {
+                return -1;
+            }
+            int hIdx = DefaultEntityStatTypes.getHealth();
+            var healthStat = statMap.get(hIdx);
+            if (healthStat == null) {
+                return -1;
+            }
+            return Math.round(healthStat.get());
+        } catch (Throwable ignored) {
+            return -1;
+        }
+    }
+
+    private static int readLiveHealthMax(PlayerRef playerRef) {
+        if (playerRef == null || !playerRef.isValid()) {
+            return -1;
+        }
+        try {
+            EntityStatMap statMap = playerRef.getComponent(EntityStatMap.getComponentType());
+            if (statMap == null) {
+                return -1;
+            }
+            int hIdx = DefaultEntityStatTypes.getHealth();
+            var healthStat = statMap.get(hIdx);
+            if (healthStat == null) {
+                return -1;
+            }
+            return Math.round(healthStat.getMax());
+        } catch (Throwable ignored) {
+            return -1;
+        }
+    }
+
+    private static int readLiveStaminaCurrent(PlayerRef playerRef) {
+        if (playerRef == null || !playerRef.isValid()) {
+            return -1;
+        }
+        try {
+            EntityStatMap statMap = playerRef.getComponent(EntityStatMap.getComponentType());
+            if (statMap == null) {
+                return -1;
+            }
+            int sIdx = DefaultEntityStatTypes.getStamina();
+            var staminaStat = statMap.get(sIdx);
+            if (staminaStat == null) {
+                return -1;
+            }
+            return Math.round(staminaStat.get());
+        } catch (Throwable ignored) {
+            return -1;
+        }
+    }
+
+    private static int readLiveStaminaMax(PlayerRef playerRef) {
+        if (playerRef == null || !playerRef.isValid()) {
+            return -1;
+        }
+        try {
+            EntityStatMap statMap = playerRef.getComponent(EntityStatMap.getComponentType());
+            if (statMap == null) {
+                return -1;
+            }
+            int sIdx = DefaultEntityStatTypes.getStamina();
+            var staminaStat = statMap.get(sIdx);
+            if (staminaStat == null) {
+                return -1;
+            }
+            return Math.round(staminaStat.getMax());
+        } catch (Throwable ignored) {
+            return -1;
+        }
     }
 }

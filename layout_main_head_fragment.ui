@@ -2,12 +2,12 @@
       LayoutMode: Left;
 
       Group #LeftMenuSidebar {
-        Anchor: (Width: 224);
+        Anchor: (Width: 248);
         LayoutMode: Left;
         Background: (Color: #203040);
 
         Group #LeftMenuSidebarInner {
-          Anchor: (Width: 223);
+          Anchor: (Width: 247);
           LayoutMode: Top;
           Padding: (Left: 2, Right: 8, Bottom: 16);
 
@@ -16,17 +16,17 @@
             LayoutMode: Left;
 
             Group #PlayerSkinPreviewWrap {
-              Anchor: (Width: 108, Height: 144);
+              Anchor: (Width: 144, Height: 192);
               LayoutMode: Middle;
 
               Group #PlayerSkinPreview {
-                Anchor: (Width: 108, Height: 144);
+                Anchor: (Width: 144, Height: 192);
                 Background: (Color: #1e2838);
               }
             }
 
             Group #SidebarStatsColumn {
-              Anchor: (Width: 105);
+              Anchor: (Width: 95);
               LayoutMode: Top;
               Padding: (Left: 4, Top: 0);
 
@@ -421,34 +421,6 @@
             }
 
             Group #VaryonTabUnderline {
-              Anchor: (Height: 2, Left: 0, Right: 0, Bottom: 0);
-              Background: (Color: #F3F5F6);
-              Visible: false;
-            }
-          }
-
-          Group #ProfilTabContainer {
-            Anchor: (Top: 0, Bottom: 0, Width: 70);
-            Padding: (Right: 2);
-
-            Button #ProfilTab {
-              Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
-              Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
-              );
-
-              Group {
-                LayoutMode: Middle;
-                Group #ProfilIcon {
-                  Anchor: (Width: 44, Height: 44);
-                  Background: "Icons/Infos.png";
-                }
-              }
-            }
-
-            Group #ProfilTabUnderline {
               Anchor: (Height: 2, Left: 0, Right: 0, Bottom: 0);
               Background: (Color: #F3F5F6);
               Visible: false;

@@ -76,7 +76,7 @@ public class VaryonUIPlugin extends JavaPlugin {
         mgr.register(new UICommand("acc", "Ouvre l'accueil", "home", "accueil"));
         mgr.register(new UICommand("ad", "Ouvre le panneau admin", "admin"));
         mgr.register(new UICommand("actus", "Ouvre les actualites", "misesajour", "actualites", "actualités", "actu"));
-        mgr.register(new UICommand("profil", "Ouvre le profil", "profil", "profile"));
+        mgr.register(new UICommand("profil", "Ouvre le menu (accueil)", "home", "profile"));
         mgr.register(new UICommand("param", "Ouvre les paramètres", "parametres", "parametres"));
         mgr.register(new UICommand("var", "Ouvre la page Varyon", "varyon", "varyon"));
         mgr.register(new ReloadCommand());

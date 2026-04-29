@@ -65,7 +65,9 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     public SimpleUIPage(@Nonnull PlayerRef playerRef, @Nonnull String initialTab, boolean isAdmin) {
         super(playerRef, CustomPageLifetime.CanDismiss, EventDataClass.CODEC);
         this.isAdmin = isAdmin;
-        this.activeTab = (initialTab.equals("admin") && !isAdmin) ? "home" : initialTab;
+        this.activeTab = (initialTab.equals("admin") && !isAdmin) ? "home"
+                : "profil".equals(initialTab) ? "home"
+                : initialTab;
     }
 
     @Override
@@ -84,7 +86,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         applyOneTabIcon(cb, "CommandesIcon", "Icons/Commandes.png", "Icons/Commandes_Hovered.png", "commandes");
         applyOneTabIcon(cb, "MisesAJourIcon", "Icons/Mises_a_jour.png", "Icons/Mises_a_jour_Hovered.png", "misesajour");
         applyOneTabIcon(cb, "VaryonIcon", "Icons/Varyon.png", "Icons/Varyon_Hovered.png", "varyon");
-        applyOneTabIcon(cb, "ProfilIcon", "Icons/Infos.png", "Icons/Infos_Hovered.png", "profil");
         applyOneTabIcon(cb, "ParametresIcon", "Icons/Infos.png", "Icons/Infos_Hovered.png", "parametres");
         if (isAdmin) {
             applyOneTabIcon(cb, "AdminIcon", "Icons/Commandes.png", "Icons/Commandes_Hovered.png", "admin");
@@ -125,7 +126,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#CommandesTabUnderline.Visible", "commandes".equals(activeTab));
         commandBuilder.set("#MisesAJourTabUnderline.Visible", "misesajour".equals(activeTab));
         commandBuilder.set("#VaryonTabUnderline.Visible", "varyon".equals(activeTab));
-        commandBuilder.set("#ProfilTabUnderline.Visible", "profil".equals(activeTab));
         commandBuilder.set("#ParametresTabUnderline.Visible", "parametres".equals(activeTab));
         if (isAdmin) {
             commandBuilder.set("#AdminTabUnderline.Visible", "admin".equals(activeTab));
@@ -140,7 +140,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandesTab", EventData.of("Action", "tab").append("Tab", "commandes"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#MisesAJourTab", EventData.of("Action", "tab").append("Tab", "misesajour"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#VaryonTab", EventData.of("Action", "tab").append("Tab", "varyon"));
-        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ProfilTab", EventData.of("Action", "tab").append("Tab", "profil"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ParametresTab", EventData.of("Action", "tab").append("Tab", "parametres"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", EventData.of("Action", "close"));
 
@@ -298,7 +297,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#CommandesContent.Visible", "commandes".equals(activeTab));
         commandBuilder.set("#MisesAJourContent.Visible", "misesajour".equals(activeTab));
         commandBuilder.set("#VaryonContent.Visible", "varyon".equals(activeTab));
-        commandBuilder.set("#ProfilContent.Visible", "profil".equals(activeTab));
         commandBuilder.set("#ParametresContent.Visible", "parametres".equals(activeTab));
         commandBuilder.set("#AdminContent.Visible", "admin".equals(activeTab) && isAdmin);
 
