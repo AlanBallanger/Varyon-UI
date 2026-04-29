@@ -8,9 +8,7 @@ import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -26,38 +24,13 @@ public final class MenuRpgBridge {
     private static final String PLAYER_SNAPSHOT_CLASS = "fr.varyon.rpg.api.PlayerRpgSnapshot";
     private static final String JOB_SNAPSHOT_CLASS = "fr.varyon.rpg.api.JobRpgSnapshot";
 
-    private static final PatchStyle GEN_PANEL_BG = new PatchStyle().setColor(Value.of("#0a0a18B0"));
     private static final PatchStyle GEN_LEVEL_BG = new PatchStyle().setColor(Value.of("#2a1a00e0"));
-    private static final PatchStyle GEN_TRACK_BG = new PatchStyle().setColor(Value.of("#06061080"));
-    private static final PatchStyle JOB_PANEL_BG = new PatchStyle().setColor(Value.of("#0c0c1cA0"));
-    private static final PatchStyle JOB_TRACK_BG = new PatchStyle().setColor(Value.of("#06061080"));
+    private static final PatchStyle XP_TRACK_BG =
+            new PatchStyle().setTexturePath(Value.of("Common/ProgressBarEmpty.png"));
     private static final PatchStyle JOB_LEVEL_BG = new PatchStyle().setColor(Value.of("#1a150ae0"));
 
     private static final PatchStyle CLEAR_ICON =
             new PatchStyle().setColor(Value.of("#00000000"));
-
-    private static final Map<String, String> JOB_ICON_TEXTURES;
-
-    static {
-        Map<String, String> m = new HashMap<>();
-        m.put("miner", "Icons/Mineur.png");
-        m.put("mineur", "Icons/Mineur.png");
-        m.put("forester", "Icons/Forestier.png");
-        m.put("forestier", "Icons/Forestier.png");
-        m.put("farmer", "Icons/Fermier.png");
-        m.put("fermier", "Icons/Fermier.png");
-        m.put("hunter", "Icons/Chasseur.png");
-        m.put("chasseur", "Icons/Chasseur.png");
-        m.put("cook", "Icons/Cuisinier.png");
-        m.put("cuisinier", "Icons/Cuisinier.png");
-        m.put("blacksmith", "Icons/Forgeron.png");
-        m.put("forgeron", "Icons/Forgeron.png");
-        m.put("architect", "Icons/Architecte.png");
-        m.put("architecte", "Icons/Architecte.png");
-        m.put("alchemist", "Icons/Alchimiste.png");
-        m.put("alchimiste", "Icons/Alchimiste.png");
-        JOB_ICON_TEXTURES = Map.copyOf(m);
-    }
 
     private MenuRpgBridge() {}
 
@@ -125,9 +98,9 @@ public final class MenuRpgBridge {
 
         String genLevelTxt = "Nv." + generalLevel + (talentPts > 0 ? " *" : "");
 
-        ui.setObject("#MenuGenXPPanel.Background", GEN_PANEL_BG);
+        ui.setObject("#MenuGenXPPanel.Background", CLEAR_ICON);
         ui.setObject("#MenuGenLevelBg.Background", GEN_LEVEL_BG);
-        ui.setObject("#MenuGenXPTrack.Background", GEN_TRACK_BG);
+        ui.setObject("#MenuGenXPTrack.Background", XP_TRACK_BG);
         ui.set("#MenuGenLevel.TextSpans", Message.raw(genLevelTxt));
         ui.set("#MenuGenLevelLabel.TextSpans", Message.raw(className));
         ui.set("#MenuGenXPText.TextSpans", Message.raw(genText));
@@ -147,7 +120,6 @@ public final class MenuRpgBridge {
     }
 
     private static void applyJobSlot(UICommandBuilder ui, int slot, Object job, Class<?> jobSnapClass) throws ReflectiveOperationException {
-        String jobId = stringOrEmpty(invokeZeroArg(job, jobSnapClass, "jobId"));
         String displayName = stringOrEmpty(invokeZeroArg(job, jobSnapClass, "displayName"));
         int level = number(invokeZeroArg(job, jobSnapClass, "level")).intValue();
         long xpIn = number(invokeZeroArg(job, jobSnapClass, "xpInLevel")).longValue();
@@ -159,24 +131,20 @@ public final class MenuRpgBridge {
         double prog = max ? 1.0 : (xpReq > 0 ? (double) xpIn / (double) xpReq : 0.0);
 
         String p = "#MenuJob" + slot;
-        ui.setObject(p + "Panel.Background", JOB_PANEL_BG);
-        ui.setObject(p + "XPTrack.Background", JOB_TRACK_BG);
+        ui.setObject(p + "Panel.Background", CLEAR_ICON);
+        ui.setObject(p + "XPTrack.Background", XP_TRACK_BG);
         ui.setObject(p + "LevelBg.Background", JOB_LEVEL_BG);
         ui.set(p + "Name.TextSpans", Message.raw(displayName));
         ui.set(p + "Level.TextSpans", Message.raw(levelTxt));
         ui.set(p + "XPText.TextSpans", Message.raw(xpLine));
         ui.set(p + "XP.Value", clamp01(prog));
-
-        String iconPath = JOB_ICON_TEXTURES.getOrDefault(jobId.toLowerCase(), "Icons/Mineur.png");
-        ui.setObject(p + "Icon.Background", new PatchStyle().setTexturePath(Value.of(iconPath)));
     }
 
     private static void emptyJobSlot(UICommandBuilder ui, int slot) {
         String p = "#MenuJob" + slot;
-        ui.setObject(p + "Panel.Background", JOB_PANEL_BG);
-        ui.setObject(p + "XPTrack.Background", JOB_TRACK_BG);
+        ui.setObject(p + "Panel.Background", CLEAR_ICON);
+        ui.setObject(p + "XPTrack.Background", XP_TRACK_BG);
         ui.setObject(p + "LevelBg.Background", JOB_LEVEL_BG);
-        ui.setObject(p + "Icon.Background", CLEAR_ICON);
         ui.set(p + "Name.TextSpans", Message.raw(" "));
         ui.set(p + "Level.TextSpans", Message.raw(" "));
         ui.set(p + "XPText.TextSpans", Message.raw(" "));
@@ -184,9 +152,9 @@ public final class MenuRpgBridge {
     }
 
     private static void applyMenuXpFallback(UICommandBuilder ui, boolean errorState) {
-        ui.setObject("#MenuGenXPPanel.Background", GEN_PANEL_BG);
+        ui.setObject("#MenuGenXPPanel.Background", CLEAR_ICON);
         ui.setObject("#MenuGenLevelBg.Background", GEN_LEVEL_BG);
-        ui.setObject("#MenuGenXPTrack.Background", GEN_TRACK_BG);
+        ui.setObject("#MenuGenXPTrack.Background", XP_TRACK_BG);
         String hint = errorState ? "Erreur RPG" : "—";
         ui.set("#MenuGenLevel.TextSpans", Message.raw(hint));
         ui.set("#MenuGenLevelLabel.TextSpans", Message.raw(errorState ? " " : "VaryonRPG"));

@@ -146,6 +146,22 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
         eventBuilder.addEventBinding(
             CustomUIEventBindingType.Activating,
+            "#MenuGenDetailBtn",
+            EventData.of("Action", "chatcommand").append("Command", "/vrpg")
+        );
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#MenuJob1DetailBtn",
+            EventData.of("Action", "chatcommand").append("Command", "/vp")
+        );
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#MenuJob2DetailBtn",
+            EventData.of("Action", "chatcommand").append("Command", "/vp")
+        );
+
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
             "#ParametresMenuShortcutAlt",
             EventData.of("Action", "accueilshortcut").append("ShortcutMode", "alt")
         );
