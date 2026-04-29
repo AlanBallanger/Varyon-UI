@@ -320,10 +320,8 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         if ("home".equals(activeTab)) {
             buildHomeContent(commandBuilder);
         }
-        if ("profil".equals(activeTab)) {
-            Player player = store.getComponent(ref, Player.getComponentType());
-            CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
-        }
+        Player player = store.getComponent(ref, Player.getComponentType());
+        CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
         if ("parametres".equals(activeTab)) {
             PlayerRef pref = store.getComponent(ref, PlayerRef.getComponentType());
             applyParametresShortcutAppearance(commandBuilder, pref != null ? pref.getUuid() : null);

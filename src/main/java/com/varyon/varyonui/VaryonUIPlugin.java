@@ -10,7 +10,9 @@ import com.hypixel.hytale.server.core.io.adapter.PacketAdapters;
 import com.hypixel.hytale.server.core.io.adapter.PacketFilter;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
+import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.varyon.varyonui.hud.VaryonMenuHud;
@@ -27,14 +29,22 @@ import com.varyon.varyonui.config.TutorielConfig;
 import com.varyon.varyonui.config.VaryonConfig;
 import com.varyon.varyonui.integration.HytlSkinPreview;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class VaryonUIPlugin extends JavaPlugin {
 
     private static final Logger LOG = Logger.getLogger("VaryonUI");
+
+    /**
+     * Attacher le HUD trop tôt après {@link PlayerReadyEvent} fait souvent crasher le client
+     * (« UI pas encore prête »). Aligné avec job_var/DEV_GUIDE (délai ~3 s).
+     */
+    private static final long MENU_HUD_ATTACH_DELAY_MS = 3000L;
 
     private static VaryonUIPlugin instance;
     private File dataFolder;
@@ -109,13 +119,48 @@ public class VaryonUIPlugin extends JavaPlugin {
 
     private void onPlayerReady(PlayerReadyEvent event) {
         Player player = event.getPlayer();
-        @SuppressWarnings("rawtypes")
-        Ref ref = event.getPlayerRef();
-        if (player == null || ref == null) {
+        if (player == null) {
+            return;
+        }
+        UUID uuid = player.getUuid();
+        if (uuid == null) {
+            return;
+        }
+        HytaleServer.SCHEDULED_EXECUTOR.schedule(
+                () -> attachMenuHudDeferred(uuid),
+                MENU_HUD_ATTACH_DELAY_MS,
+                TimeUnit.MILLISECONDS);
+    }
+
+    private void attachMenuHudDeferred(@Nonnull UUID uuid) {
+        Universe universe = Universe.get();
+        if (universe == null) {
+            return;
+        }
+        PlayerRef foundRef = null;
+        Player foundPlayer = null;
+        for (PlayerRef pref : universe.getPlayers()) {
+            if (pref == null || !uuid.equals(pref.getUuid())) {
+                continue;
+            }
+            foundRef = pref;
+            try {
+                foundPlayer = pref.getComponent(Player.getComponentType());
+            } catch (Exception ignored) {
+            }
+            break;
+        }
+        if (foundRef == null || foundPlayer == null) {
+            return;
+        }
+        final PlayerRef playerRef = foundRef;
+        final Player player = foundPlayer;
+        Ref<?> entityRef = playerRef.getReference();
+        if (entityRef == null || !entityRef.isValid()) {
             return;
         }
         @SuppressWarnings("rawtypes")
-        Store store = ref.getStore();
+        Store store = entityRef.getStore();
         if (store == null) {
             return;
         }
@@ -123,11 +168,9 @@ public class VaryonUIPlugin extends JavaPlugin {
         if (world == null) {
             return;
         }
-
         world.execute(() -> {
             try {
-                PlayerRef playerRef = (PlayerRef) store.getComponent(ref, PlayerRef.getComponentType());
-                if (playerRef == null) {
+                if (!playerRef.isValid()) {
                     return;
                 }
                 VaryonMenuHud.attach(player, playerRef);

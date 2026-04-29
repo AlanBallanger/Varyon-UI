@@ -29,8 +29,8 @@ public final class HytlSkinPreview {
     private static final String HYTALE_PHOTO_SKIN_FRONT =
             "https://hytale.photo/skin/front.png";
     private static final int PHOTO_QUERY_SIZE = 512;
-    private static final int PREVIEW_CANVAS_WIDTH = 176;
-    private static final int PREVIEW_CANVAS_HEIGHT = 236;
+    private static final int PREVIEW_CANVAS_WIDTH = 216;
+    private static final int PREVIEW_CANVAS_HEIGHT = 288;
 
     private static final HttpClient HTTP = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(15))

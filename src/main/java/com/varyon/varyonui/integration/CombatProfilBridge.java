@@ -46,24 +46,42 @@ public final class CombatProfilBridge {
             clearProfilStats(ui);
             return;
         }
-        ui.set("#ProfilStatHPValueMain.TextSpans", Message.raw(String.valueOf(invokeInt(data, "getMaxHp"))));
-        ui.set("#ProfilStatHPValuePct.TextSpans", Message.raw(""));
-
+        int maxHp = invokeInt(data, "getMaxHp");
         int weaponDmg = readWeaponDisplayDamage(player);
+        int armor = invokeInt(data, "getBaseArmor");
+        int stamina = invokeInt(data, "getMaxStamina");
+        int critPct = invokeInt(data, "getCritChancePercent");
+        int critBonus = invokeInt(data, "getCritDamageBonusPercent");
+
+        ui.set("#ProfilStatHPValueMain.TextSpans", Message.raw(String.valueOf(maxHp)));
+        ui.set("#ProfilStatHPValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(String.valueOf(maxHp)));
+        ui.set("#SidebarStatHPValuePct.TextSpans", Message.raw(""));
+
         ui.set("#ProfilStatATKValueMain.TextSpans", Message.raw(String.valueOf(Math.max(0, weaponDmg))));
         ui.set("#ProfilStatATKValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(String.valueOf(Math.max(0, weaponDmg))));
+        ui.set("#SidebarStatATKValuePct.TextSpans", Message.raw(""));
 
-        ui.set("#ProfilStatArmorValueMain.TextSpans", Message.raw(String.valueOf(invokeInt(data, "getBaseArmor"))));
+        ui.set("#ProfilStatArmorValueMain.TextSpans", Message.raw(String.valueOf(armor)));
         ui.set("#ProfilStatArmorValuePct.TextSpans", Message.raw("%"));
+        ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(String.valueOf(armor)));
+        ui.set("#SidebarStatArmorValuePct.TextSpans", Message.raw("%"));
 
-        ui.set("#ProfilStatStaminaValueMain.TextSpans", Message.raw(String.valueOf(invokeInt(data, "getMaxStamina"))));
+        ui.set("#ProfilStatStaminaValueMain.TextSpans", Message.raw(String.valueOf(stamina)));
         ui.set("#ProfilStatStaminaValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(String.valueOf(stamina)));
+        ui.set("#SidebarStatStaminaValuePct.TextSpans", Message.raw(""));
 
-        ui.set("#ProfilStatCritChanceValueMain.TextSpans", Message.raw(String.valueOf(invokeInt(data, "getCritChancePercent"))));
+        ui.set("#ProfilStatCritChanceValueMain.TextSpans", Message.raw(String.valueOf(critPct)));
         ui.set("#ProfilStatCritChanceValuePct.TextSpans", Message.raw("%"));
+        ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(String.valueOf(critPct)));
+        ui.set("#SidebarStatCritChanceValuePct.TextSpans", Message.raw("%"));
 
-        ui.set("#ProfilStatCritDamageValueMain.TextSpans", Message.raw("+" + invokeInt(data, "getCritDamageBonusPercent")));
+        ui.set("#ProfilStatCritDamageValueMain.TextSpans", Message.raw("+" + critBonus));
         ui.set("#ProfilStatCritDamageValuePct.TextSpans", Message.raw("%"));
+        ui.set("#SidebarStatCritDamageValueMain.TextSpans", Message.raw("+" + critBonus));
+        ui.set("#SidebarStatCritDamageValuePct.TextSpans", Message.raw("%"));
 
         setIconTexture(ui, "#ProfilStatHPIcon", ICON_HP);
         setIconTexture(ui, "#ProfilStatATKIcon", ICON_ATK);
@@ -71,6 +89,12 @@ public final class CombatProfilBridge {
         setIconTexture(ui, "#ProfilStatStaminaIcon", ICON_STA);
         setIconTexture(ui, "#ProfilStatCritChanceIcon", ICON_CRIT_CHANCE);
         setIconTexture(ui, "#ProfilStatCritDamageIcon", ICON_CRIT_DAMAGE);
+        setIconTexture(ui, "#SidebarStatHPIcon", ICON_HP);
+        setIconTexture(ui, "#SidebarStatATKIcon", ICON_ATK);
+        setIconTexture(ui, "#SidebarStatArmorIcon", ICON_ARM);
+        setIconTexture(ui, "#SidebarStatStaminaIcon", ICON_STA);
+        setIconTexture(ui, "#SidebarStatCritChanceIcon", ICON_CRIT_CHANCE);
+        setIconTexture(ui, "#SidebarStatCritDamageIcon", ICON_CRIT_DAMAGE);
     }
 
     private static void clearProfilStats(@Nonnull UICommandBuilder ui) {
@@ -92,6 +116,24 @@ public final class CombatProfilBridge {
         ui.setObject("#ProfilStatStaminaIcon.Background", CLEAR_ICON_BG);
         ui.setObject("#ProfilStatCritChanceIcon.Background", CLEAR_ICON_BG);
         ui.setObject("#ProfilStatCritDamageIcon.Background", CLEAR_ICON_BG);
+        ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatHPValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatATKValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatArmorValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatStaminaValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatCritChanceValuePct.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatCritDamageValueMain.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatCritDamageValuePct.TextSpans", Message.raw(""));
+        ui.setObject("#SidebarStatHPIcon.Background", CLEAR_ICON_BG);
+        ui.setObject("#SidebarStatATKIcon.Background", CLEAR_ICON_BG);
+        ui.setObject("#SidebarStatArmorIcon.Background", CLEAR_ICON_BG);
+        ui.setObject("#SidebarStatStaminaIcon.Background", CLEAR_ICON_BG);
+        ui.setObject("#SidebarStatCritChanceIcon.Background", CLEAR_ICON_BG);
+        ui.setObject("#SidebarStatCritDamageIcon.Background", CLEAR_ICON_BG);
     }
 
     private static void setIconTexture(UICommandBuilder ui, String elementId, String texturePath) {

@@ -7,17 +7,266 @@
         Background: (Color: #203040);
 
         Group #LeftMenuSidebarInner {
-          FlexWeight: 1;
+          Anchor: (Width: 223);
           LayoutMode: Top;
-          Padding: (Left: 8, Right: 8, Bottom: 16);
+          Padding: (Left: 2, Right: 8, Bottom: 16);
 
-          Group #PlayerSkinPreviewWrap {
-            Anchor: (Top: 70, Left: 0, Right: 0, Height: 118);
-            LayoutMode: Middle;
+          Group #LeftMenuSidebarSkinRow {
+            Anchor: (Top: 70, Left: 0, Right: 0);
+            LayoutMode: Left;
 
-            Group #PlayerSkinPreview {
-              Anchor: (Width: 88, Height: 118);
-              Background: (Color: #1e2838);
+            Group #PlayerSkinPreviewWrap {
+              Anchor: (Width: 108, Height: 144);
+              LayoutMode: Middle;
+
+              Group #PlayerSkinPreview {
+                Anchor: (Width: 108, Height: 144);
+                Background: (Color: #1e2838);
+              }
+            }
+
+            Group #SidebarStatsColumn {
+              Anchor: (Width: 105);
+              LayoutMode: Top;
+              Padding: (Left: 4, Top: 0);
+
+              Group #SidebarStatRowHP {
+                LayoutMode: Left;
+                Anchor: (Height: 34);
+
+                Group #SidebarStatHPIcon {
+                  Anchor: (Width: 22, Height: 22);
+                  Background: (Color: #00000000);
+                }
+
+                Group { Anchor: (Width: 6); }
+
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Width: 77);
+
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 18);
+
+                    Label #SidebarStatHPValueMain {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #FF6666, RenderBold: true, VerticalAlignment: Center);
+                    }
+
+                    Label #SidebarStatHPValuePct {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #FF6666, RenderBold: true, VerticalAlignment: Center);
+                    }
+                  }
+
+                  Label {
+                    Text: "Vie Max";
+                    Anchor: (Height: 14);
+                    Style: (FontSize: 14, TextColor: #9E9585, VerticalAlignment: Top);
+                  }
+                }
+              }
+
+              Group { Anchor: (Height: 3); }
+
+              Group #SidebarStatRowATK {
+                LayoutMode: Left;
+                Anchor: (Height: 34);
+
+                Group #SidebarStatATKIcon {
+                  Anchor: (Width: 22, Height: 22);
+                  Background: (Color: #00000000);
+                }
+
+                Group { Anchor: (Width: 6); }
+
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Width: 77);
+
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 18);
+
+                    Label #SidebarStatATKValueMain {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #FFD700, RenderBold: true, VerticalAlignment: Center);
+                    }
+
+                    Label #SidebarStatATKValuePct {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #FFD700, RenderBold: true, VerticalAlignment: Center);
+                    }
+                  }
+
+                  Label {
+                    Text: "Attaque";
+                    Anchor: (Height: 14);
+                    Style: (FontSize: 14, TextColor: #9E9585, VerticalAlignment: Top);
+                  }
+                }
+              }
+
+              Group { Anchor: (Height: 3); }
+
+              Group #SidebarStatRowArmor {
+                LayoutMode: Left;
+                Anchor: (Height: 34);
+
+                Group #SidebarStatArmorIcon {
+                  Anchor: (Width: 22, Height: 22);
+                  Background: (Color: #00000000);
+                }
+
+                Group { Anchor: (Width: 6); }
+
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Width: 77);
+
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 18);
+
+                    Label #SidebarStatArmorValueMain {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #66AAFF, RenderBold: true, VerticalAlignment: Center);
+                    }
+
+                    Label #SidebarStatArmorValuePct {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #66AAFF, RenderBold: true, VerticalAlignment: Center);
+                    }
+                  }
+
+                  Label {
+                    Text: "Red. dgt";
+                    Anchor: (Height: 14);
+                    Style: (FontSize: 14, TextColor: #9E9585, VerticalAlignment: Top);
+                  }
+                }
+              }
+
+              Group { Anchor: (Height: 3); }
+
+              Group #SidebarStatRowStamina {
+                LayoutMode: Left;
+                Anchor: (Height: 34);
+
+                Group #SidebarStatStaminaIcon {
+                  Anchor: (Width: 22, Height: 22);
+                  Background: (Color: #00000000);
+                }
+
+                Group { Anchor: (Width: 6); }
+
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Width: 77);
+
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 18);
+
+                    Label #SidebarStatStaminaValueMain {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #66FF66, RenderBold: true, VerticalAlignment: Center);
+                    }
+
+                    Label #SidebarStatStaminaValuePct {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #66FF66, RenderBold: true, VerticalAlignment: Center);
+                    }
+                  }
+
+                  Label {
+                    Text: "Endurance";
+                    Anchor: (Height: 14);
+                    Style: (FontSize: 14, TextColor: #9E9585, VerticalAlignment: Top);
+                  }
+                }
+              }
+
+              Group { Anchor: (Height: 3); }
+
+              Group #SidebarStatRowCritChance {
+                LayoutMode: Left;
+                Anchor: (Height: 34);
+
+                Group #SidebarStatCritChanceIcon {
+                  Anchor: (Width: 22, Height: 22);
+                  Background: (Color: #00000000);
+                }
+
+                Group { Anchor: (Width: 6); }
+
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Width: 77);
+
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 18);
+
+                    Label #SidebarStatCritChanceValueMain {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #FFD700, RenderBold: true, VerticalAlignment: Center);
+                    }
+
+                    Label #SidebarStatCritChanceValuePct {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #FFD700, RenderBold: true, VerticalAlignment: Center);
+                    }
+                  }
+
+                  Label {
+                    Text: "Taux crit";
+                    Anchor: (Height: 14);
+                    Style: (FontSize: 14, TextColor: #9E9585, VerticalAlignment: Top);
+                  }
+                }
+              }
+
+              Group { Anchor: (Height: 3); }
+
+              Group #SidebarStatRowCritDamage {
+                LayoutMode: Left;
+                Anchor: (Height: 34);
+
+                Group #SidebarStatCritDamageIcon {
+                  Anchor: (Width: 22, Height: 22);
+                  Background: (Color: #00000000);
+                }
+
+                Group { Anchor: (Width: 6); }
+
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Width: 77);
+
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 18);
+
+                    Label #SidebarStatCritDamageValueMain {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #FFD700, RenderBold: true, VerticalAlignment: Center);
+                    }
+
+                    Label #SidebarStatCritDamageValuePct {
+                      Text: "";
+                      Style: (FontSize: 14, TextColor: #FFD700, RenderBold: true, VerticalAlignment: Center);
+                    }
+                  }
+
+                  Label {
+                    Text: "Degats crit";
+                    Anchor: (Height: 14);
+                    Style: (FontSize: 14, TextColor: #9E9585, VerticalAlignment: Top);
+                  }
+                }
+              }
             }
           }
         }
