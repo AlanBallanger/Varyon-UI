@@ -163,6 +163,10 @@ $C.@PageOverlay {
             }
             }
 
+          Group {
+            LayoutMode: Left;
+            Anchor: (Left: 0, Right: 0);
+
           Group #LeftMenuSidebarXpSection {
             Anchor: (Width: 173);
             LayoutMode: Top;
@@ -219,7 +223,7 @@ $C.@PageOverlay {
 
               Group #MenuGenXPTrack {
                 Anchor: (Height: 12);
-                Background: "Common/ProgressBarEmpty.png";
+                Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
                 ProgressBar #MenuGenXP {
                   Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
                   Value: 0.0;
@@ -279,7 +283,7 @@ $C.@PageOverlay {
 
               Group #MenuJob1XPTrack {
                 Anchor: (Height: 11);
-                Background: "Common/ProgressBarEmpty.png";
+                Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
                 ProgressBar #MenuJob1XP {
                   Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
                   Value: 0.0;
@@ -338,7 +342,7 @@ $C.@PageOverlay {
 
               Group #MenuJob2XPTrack {
                 Anchor: (Height: 11);
-                Background: "Common/ProgressBarEmpty.png";
+                Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
                 ProgressBar #MenuJob2XP {
                   Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
                   Value: 0.0;
@@ -346,6 +350,7 @@ $C.@PageOverlay {
                 }
               }
             }
+          }
           }
 
 

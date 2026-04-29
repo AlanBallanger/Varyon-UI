@@ -26,7 +26,7 @@ public final class MenuRpgBridge {
 
     private static final PatchStyle GEN_LEVEL_BG = new PatchStyle().setColor(Value.of("#2a1a00e0"));
     private static final PatchStyle XP_TRACK_BG =
-            new PatchStyle().setTexturePath(Value.of("Common/ProgressBarEmpty.png"));
+            new PatchStyle().setTexturePath(Value.of("Common/ProgressBarEmpty.png")).setBorder(Value.of(4));
     private static final PatchStyle JOB_LEVEL_BG = new PatchStyle().setColor(Value.of("#1a150ae0"));
 
     private static final PatchStyle CLEAR_ICON =
