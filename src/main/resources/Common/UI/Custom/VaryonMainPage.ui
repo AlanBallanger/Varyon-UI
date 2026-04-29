@@ -168,12 +168,14 @@ $C.@PageOverlay {
             Anchor: (Left: 0, Right: 0);
 
           Group #LeftMenuSidebarXpSection {
-            Anchor: (Width: 173);
+            FlexWeight: 1;
+            Anchor: (Left: 0, Right: 0);
             LayoutMode: Top;
             Padding: (Top: 10, Left: 0, Right: 0);
 
             Group #MenuGenXPPanel {
               LayoutMode: Top;
+              Anchor: (Left: 0, Right: 0);
               Padding: (Bottom: 8);
 
               Group {
@@ -197,6 +199,30 @@ $C.@PageOverlay {
                   FlexWeight: 1;
                   Style: (FontSize: 11, TextColor: #b8c8d8, VerticalAlignment: Center);
                 }
+              }
+
+              Label #MenuGenXPText {
+                Text: "";
+                Anchor: (Height: 12);
+                Style: (FontSize: 10, TextColor: #8899aa);
+              }
+
+              Group {
+                LayoutMode: Left;
+                Anchor: (Height: 18, Left: 0, Right: 0);
+
+                Group #MenuGenXPTrack {
+                  FlexWeight: 1;
+                  Anchor: (Height: 18);
+                  Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
+                  ProgressBar #MenuGenXP {
+                    Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
+                    Value: 0.0;
+                    BarTexturePath: "Common/ProgressBarFill.png";
+                  }
+                }
+
+                Group { Anchor: (Width: 4); }
 
                 Button #MenuGenDetailBtn {
                   Anchor: (Width: 54, Height: 18);
@@ -214,26 +240,11 @@ $C.@PageOverlay {
                   }
                 }
               }
-
-              Label #MenuGenXPText {
-                Text: "";
-                Anchor: (Height: 12);
-                Style: (FontSize: 10, TextColor: #8899aa);
-              }
-
-              Group #MenuGenXPTrack {
-                Anchor: (Height: 12);
-                Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
-                ProgressBar #MenuGenXP {
-                  Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
-                  Value: 0.0;
-                  BarTexturePath: "Common/ProgressBarFill.png";
-                }
-              }
             }
 
             Group #MenuJob1Panel {
               LayoutMode: Top;
+              Anchor: (Left: 0, Right: 0);
               Padding: (Bottom: 6);
 
               Group {
@@ -257,6 +268,30 @@ $C.@PageOverlay {
                   FlexWeight: 1;
                   Style: (FontSize: 11, TextColor: #dceeff, RenderBold: true, VerticalAlignment: Center);
                 }
+              }
+
+              Label #MenuJob1XPText {
+                Text: "";
+                Anchor: (Height: 11);
+                Style: (FontSize: 9, TextColor: #8899aa);
+              }
+
+              Group {
+                LayoutMode: Left;
+                Anchor: (Height: 18, Left: 0, Right: 0);
+
+                Group #MenuJob1XPTrack {
+                  FlexWeight: 1;
+                  Anchor: (Height: 18);
+                  Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
+                  ProgressBar #MenuJob1XP {
+                    Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
+                    Value: 0.0;
+                    BarTexturePath: "Common/ProgressBarFill.png";
+                  }
+                }
+
+                Group { Anchor: (Width: 4); }
 
                 Button #MenuJob1DetailBtn {
                   Anchor: (Width: 54, Height: 18);
@@ -274,26 +309,11 @@ $C.@PageOverlay {
                   }
                 }
               }
-
-              Label #MenuJob1XPText {
-                Text: "";
-                Anchor: (Height: 11);
-                Style: (FontSize: 9, TextColor: #8899aa);
-              }
-
-              Group #MenuJob1XPTrack {
-                Anchor: (Height: 11);
-                Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
-                ProgressBar #MenuJob1XP {
-                  Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
-                  Value: 0.0;
-                  BarTexturePath: "Common/ProgressBarFill.png";
-                }
-              }
             }
 
             Group #MenuJob2Panel {
               LayoutMode: Top;
+              Anchor: (Left: 0, Right: 0);
 
               Group {
                 LayoutMode: Left;
@@ -316,6 +336,30 @@ $C.@PageOverlay {
                   FlexWeight: 1;
                   Style: (FontSize: 11, TextColor: #dceeff, RenderBold: true, VerticalAlignment: Center);
                 }
+              }
+
+              Label #MenuJob2XPText {
+                Text: "";
+                Anchor: (Height: 11);
+                Style: (FontSize: 9, TextColor: #8899aa);
+              }
+
+              Group {
+                LayoutMode: Left;
+                Anchor: (Height: 18, Left: 0, Right: 0);
+
+                Group #MenuJob2XPTrack {
+                  FlexWeight: 1;
+                  Anchor: (Height: 18);
+                  Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
+                  ProgressBar #MenuJob2XP {
+                    Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
+                    Value: 0.0;
+                    BarTexturePath: "Common/ProgressBarFill.png";
+                  }
+                }
+
+                Group { Anchor: (Width: 4); }
 
                 Button #MenuJob2DetailBtn {
                   Anchor: (Width: 54, Height: 18);
@@ -331,22 +375,6 @@ $C.@PageOverlay {
                       Style: (FontSize: 9, TextColor: #dceeff, VerticalAlignment: Center);
                     }
                   }
-                }
-              }
-
-              Label #MenuJob2XPText {
-                Text: "";
-                Anchor: (Height: 11);
-                Style: (FontSize: 9, TextColor: #8899aa);
-              }
-
-              Group #MenuJob2XPTrack {
-                Anchor: (Height: 11);
-                Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
-                ProgressBar #MenuJob2XP {
-                  Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
-                  Value: 0.0;
-                  BarTexturePath: "Common/ProgressBarFill.png";
                 }
               }
             }
