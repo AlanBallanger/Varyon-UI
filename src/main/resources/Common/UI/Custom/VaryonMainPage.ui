@@ -171,7 +171,7 @@ $C.@PageOverlay {
             FlexWeight: 1;
             Anchor: (Left: 0, Right: 0);
             LayoutMode: Top;
-            Padding: (Top: 10, Left: 0, Right: 0);
+            Padding: (Top: 10, Left: 5, Right: 0);
 
             Group #MenuGenXPPanel {
               LayoutMode: Top;
@@ -199,21 +199,21 @@ $C.@PageOverlay {
                   FlexWeight: 1;
                   Style: (FontSize: 11, TextColor: #b8c8d8, VerticalAlignment: Center);
                 }
-              }
 
-              Label #MenuGenXPText {
-                Text: "";
-                Anchor: (Height: 12);
-                Style: (FontSize: 10, TextColor: #8899aa);
+                Label #MenuGenXPText {
+                  Text: "";
+                  Anchor: (Height: 18);
+                  Style: (FontSize: 10, TextColor: #8899aa, VerticalAlignment: Center);
+                }
               }
 
               Group {
                 LayoutMode: Left;
-                Anchor: (Height: 18, Left: 0, Right: 0);
+                Anchor: (Height: 12, Left: 0, Right: 0);
 
                 Group #MenuGenXPTrack {
                   FlexWeight: 1;
-                  Anchor: (Height: 18);
+                  Anchor: (Height: 12);
                   Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
                   ProgressBar #MenuGenXP {
                     Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
@@ -225,7 +225,7 @@ $C.@PageOverlay {
                 Group { Anchor: (Width: 4); }
 
                 Button #MenuGenDetailBtn {
-                  Anchor: (Width: 54, Height: 18);
+                  Anchor: (Width: 54, Height: 14);
                   Style: ButtonStyle(
                     Default: (Background: (Color: #2a3545)),
                     Hovered: (Background: (Color: #4a6ea8)),
@@ -233,9 +233,9 @@ $C.@PageOverlay {
                   );
                   Group {
                     LayoutMode: Middle;
-                    Label {
+                    Label { Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
                       Text: "Détails";
-                      Style: (FontSize: 9, TextColor: #dceeff, VerticalAlignment: Center);
+                      Style: (FontSize: 11, TextColor: #dceeff, VerticalAlignment: Center, HorizontalAlignment: Center);
                     }
                   }
                 }
@@ -268,21 +268,21 @@ $C.@PageOverlay {
                   FlexWeight: 1;
                   Style: (FontSize: 11, TextColor: #dceeff, RenderBold: true, VerticalAlignment: Center);
                 }
-              }
 
-              Label #MenuJob1XPText {
-                Text: "";
-                Anchor: (Height: 11);
-                Style: (FontSize: 9, TextColor: #8899aa);
+                Label #MenuJob1XPText {
+                  Text: "";
+                  Anchor: (Height: 18);
+                  Style: (FontSize: 9, TextColor: #8899aa, VerticalAlignment: Center);
+                }
               }
 
               Group {
                 LayoutMode: Left;
-                Anchor: (Height: 18, Left: 0, Right: 0);
+                Anchor: (Height: 11, Left: 0, Right: 0);
 
                 Group #MenuJob1XPTrack {
                   FlexWeight: 1;
-                  Anchor: (Height: 18);
+                  Anchor: (Height: 11);
                   Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
                   ProgressBar #MenuJob1XP {
                     Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
@@ -294,7 +294,7 @@ $C.@PageOverlay {
                 Group { Anchor: (Width: 4); }
 
                 Button #MenuJob1DetailBtn {
-                  Anchor: (Width: 54, Height: 18);
+                  Anchor: (Width: 54, Height: 13);
                   Style: ButtonStyle(
                     Default: (Background: (Color: #2a3545)),
                     Hovered: (Background: (Color: #4a6ea8)),
@@ -302,9 +302,9 @@ $C.@PageOverlay {
                   );
                   Group {
                     LayoutMode: Middle;
-                    Label {
+                    Label { Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
                       Text: "Détails";
-                      Style: (FontSize: 9, TextColor: #dceeff, VerticalAlignment: Center);
+                      Style: (FontSize: 11, TextColor: #dceeff, VerticalAlignment: Center, HorizontalAlignment: Center);
                     }
                   }
                 }
@@ -336,21 +336,21 @@ $C.@PageOverlay {
                   FlexWeight: 1;
                   Style: (FontSize: 11, TextColor: #dceeff, RenderBold: true, VerticalAlignment: Center);
                 }
-              }
 
-              Label #MenuJob2XPText {
-                Text: "";
-                Anchor: (Height: 11);
-                Style: (FontSize: 9, TextColor: #8899aa);
+                Label #MenuJob2XPText {
+                  Text: "";
+                  Anchor: (Height: 18);
+                  Style: (FontSize: 9, TextColor: #8899aa, VerticalAlignment: Center);
+                }
               }
 
               Group {
                 LayoutMode: Left;
-                Anchor: (Height: 18, Left: 0, Right: 0);
+                Anchor: (Height: 11, Left: 0, Right: 0);
 
                 Group #MenuJob2XPTrack {
                   FlexWeight: 1;
-                  Anchor: (Height: 18);
+                  Anchor: (Height: 11);
                   Background: PatchStyle(TexturePath: "Common/ProgressBarEmpty.png", Border: 4);
                   ProgressBar #MenuJob2XP {
                     Anchor: (Top: 1, Left: 2, Right: 2, Bottom: 1);
@@ -362,7 +362,7 @@ $C.@PageOverlay {
                 Group { Anchor: (Width: 4); }
 
                 Button #MenuJob2DetailBtn {
-                  Anchor: (Width: 54, Height: 18);
+                  Anchor: (Width: 54, Height: 13);
                   Style: ButtonStyle(
                     Default: (Background: (Color: #2a3545)),
                     Hovered: (Background: (Color: #4a6ea8)),
@@ -370,9 +370,9 @@ $C.@PageOverlay {
                   );
                   Group {
                     LayoutMode: Middle;
-                    Label {
+                    Label { Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
                       Text: "Détails";
-                      Style: (FontSize: 9, TextColor: #dceeff, VerticalAlignment: Center);
+                      Style: (FontSize: 11, TextColor: #dceeff, VerticalAlignment: Center, HorizontalAlignment: Center);
                     }
                   }
                 }

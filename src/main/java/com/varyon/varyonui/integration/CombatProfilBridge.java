@@ -54,6 +54,10 @@ public final class CombatProfilBridge {
         int currentHp = liveCur >= 0 ? liveCur : invokeInt(data, "getCurrentHp");
         int displayMaxHp = liveMax >= 0 ? liveMax : maxHp;
         int weaponDmg = readWeaponDisplayDamage(player);
+        double atkMult = invokeDouble(data, "getAtkDamageMultiplier");
+        int atkDisplay = computeDisplayedAttackDamageReflect(weaponDmg, atkMult);
+        int atkBonusPct = invokeInt(data, "getAtkBonusPercentFromMod");
+        String atkPctSuffix = formatAtkBonusPercentSuffix(atkBonusPct);
         int armor = invokeInt(data, "getBaseArmor");
         int maxStaminaData = invokeInt(data, "getMaxStamina");
         int liveStaCur = readLiveStaminaCurrent(playerRef);
@@ -66,7 +70,8 @@ public final class CombatProfilBridge {
         int critDamageTotalPct = 100 + critBonus;
 
         ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(currentHp + " / " + displayMaxHp));
-        ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(String.valueOf(Math.max(0, weaponDmg))));
+        ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(String.valueOf(atkDisplay)));
+        ui.set("#SidebarStatATKValuePct.TextSpans", Message.raw(atkPctSuffix));
         ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(armor + "%"));
         ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(currentSta + " / " + displayMaxSta));
         ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(critPct + "%"));
@@ -83,6 +88,7 @@ public final class CombatProfilBridge {
     private static void clearSidebarStats(@Nonnull UICommandBuilder ui) {
         ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(""));
         ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(""));
+        ui.set("#SidebarStatATKValuePct.TextSpans", Message.raw(""));
         ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(""));
         ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(""));
         ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(""));
@@ -129,17 +135,6 @@ public final class CombatProfilBridge {
         }
     }
 
-    private static boolean invokeBoolean(Object target, String name) {
-        if (target == null) return false;
-        try {
-            Method m = target.getClass().getMethod(name);
-            Object r = m.invoke(target);
-            return r instanceof Boolean b && b;
-        } catch (Throwable t) {
-            return false;
-        }
-    }
-
     private static int invokeInt(Object target, String name) {
         if (target == null) return 0;
         try {
@@ -151,17 +146,46 @@ public final class CombatProfilBridge {
         return 0;
     }
 
+    private static String formatAtkBonusPercentSuffix(int atkBonusPercentFromMod) {
+        int pct = atkBonusPercentFromMod;
+        return " (" + (pct >= 0 ? "+" : "") + pct + "%)";
+    }
+
     private static int readWeaponDisplayDamage(Player player) {
         if (player == null) return -1;
         try {
             Class<?> c = Class.forName(WEAPON_UI_ATK);
-            Method m = c.getMethod("readHeldWeaponDisplayDamage", Player.class);
+            Method m = c.getDeclaredMethod("readHeldWeaponDisplayDamage", Player.class);
             m.setAccessible(true);
             Object r = m.invoke(null, player);
             if (r instanceof Number n) return n.intValue();
         } catch (Throwable ignored) {
         }
         return -1;
+    }
+
+    private static int computeDisplayedAttackDamageReflect(int weaponRaw, double atkMult) {
+        try {
+            Class<?> c = Class.forName(WEAPON_UI_ATK);
+            Method m = c.getMethod("computeDisplayedAttackDamage", int.class, double.class);
+            Object r = m.invoke(null, weaponRaw, atkMult);
+            if (r instanceof Number n) return n.intValue();
+        } catch (Throwable ignored) {
+        }
+        int base = weaponRaw < 0 ? 1 : weaponRaw;
+        double m = atkMult > 0.0 ? atkMult : 1.0;
+        return (int) Math.max(1L, Math.round((double) base * m));
+    }
+
+    private static double invokeDouble(Object target, String name) {
+        if (target == null) return 1.0;
+        try {
+            Method m = target.getClass().getMethod(name);
+            Object r = m.invoke(target);
+            if (r instanceof Number n) return n.doubleValue();
+        } catch (Throwable ignored) {
+        }
+        return 1.0;
     }
 
     private static int readLiveHealthCurrent(PlayerRef playerRef) {
