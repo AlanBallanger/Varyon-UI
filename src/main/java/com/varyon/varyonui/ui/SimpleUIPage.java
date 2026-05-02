@@ -35,6 +35,7 @@ import com.varyon.varyonui.hud.VaryonMenuHud;
 import com.varyon.varyonui.integration.CombatProfilBridge;
 import com.varyon.varyonui.integration.MenuRpgBridge;
 import com.varyon.varyonui.integration.HytlSkinPreview;
+import com.varyon.varyonui.integration.PlaytimeBridge;
 import com.varyon.varyonui.VaryonUIPlugin;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -88,6 +89,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         applyOneTabIcon(cb, "MisesAJourIcon", "Icons/Mises_a_jour.png", "Icons/Mises_a_jour_Hovered.png", "misesajour");
         applyOneTabIcon(cb, "VaryonIcon", "Icons/Varyon.png", "Icons/Varyon_Hovered.png", "varyon");
         applyOneTabIcon(cb, "ParametresIcon", "Icons/Infos.png", "Icons/Infos_Hovered.png", "parametres");
+        applyOneTabIcon(cb, "PlaytimeIcon", "Icons/Claim_Icon.png", "Icons/Claim_Icon.png", "playtime");
         if (isAdmin) {
             applyOneTabIcon(cb, "AdminIcon", "Icons/Commandes.png", "Icons/Commandes_Hovered.png", "admin");
         }
@@ -128,6 +130,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#MisesAJourTabUnderline.Visible", "misesajour".equals(activeTab));
         commandBuilder.set("#VaryonTabUnderline.Visible", "varyon".equals(activeTab));
         commandBuilder.set("#ParametresTabUnderline.Visible", "parametres".equals(activeTab));
+        commandBuilder.set("#PlaytimeTabUnderline.Visible", "playtime".equals(activeTab));
         if (isAdmin) {
             commandBuilder.set("#AdminTabUnderline.Visible", "admin".equals(activeTab));
         }
@@ -142,6 +145,8 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#MisesAJourTab", EventData.of("Action", "tab").append("Tab", "misesajour"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#VaryonTab", EventData.of("Action", "tab").append("Tab", "varyon"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ParametresTab", EventData.of("Action", "tab").append("Tab", "parametres"));
+        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#PlaytimeTab", EventData.of("Action", "tab").append("Tab", "playtime"));
+        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#PtClaimAllBtn",  EventData.of("Action", "refreshplaytime"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", EventData.of("Action", "close"));
 
         eventBuilder.addEventBinding(
@@ -315,6 +320,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         commandBuilder.set("#MisesAJourContent.Visible", "misesajour".equals(activeTab));
         commandBuilder.set("#VaryonContent.Visible", "varyon".equals(activeTab));
         commandBuilder.set("#ParametresContent.Visible", "parametres".equals(activeTab));
+        commandBuilder.set("#PlaytimeContent.Visible", "playtime".equals(activeTab));
         commandBuilder.set("#AdminContent.Visible", "admin".equals(activeTab) && isAdmin);
 
         if ("commandes".equals(activeTab)) {
@@ -334,6 +340,10 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
         if ("home".equals(activeTab)) {
             buildHomeContent(commandBuilder);
+        }
+        if ("playtime".equals(activeTab)) {
+            buildPlaytimeContent(commandBuilder);
+            scheduleHeadFrontFetch();
         }
         Player player = store.getComponent(ref, Player.getComponentType());
         CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
@@ -752,6 +762,132 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
     }
 
+    private static final int PT_BAR_WIDTH = 808;
+
+    private void buildPlaytimeContent(@Nonnull UICommandBuilder cb) {
+        if (!PlaytimeBridge.isAvailable()) {
+            cb.set("#PtPlayerName.TextSpans", Message.raw("Plugin Playtime non chargé"));
+            return;
+        }
+        UUID uuid = playerRef.getUuid();
+        String username = playerRef.getUsername();
+
+        long total   = PlaytimeBridge.getTotalPlaytime(uuid);
+        long daily   = PlaytimeBridge.getDailyPlaytime(uuid);
+        long first   = PlaytimeBridge.getFirstLogin(uuid);
+        long last    = PlaytimeBridge.getLastLogin(uuid);
+        long[] rdata = PlaytimeBridge.getDailyRewardData(uuid);
+
+        cb.set("#PtRewardsTitle.TextSpans",   Message.raw("Récompenses de temps de jeu"));
+        cb.set("#PtPlayerName.TextSpans",   Message.raw(username));
+        cb.set("#PtTotalTime.TextSpans",    Message.raw("Total : " + PlaytimeBridge.formatTime(total)));
+        long sessionMin = (daily > 0) ? (daily % 3_600_000L) / 60_000L : 0;
+        cb.set("#PtSessionTime.TextSpans",  Message.raw("Session : " + sessionMin + "m aujourd'hui"));
+        cb.set("#PtFirstLogin.TextSpans",   Message.raw("Première connexion : " + PlaytimeBridge.formatDate(first)));
+        cb.set("#PtLastLogin.TextSpans",    Message.raw("Dernière connexion : " + PlaytimeBridge.formatDate(last)));
+
+        buildPlaytimeProgressBar(cb, daily, rdata);
+        buildPlaytimeChests(cb, daily, rdata);
+    }
+
+    private void buildPlaytimeProgressBar(@Nonnull UICommandBuilder cb, long dailyMs, long[] rdata) {
+        long prevThreshold = 0;
+        long nextThreshold = -1;
+        for (int i = 0; i < rdata.length; i += 2) {
+            if (rdata[i + 1] == 1L) {
+                prevThreshold = rdata[i];
+            } else if (nextThreshold < 0) {
+                nextThreshold = rdata[i];
+            }
+        }
+
+        double progress;
+        String progressText;
+        String nextLabel;
+
+        if (nextThreshold < 0) {
+            progress = 1.0;
+            progressText = rdata.length == 0 ? "Aucune récompense configurée" : "Toutes les récompenses reçues !";
+            nextLabel = "";
+        } else {
+            long range = nextThreshold - prevThreshold;
+            long filled = Math.max(0, Math.min(dailyMs - prevThreshold, range));
+            progress = range > 0 ? (double) filled / range : 0.0;
+            long dailyMin = dailyMs / 60_000L;
+            long nextMin  = nextThreshold / 60_000L;
+            progressText = dailyMin + " / " + nextMin + " min aujourd'hui";
+            long remain = Math.max(0, nextThreshold - dailyMs);
+            nextLabel = "Prochaine récompense dans : " + PlaytimeBridge.formatRewardTime(remain) + " de jeu";
+        }
+
+        cb.set("#PtProgressText.TextSpans", Message.raw(progressText));
+        cb.set("#PtNextRewardLabel.TextSpans", Message.raw(nextLabel));
+
+        int fillPx = (int)(PT_BAR_WIDTH * Math.min(1.0, Math.max(0.0, progress)));
+        cb.clear("#PtProgressBarRow");
+        if (fillPx > 0) {
+            cb.appendInline("#PtProgressBarRow",
+                "Group { Anchor: (Width: " + fillPx + ", Top: 0, Bottom: 0); Background: (Color: #27ae60); }");
+        }
+        int emptyPx = PT_BAR_WIDTH - fillPx;
+        if (emptyPx > 0) {
+            cb.appendInline("#PtProgressBarRow",
+                "Group { Anchor: (Width: " + emptyPx + ", Top: 0, Bottom: 0); }");
+        }
+    }
+
+    private void buildPlaytimeChests(@Nonnull UICommandBuilder cb, long dailyMs, long[] rdata) {
+        cb.clear("#PtChestsRow");
+        if (rdata.length == 0) return;
+
+        for (int i = 0; i < rdata.length; i += 2) {
+            long threshold = rdata[i];
+            boolean claimed = rdata[i + 1] == 1L;
+            boolean eligible = dailyMs >= threshold;
+
+            if (i > 0) {
+                cb.appendInline("#PtChestsRow",
+                    "Group { LayoutMode: Middle; Anchor: (Width: 18, Top: 0, Bottom: 0); " +
+                    "Label { Text: \">\"; Style: (FontSize: 16, TextColor: #3a4a5a, HorizontalAlignment: Center, VerticalAlignment: Center); } }");
+            }
+
+            String borderBg  = claimed  ? "#3a7a5a" : eligible ? "#3a6a9a" : "#252f3e";
+            String innerBg   = claimed  ? "#1a3a2a" : eligible ? "#1a3050" : "#1a2230";
+            String statusTxt = claimed  ? "Reçue"   : eligible ? "Récupérer" : "Verrouillée";
+            String statusCol = claimed  ? "#27ae60" : eligible ? "#5a9fd4"   : "#4a5a6a";
+            String timeLabel = escapeForUI(PlaytimeBridge.formatRewardTime(threshold));
+
+            cb.appendInline("#PtChestsRow",
+                "Group { LayoutMode: Top; Anchor: (Width: 110, Top: 0, Bottom: 0); " +
+                "Background: (Color: " + borderBg + "); Padding: (Left: 2, Right: 2, Top: 2, Bottom: 2); " +
+                "Group { LayoutMode: Top; FlexWeight: 1; Background: (Color: " + innerBg + "); " +
+                "Padding: (Left: 6, Right: 6, Top: 8, Bottom: 8); " +
+                "Group { LayoutMode: Middle; Anchor: (Height: 60, Bottom: 6, Left: 0, Right: 0); " +
+                "Group { Anchor: (Width: 48, Height: 48); Background: \"Icons/Items_Icon.png\"; } } " +
+                "Label { Text: \"" + timeLabel + "\"; Anchor: (Bottom: 4, Left: 0, Right: 0); " +
+                "Style: (FontSize: 13, TextColor: #dceeff, RenderBold: true, HorizontalAlignment: Center); } " +
+                "Label { Text: \"" + statusTxt + "\"; Anchor: (Left: 0, Right: 0); " +
+                "Style: (FontSize: 11, TextColor: " + statusCol + ", HorizontalAlignment: Center); } " +
+                "} }");
+        }
+    }
+
+    private void scheduleHeadFrontFetch() {
+        UUID uuid = playerRef.getUuid();
+        if (uuid == null) return;
+        HytaleServer.SCHEDULED_EXECUTOR.execute(() -> {
+            byte[] png = HytlSkinPreview.fetchHeadFrontPng(uuid);
+            Ref<EntityStore> ref = playerRef.getReference();
+            if (ref == null || !ref.isValid()) return;
+            UICommandBuilder cb = new UICommandBuilder();
+            UIEventBuilder eb = new UIEventBuilder();
+            patchTabBarAppearance(cb);
+            appendTabBarEvents(cb, eb);
+            HytlSkinPreview.applyHeadFrontToElement(cb, uuid, png, VaryonUIPlugin.getInstance(), "#PlaytimeHeadPreview");
+            sendUpdate(cb, eb, false);
+        });
+    }
+
     private void buildScrollableTextContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull String containerId, @Nonnull String content) {
         commandBuilder.clear(containerId);
 
@@ -829,6 +965,12 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 buildContent(commandBuilder, eventBuilder, store, ref);
                 sendUpdate(commandBuilder, eventBuilder, false);
             }
+        } else if ("refreshplaytime".equals(data.action)) {
+            UICommandBuilder commandBuilder = new UICommandBuilder();
+            UIEventBuilder eventBuilder = new UIEventBuilder();
+            buildTabBar(commandBuilder, eventBuilder);
+            buildContent(commandBuilder, eventBuilder, store, ref);
+            sendUpdate(commandBuilder, eventBuilder, false);
         } else if ("chatcommand".equals(data.action) && data.command != null) {
             Player player = store.getComponent(ref, Player.getComponentType());
             PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());

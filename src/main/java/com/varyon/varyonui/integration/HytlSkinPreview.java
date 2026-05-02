@@ -28,9 +28,12 @@ public final class HytlSkinPreview {
 
     private static final String HYTALE_PHOTO_SKIN_FRONT =
             "https://hytale.photo/skin/front.png";
+    private static final String HYTALE_PHOTO_HEAD_FRONT =
+            "https://hytale.photo/skin/headfront.png";
     private static final int PHOTO_QUERY_SIZE = 512;
     private static final int PREVIEW_CANVAS_WIDTH = 288;
     private static final int PREVIEW_CANVAS_HEIGHT = 384;
+    private static final int HEAD_CANVAS_SIZE = 64;
 
     private static final HttpClient HTTP = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(15))
@@ -74,6 +77,56 @@ public final class HytlSkinPreview {
             LOG.log(Level.FINE, "hytale.photo fetch failed", e);
             return null;
         }
+    }
+
+    @Nullable
+    public static byte[] fetchHeadFrontPng(@Nonnull UUID uuid) {
+        String qs = "user=" + uuid + "&trim=true&size=" + PHOTO_QUERY_SIZE;
+        URI uri = URI.create(HYTALE_PHOTO_HEAD_FRONT + "?" + qs);
+        try {
+            HttpRequest req = HttpRequest.newBuilder(uri)
+                    .GET()
+                    .timeout(Duration.ofSeconds(45))
+                    .header("Accept", "image/png,image/webp,*/*")
+                    .build();
+            HttpResponse<byte[]> resp = HTTP.send(req, HttpResponse.BodyHandlers.ofByteArray());
+            if (resp.statusCode() != 200) {
+                return null;
+            }
+            byte[] body = resp.body();
+            if (body == null || body.length < 24 || !isPng(body)) {
+                return null;
+            }
+            return body;
+        } catch (Exception e) {
+            LOG.log(Level.FINE, "hytale.photo headfront fetch failed", e);
+            return null;
+        }
+    }
+
+    public static void applyHeadFrontToElement(
+            @Nonnull UICommandBuilder commandBuilder,
+            @Nonnull UUID uuid,
+            @Nullable byte[] pngBytes,
+            @Nullable JavaPlugin plugin,
+            @Nonnull String elementId) {
+        if (pngBytes == null || pngBytes.length < 24 || !isPng(pngBytes)) {
+            commandBuilder.setObject(elementId + ".Background",
+                    new PatchStyle().setColor(Value.of("#1a2030")));
+            return;
+        }
+        byte[] scaled = resizeContainCenteredPng(pngBytes, HEAD_CANVAS_SIZE, HEAD_CANVAS_SIZE);
+        String key = "head_" + uuid;
+        String rel = SkinPortraitRuntime.publishPngWithKey(plugin, key, scaled);
+        if (rel == null || rel.isBlank()) {
+            commandBuilder.setObject(elementId + ".Background",
+                    new PatchStyle().setColor(Value.of("#1a2030")));
+            return;
+        }
+        PatchStyle ps = new PatchStyle()
+                .setTexturePath(Value.of(rel.startsWith("/") ? rel.substring(1) : rel))
+                .setBorder(Value.of(0));
+        commandBuilder.setObject(elementId + ".Background", ps);
     }
 
     public static void applyPngToPreview(

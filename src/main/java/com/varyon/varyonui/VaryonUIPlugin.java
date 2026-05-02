@@ -79,6 +79,7 @@ public class VaryonUIPlugin extends JavaPlugin {
         mgr.register(new UICommand("profil", "Ouvre le menu (accueil)", "home", "profile"));
         mgr.register(new UICommand("param", "Ouvre les paramètres", "parametres", "parametres"));
         mgr.register(new UICommand("var", "Ouvre la page Varyon", "varyon", "varyon"));
+        mgr.register(new UICommand("playtime-ui", "Ouvre les statistiques de temps de jeu", "playtime", "ptui"));
         mgr.register(new ReloadCommand());
 
         accueilOKeyPacketFilter = PacketAdapters.registerInbound(new VaryonAccueilOKeyFilter());

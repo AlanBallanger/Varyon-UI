@@ -73,7 +73,12 @@ final class SkinPortraitRuntime {
 
     @Nullable
     static String publishPng(JavaPlugin plugin, UUID uuid, byte[] pngBytes) {
-        if (uuid == null || pngBytes == null || pngBytes.length < 24) {
+        return publishPngWithKey(plugin, uuid.toString(), pngBytes);
+    }
+
+    @Nullable
+    static String publishPngWithKey(JavaPlugin plugin, String key, byte[] pngBytes) {
+        if (key == null || pngBytes == null || pngBytes.length < 24) {
             return null;
         }
         ensurePortraitPack(plugin);
@@ -81,7 +86,7 @@ final class SkinPortraitRuntime {
             return null;
         }
         try {
-            String fileName = uuid + ".png";
+            String fileName = key + ".png";
             Path cacheDir = plugin.getDataDirectory().resolve("skin_portraits_cache");
             Files.createDirectories(cacheDir);
             Path file = cacheDir.resolve(fileName);
@@ -94,7 +99,7 @@ final class SkinPortraitRuntime {
             if (module != null) {
                 module.sendAsset(asset, false);
             }
-            return "Portraits/" + fileName;
+            return "Portraits/" + key + ".png";
         } catch (Exception e) {
             LOG.log(Level.FINE, "skin portrait publish failed", e);
             return null;
