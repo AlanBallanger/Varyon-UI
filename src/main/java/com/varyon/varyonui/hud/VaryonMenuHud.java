@@ -85,14 +85,18 @@ public class VaryonMenuHud extends CustomUIHud {
         builder.set("#VaryonMenuTitle.Text", "Menu Varyon");
         UUID uuid = hudPlayer.getUuid();
         AccueilShortcutConfig.Mode mode = AccueilShortcutConfig.getInstance().getMode(uuid);
-        String keyText;
-        int keyLabelW;
+        String keyText = "O";
+        int keyLabelW = KEY_LABEL_W_O;
         switch (mode) {
             case ALT -> {
                 keyText = "Alt";
                 keyLabelW = KEY_LABEL_W_ALT;
             }
-            default -> {
+            case O -> {
+                keyText = "O";
+                keyLabelW = KEY_LABEL_W_O;
+            }
+            case DISABLE -> {
                 keyText = "O";
                 keyLabelW = KEY_LABEL_W_O;
             }

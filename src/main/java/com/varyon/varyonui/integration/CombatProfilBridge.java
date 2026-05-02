@@ -70,8 +70,7 @@ public final class CombatProfilBridge {
         int critDamageTotalPct = 100 + critBonus;
 
         ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(currentHp + " / " + displayMaxHp));
-        ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(String.valueOf(atkDisplay)));
-        ui.set("#SidebarStatATKValuePct.TextSpans", Message.raw(atkPctSuffix));
+        ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(String.valueOf(atkDisplay) + atkPctSuffix));
         ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(armor + "%"));
         ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(currentSta + " / " + displayMaxSta));
         ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(critPct + "%"));
@@ -88,7 +87,6 @@ public final class CombatProfilBridge {
     private static void clearSidebarStats(@Nonnull UICommandBuilder ui) {
         ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(""));
         ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(""));
-        ui.set("#SidebarStatATKValuePct.TextSpans", Message.raw(""));
         ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(""));
         ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(""));
         ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(""));

@@ -3005,7 +3005,8 @@ $C.@PageOverlay {
                   );
                   Label #ParametresMenuShortcutAltLabel {
                     Text: "Alt";
-                    Style: (FontSize: 13, TextColor: #8899aa, VerticalAlignment: Center);
+                    Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
+                    Style: (FontSize: 13, TextColor: #8899aa, HorizontalAlignment: Center, VerticalAlignment: Center);
                   }
                 }
 
@@ -3018,7 +3019,8 @@ $C.@PageOverlay {
                   );
                   Label #ParametresMenuShortcutOLabel {
                     Text: "O";
-                    Style: (FontSize: 13, TextColor: #8899aa, VerticalAlignment: Center);
+                    Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
+                    Style: (FontSize: 13, TextColor: #8899aa, HorizontalAlignment: Center, VerticalAlignment: Center);
                   }
                 }
 
@@ -3031,7 +3033,8 @@ $C.@PageOverlay {
                   );
                   Label #ParametresMenuShortcutDisableLabel {
                     Text: "Aucun";
-                    Style: (FontSize: 13, TextColor: #8899aa, VerticalAlignment: Center);
+                    Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
+                    Style: (FontSize: 13, TextColor: #8899aa, HorizontalAlignment: Center, VerticalAlignment: Center);
                   }
                 }
               }
@@ -3059,7 +3062,8 @@ $C.@PageOverlay {
                   );
                   Label #ParametresMenuTargetAccueilLabel {
                     Text: "Accueil";
-                    Style: (FontSize: 13, TextColor: #8899aa, VerticalAlignment: Center);
+                    Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
+                    Style: (FontSize: 13, TextColor: #8899aa, HorizontalAlignment: Center, VerticalAlignment: Center);
                   }
                 }
 
@@ -3072,7 +3076,8 @@ $C.@PageOverlay {
                   );
                   Label #ParametresMenuTargetCommandesLabel {
                     Text: "Commandes";
-                    Style: (FontSize: 13, TextColor: #8899aa, VerticalAlignment: Center);
+                    Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
+                    Style: (FontSize: 13, TextColor: #8899aa, HorizontalAlignment: Center, VerticalAlignment: Center);
                   }
                 }
 
@@ -3085,7 +3090,8 @@ $C.@PageOverlay {
                   );
                   Label #ParametresMenuTargetVaryonLabel {
                     Text: "Varyon";
-                    Style: (FontSize: 13, TextColor: #8899aa, VerticalAlignment: Center);
+                    Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
+                    Style: (FontSize: 13, TextColor: #8899aa, HorizontalAlignment: Center, VerticalAlignment: Center);
                   }
                 }
               }

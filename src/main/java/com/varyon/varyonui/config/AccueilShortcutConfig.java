@@ -17,8 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 public final class AccueilShortcutConfig {
+
+    private static final Logger LOG = Logger.getLogger("VaryonUI");
 
     public enum Mode {
         ALT,
@@ -34,6 +37,7 @@ public final class AccueilShortcutConfig {
             return switch (k) {
                 case "alt" -> ALT;
                 case "o" -> O;
+                case "c" -> O;
                 case "disable", "desactiver", "désactiver", "aucun" -> DISABLE;
                 default -> defaultMode();
             };
@@ -77,6 +81,7 @@ public final class AccueilShortcutConfig {
 
     public void setMode(@Nonnull UUID uuid, @Nonnull Mode mode) {
         byUuid.put(uuid, mode);
+        LOG.warning("Raccourci menu enregistre: " + uuid + " -> " + mode.name());
         save();
     }
 
