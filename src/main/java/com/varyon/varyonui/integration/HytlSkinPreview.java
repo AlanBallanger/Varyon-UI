@@ -90,18 +90,16 @@ public final class HytlSkinPreview {
                     .header("Accept", "image/png,image/webp,*/*")
                     .build();
             HttpResponse<byte[]> resp = HTTP.send(req, HttpResponse.BodyHandlers.ofByteArray());
-            if (resp.statusCode() != 200) {
-                return null;
+            if (resp.statusCode() == 200) {
+                byte[] body = resp.body();
+                if (body != null && body.length >= 24 && isPng(body)) {
+                    return body;
+                }
             }
-            byte[] body = resp.body();
-            if (body == null || body.length < 24 || !isPng(body)) {
-                return null;
-            }
-            return body;
         } catch (Exception e) {
             LOG.log(Level.FINE, "hytale.photo headfront fetch failed", e);
-            return null;
         }
+        return fetchHeadshotPng(uuid);
     }
 
     public static void applyHeadFrontToElement(

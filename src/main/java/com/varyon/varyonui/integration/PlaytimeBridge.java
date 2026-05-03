@@ -16,6 +16,8 @@ public final class PlaytimeBridge {
     private static final String API_CLASS = "com.varyon.playtime.api.PlaytimeAPI";
     private static final DateTimeFormatter DATE_FMT =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneId.systemDefault());
+    private static final DateTimeFormatter CONNECTION_DATE =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH:mm").withZone(ZoneId.systemDefault());
 
     private static Boolean available = null;
     private static Object cachedApi = null;
@@ -85,7 +87,6 @@ public final class PlaytimeBridge {
         } catch (Exception e) { return 0; }
     }
 
-    /** Returns [threshold0, claimed0, threshold1, claimed1, ...] for daily rewards. */
     public static long[] getDailyRewardData(UUID uuid) {
         try {
             Object a = api();
@@ -93,6 +94,37 @@ public final class PlaytimeBridge {
             Method m = a.getClass().getMethod("getDailyRewardData", UUID.class);
             return (long[]) m.invoke(a, uuid);
         } catch (Exception e) { return new long[0]; }
+    }
+
+    public static String[] getDailyRewardIds() {
+        try {
+            Object a = api();
+            if (a == null) return new String[0];
+            Method m = a.getClass().getMethod("getDailyRewardIds");
+            return (String[]) m.invoke(a);
+        } catch (Exception e) { return new String[0]; }
+    }
+
+    public static boolean claimReward(UUID uuid, String rewardId) {
+        try {
+            Object a = api();
+            if (a == null) return false;
+            Method m = a.getClass().getMethod("claimReward", UUID.class, String.class);
+            return Boolean.TRUE.equals(m.invoke(a, uuid, rewardId));
+        } catch (Exception e) { return false; }
+    }
+
+    public static int claimAllDailyRewards(UUID uuid) {
+        try {
+            Object a = api();
+            if (a == null) return 0;
+            Method m = a.getClass().getMethod("claimAllEligibleDailyRewards", UUID.class);
+            Object r = m.invoke(a, uuid);
+            if (r instanceof Integer) {
+                return (Integer) r;
+            }
+            return ((Number) r).intValue();
+        } catch (Exception e) { return 0; }
     }
 
     public static String formatTime(long millis) {
@@ -112,5 +144,10 @@ public final class PlaytimeBridge {
     public static String formatDate(long epochMs) {
         if (epochMs <= 0) return "—";
         return DATE_FMT.format(Instant.ofEpochMilli(epochMs));
+    }
+
+    public static String formatConnectionDate(long epochMs) {
+        if (epochMs <= 0) return "—";
+        return CONNECTION_DATE.format(Instant.ofEpochMilli(epochMs));
     }
 }
