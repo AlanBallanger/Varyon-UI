@@ -133,14 +133,14 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     }
 
     private void applyTabIconTextures(@Nonnull UICommandBuilder cb) {
-        applyOneTabIcon(cb, "JournalIcon", "Icons/RPG_Icon.png", "Icons/RPG_Icon.png", "__journal_launch__");
         applyOneTabIcon(cb, "HomeIcon", "Icons/Accueil.png", "Icons/Accueil_Hovered.png", "home");
         applyOneTabIcon(cb, "TutorielIcon", "Icons/Tutoriel.png", "Icons/Tutoriel_Hovered.png", "tutoriel");
         applyOneTabIcon(cb, "CommandesIcon", "Icons/Commandes.png", "Icons/Commandes_Hovered.png", "commandes");
         applyOneTabIcon(cb, "MisesAJourIcon", "Icons/Mises_a_jour.png", "Icons/Mises_a_jour_Hovered.png", "misesajour");
         applyOneTabIcon(cb, "VaryonIcon", "Icons/Varyon.png", "Icons/Varyon_Hovered.png", "varyon");
-        applyOneTabIcon(cb, "ParametresIcon", "Icons/Infos.png", "Icons/Infos_Hovered.png", "parametres");
-        applyOneTabIcon(cb, "PlaytimeIcon", "Icons/Claim_Icon.png", "Icons/Claim_Icon.png", "playtime");
+        applyOneTabIcon(cb, "PlaytimeIcon", "Icons/Temps.png", "Icons/Temps_Hovered.png", "playtime");
+        applyOneTabIcon(cb, "JournalIcon", "Icons/Quetes.png", "Icons/Quetes_Hovered.png", "__journal_launch__");
+        applyOneTabIcon(cb, "ParametresIcon", "Icons/Parametres.png", "Icons/Parametres_Hovered.png", "parametres");
         if (isAdmin) {
             applyOneTabIcon(cb, "AdminIcon", "Icons/Commandes.png", "Icons/Commandes_Hovered.png", "admin");
         }
@@ -198,17 +198,17 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     private void appendTabBarEvents(
             @Nonnull UICommandBuilder commandBuilder,
             @Nonnull UIEventBuilder eventBuilder) {
-        eventBuilder.addEventBinding(
-            CustomUIEventBindingType.Activating,
-            "#JournalTab",
-            EventData.of("Action", "command").append("Command", "/journal"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#HomeTab", EventData.of("Action", "tab").append("Tab", "home"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#TutorielTab", EventData.of("Action", "tab").append("Tab", "tutoriel"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandesTab", EventData.of("Action", "tab").append("Tab", "commandes"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#MisesAJourTab", EventData.of("Action", "tab").append("Tab", "misesajour"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#VaryonTab", EventData.of("Action", "tab").append("Tab", "varyon"));
-        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ParametresTab", EventData.of("Action", "tab").append("Tab", "parametres"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#PlaytimeTab", EventData.of("Action", "tab").append("Tab", "playtime"));
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#JournalTab",
+            EventData.of("Action", "command").append("Command", "/journal"));
+        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ParametresTab", EventData.of("Action", "tab").append("Tab", "parametres"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#PtClaimAllBtn",  EventData.of("Action", "playtimeclaimall"));
         if ("playtime".equals(activeTab) && PlaytimeBridge.isAvailable() && PlaytimeBridge.isBackendOperational()) {
             appendPlaytimeChestButtonEvents(eventBuilder, playerRef.getUuid());
@@ -297,6 +297,12 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             patchTabBarAppearance(cb);
             appendTabBarEvents(cb, eb);
             EcotaleEconomyBridge.applySidebarBalance(playerRef, cb);
+            try {
+                Player p = ref.getStore().getComponent(ref, Player.getComponentType());
+                applySidebarWorldAndPosition(cb, p, playerRef);
+            } catch (Throwable ignored) {
+                applySidebarWorldAndPosition(cb, null, playerRef);
+            }
             byte[] avatarPng = playtimeTab ? HytlSkinPreview.fetchAvatarPng(uuid) : null;
             HytlSkinPreview.applyPngToPreview(cb, uuid, png, VaryonUIPlugin.getInstance());
             if (playtimeTab) {
@@ -391,6 +397,35 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
     }
 
+    private static void applySidebarWorldAndPosition(
+            @Nonnull UICommandBuilder commandBuilder,
+            @Nullable Player player,
+            @Nonnull PlayerRef playerRef) {
+        String worldName = "";
+        String coords = "";
+        try {
+            if (player != null) {
+                World w = player.getWorld();
+                if (w != null) {
+                    String n = w.getName();
+                    if (n != null && !n.isBlank()) {
+                        worldName = n;
+                    }
+                }
+            }
+            var t = playerRef.getTransform();
+            if (t != null) {
+                var p = t.getPosition();
+                if (p != null) {
+                    coords = String.format(Locale.ROOT, "x %.1f  y %.1f  z %.1f", p.getX(), p.getY(), p.getZ());
+                }
+            }
+        } catch (Throwable ignored) {
+        }
+        commandBuilder.set("#SidebarWorldName.TextSpans", Message.raw(worldName));
+        commandBuilder.set("#SidebarPlayerCoords.TextSpans", Message.raw(coords));
+    }
+
     private void buildContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull UIEventBuilder eventBuilder, @Nonnull Store<EntityStore> store, @Nonnull Ref<EntityStore> ref) {
         commandBuilder.set("#HomeContent.Visible", "home".equals(activeTab));
         commandBuilder.set("#TutorielContent.Visible", "tutoriel".equals(activeTab));
@@ -426,6 +461,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         Player player = store.getComponent(ref, Player.getComponentType());
         CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
         EcotaleEconomyBridge.applySidebarBalance(playerRef, commandBuilder);
+        applySidebarWorldAndPosition(commandBuilder, player, playerRef);
         MenuRpgBridge.applyMenuXp(playerRef.getUuid(), commandBuilder);
         if ("parametres".equals(activeTab)) {
             PlayerRef pref = store.getComponent(ref, PlayerRef.getComponentType());
