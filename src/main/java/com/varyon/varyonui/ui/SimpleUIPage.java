@@ -37,6 +37,7 @@ import com.varyon.varyonui.integration.MenuRpgBridge;
 import com.varyon.varyonui.integration.HytlSkinPreview;
 import com.varyon.varyonui.integration.PlaytimeBridge;
 import com.varyon.varyonui.VaryonUIPlugin;
+import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
@@ -47,6 +48,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventDataClass> {
+
+    private static final String[] PLAYTIME_CHEST_VISUAL_ITEM_IDS = new String[] {
+            "Furniture_Ancient_Chest_Small",
+            "Furniture_Tavern_Chest_Small",
+            "Furniture_Human_Ruins_Chest_Small",
+            "Furniture_Temple_Dark_Chest_Small",
+            "Furniture_Dungeon_Chest_Epic",
+            "Furniture_Royal_Magic_Chest_Small",
+    };
+
+    private static final String PLAYTIME_CHEST_FALLBACK_ITEM_ID = "Furniture_Crude_Chest_Small";
 
     private static final long COMMAND_EXECUTE_DELAY_MS = 50L;
     private static final int MAX_SLOTS = 10;
@@ -892,7 +904,8 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 "Group { LayoutMode: Top; FlexWeight: 1; Background: (Color: " + innerBg + "); " +
                 "Padding: (Left: 6, Right: 6, Top: 8, Bottom: 8); " +
                 "Group { LayoutMode: Middle; Anchor: (Height: 52, Bottom: 4, Left: 0, Right: 0); " +
-                "Group { Anchor: (Width: 44, Height: 44); Background: \"Icons/Items_Icon.png\"; } } " +
+                "Group { Anchor: (Width: 48, Height: 48); Background: #1a2530; Padding: 2; " +
+                "ItemSlot #PtChestSlot" + slot + " { Anchor: (Full: 0); ShowQualityBackground: true; } } } " +
                 "Label { Text: \"" + timeLabel + "\"; Anchor: (Bottom: 2, Left: 0, Right: 0); " +
                 "Style: (FontSize: 12, TextColor: #dceeff, RenderBold: true, HorizontalAlignment: Center); } " +
                 "} }");
@@ -908,7 +921,18 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 "Pressed: (Background: (Color: #243040), LabelStyle: (FontSize: 12, TextColor: #dceeff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))" +
                 "); " +
                 "} }");
+            cb.set("#PtChestSlot" + slot + ".ItemId", pickPlaytimeChestItemId(slot));
         }
+    }
+
+    private static String pickPlaytimeChestItemId(int slot) {
+        String id = (slot >= 0 && slot < PLAYTIME_CHEST_VISUAL_ITEM_IDS.length)
+                ? PLAYTIME_CHEST_VISUAL_ITEM_IDS[slot]
+                : PLAYTIME_CHEST_FALLBACK_ITEM_ID;
+        if (ItemModule.exists(id)) {
+            return id;
+        }
+        return ItemModule.exists(PLAYTIME_CHEST_FALLBACK_ITEM_ID) ? PLAYTIME_CHEST_FALLBACK_ITEM_ID : id;
     }
 
     private void scheduleHeadFrontFetch() {
