@@ -302,6 +302,29 @@
           Background: (Color: #203040);
           Padding: (Left: 8, Right: 8);
 
+          Group #JournalTabContainer {
+            Anchor: (Top: 0, Bottom: 0, Width: 70);
+            Padding: (Right: 2);
+
+            Button #JournalTab {
+              Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
+              Style: ButtonStyle(
+                Default: (Background: (Color: #203040)),
+                Hovered: (Background: (Color: #4a6ea8)),
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
+              );
+
+              Group {
+                LayoutMode: Middle;
+                Group #JournalIcon {
+                  Anchor: (Width: 44, Height: 44);
+                  Background: "Icons/RPG_Icon.png";
+                }
+              }
+            }
+          }
+
           Group #HomeTabContainer {
             Anchor: (Top: 0, Bottom: 0, Width: 70);
             Padding: (Right: 2);

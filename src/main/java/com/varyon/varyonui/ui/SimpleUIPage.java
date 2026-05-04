@@ -33,6 +33,7 @@ import com.varyon.varyonui.config.TutorielConfig;
 import com.varyon.varyonui.config.VaryonConfig;
 import com.varyon.varyonui.hud.VaryonMenuHud;
 import com.varyon.varyonui.integration.CombatProfilBridge;
+import com.varyon.varyonui.integration.EcotaleEconomyBridge;
 import com.varyon.varyonui.integration.MenuRpgBridge;
 import com.varyon.varyonui.integration.HytlSkinPreview;
 import com.varyon.varyonui.integration.PlaytimeBridge;
@@ -132,6 +133,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     }
 
     private void applyTabIconTextures(@Nonnull UICommandBuilder cb) {
+        applyOneTabIcon(cb, "JournalIcon", "Icons/RPG_Icon.png", "Icons/RPG_Icon.png", "__journal_launch__");
         applyOneTabIcon(cb, "HomeIcon", "Icons/Accueil.png", "Icons/Accueil_Hovered.png", "home");
         applyOneTabIcon(cb, "TutorielIcon", "Icons/Tutoriel.png", "Icons/Tutoriel_Hovered.png", "tutoriel");
         applyOneTabIcon(cb, "CommandesIcon", "Icons/Commandes.png", "Icons/Commandes_Hovered.png", "commandes");
@@ -196,6 +198,10 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     private void appendTabBarEvents(
             @Nonnull UICommandBuilder commandBuilder,
             @Nonnull UIEventBuilder eventBuilder) {
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#JournalTab",
+            EventData.of("Action", "command").append("Command", "/journal"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#HomeTab", EventData.of("Action", "tab").append("Tab", "home"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#TutorielTab", EventData.of("Action", "tab").append("Tab", "tutoriel"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CommandesTab", EventData.of("Action", "tab").append("Tab", "commandes"));
@@ -290,6 +296,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             UIEventBuilder eb = new UIEventBuilder();
             patchTabBarAppearance(cb);
             appendTabBarEvents(cb, eb);
+            EcotaleEconomyBridge.applySidebarBalance(playerRef, cb);
             byte[] avatarPng = playtimeTab ? HytlSkinPreview.fetchAvatarPng(uuid) : null;
             HytlSkinPreview.applyPngToPreview(cb, uuid, png, VaryonUIPlugin.getInstance());
             if (playtimeTab) {
@@ -418,6 +425,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
         Player player = store.getComponent(ref, Player.getComponentType());
         CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
+        EcotaleEconomyBridge.applySidebarBalance(playerRef, commandBuilder);
         MenuRpgBridge.applyMenuXp(playerRef.getUuid(), commandBuilder);
         if ("parametres".equals(activeTab)) {
             PlayerRef pref = store.getComponent(ref, PlayerRef.getComponentType());
