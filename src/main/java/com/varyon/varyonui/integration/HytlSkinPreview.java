@@ -28,12 +28,12 @@ public final class HytlSkinPreview {
 
     private static final String HYTALE_PHOTO_SKIN_FRONT =
             "https://hytale.photo/skin/front.png";
-    private static final String HYTALE_PHOTO_HEAD_FRONT =
-            "https://hytale.photo/skin/headfront.png";
+    private static final String HYTALE_PHOTO_SKIN_AVATAR =
+            "https://hytale.photo/skin/avatar.png";
     private static final int PHOTO_QUERY_SIZE = 512;
     private static final int PREVIEW_CANVAS_WIDTH = 288;
     private static final int PREVIEW_CANVAS_HEIGHT = 384;
-    private static final int HEAD_CANVAS_SIZE = 64;
+    private static final int PLAYTIME_HEAD_CANVAS_SIZE = 64;
 
     private static final HttpClient HTTP = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(15))
@@ -64,25 +64,28 @@ public final class HytlSkinPreview {
                     .build();
             HttpResponse<byte[]> resp = HTTP.send(req, HttpResponse.BodyHandlers.ofByteArray());
             if (resp.statusCode() != 200) {
-                LOG.log(Level.FINE, "hytale.photo HTTP " + resp.statusCode() + " for " + uuid);
+                LOG.log(Level.WARNING, "[SkinAPI] front.png HTTP " + resp.statusCode() + " uuid=" + uuid);
                 return null;
             }
             byte[] body = resp.body();
             if (body == null || body.length < 24 || !isPng(body)) {
-                LOG.log(Level.FINE, "hytale.photo: not PNG or too small");
+                LOG.log(Level.WARNING, "[SkinAPI] front.png invalid PNG bytes=" + (body == null ? -1 : body.length)
+                        + " uuid=" + uuid);
                 return null;
             }
+            LOG.log(Level.FINE, "[SkinAPI] front.png OK len=" + body.length + " uuid=" + uuid);
             return body;
         } catch (Exception e) {
-            LOG.log(Level.FINE, "hytale.photo fetch failed", e);
+            LOG.log(Level.WARNING, "[SkinAPI] front.png fetch error uuid=" + uuid, e);
             return null;
         }
     }
 
     @Nullable
-    public static byte[] fetchHeadFrontPng(@Nonnull UUID uuid) {
+    public static byte[] fetchAvatarPng(@Nonnull UUID uuid) {
         String qs = "user=" + uuid + "&trim=true&size=" + PHOTO_QUERY_SIZE;
-        URI uri = URI.create(HYTALE_PHOTO_HEAD_FRONT + "?" + qs);
+        URI uri = URI.create(HYTALE_PHOTO_SKIN_AVATAR + "?" + qs);
+        LOG.log(Level.INFO, "[PortraitPlaytime] GET avatar (différent de front.png) uuid=" + uuid);
         try {
             HttpRequest req = HttpRequest.newBuilder(uri)
                     .GET()
@@ -90,32 +93,36 @@ public final class HytlSkinPreview {
                     .header("Accept", "image/png,image/webp,*/*")
                     .build();
             HttpResponse<byte[]> resp = HTTP.send(req, HttpResponse.BodyHandlers.ofByteArray());
+            byte[] body = resp.body();
+            LOG.log(Level.FINE, "[PortraitPlaytime] avatar HTTP " + resp.statusCode()
+                    + " bytes=" + (body == null ? -1 : body.length));
+            if (resp.statusCode() == 200 && body != null && body.length >= 24 && isPng(body)) {
+                return body;
+            }
             if (resp.statusCode() == 200) {
-                byte[] body = resp.body();
-                if (body != null && body.length >= 24 && isPng(body)) {
-                    return body;
-                }
+                LOG.log(Level.WARNING, "[PortraitPlaytime] avatar HTTP 200 mais PNG invalide uuid=" + uuid);
             }
         } catch (Exception e) {
-            LOG.log(Level.FINE, "hytale.photo headfront fetch failed", e);
+            LOG.log(Level.WARNING, "[PortraitPlaytime] erreur téléchargement avatar uuid=" + uuid, e);
         }
         return fetchHeadshotPng(uuid);
     }
 
-    public static void applyHeadFrontToElement(
+    public static void applyPlaytimeHeadFromAvatarPng(
             @Nonnull UICommandBuilder commandBuilder,
             @Nonnull UUID uuid,
-            @Nullable byte[] pngBytes,
+            @Nullable byte[] avatarPng,
             @Nullable JavaPlugin plugin,
             @Nonnull String elementId) {
-        if (pngBytes == null || pngBytes.length < 24 || !isPng(pngBytes)) {
+        if (avatarPng == null || avatarPng.length < 24 || !isPng(avatarPng)) {
+            LOG.log(Level.WARNING, "[PortraitPlaytime] vignette sans avatar PNG valide uuid=" + uuid);
             commandBuilder.setObject(elementId + ".Background",
                     new PatchStyle().setColor(Value.of("#1a2030")));
             return;
         }
-        byte[] scaled = resizeContainCenteredPng(pngBytes, HEAD_CANVAS_SIZE, HEAD_CANVAS_SIZE);
-        String key = "head_" + uuid;
-        String rel = SkinPortraitRuntime.publishPngWithKey(plugin, key, scaled);
+        byte[] scaled = resizeContainCenteredPng(avatarPng, PLAYTIME_HEAD_CANVAS_SIZE, PLAYTIME_HEAD_CANVAS_SIZE);
+        String key = uuid.toString().concat("_AvatarPt");
+        String rel = SkinPortraitRuntime.publishPngWithKey(plugin, key, scaled, true);
         if (rel == null || rel.isBlank()) {
             commandBuilder.setObject(elementId + ".Background",
                     new PatchStyle().setColor(Value.of("#1a2030")));
@@ -125,6 +132,7 @@ public final class HytlSkinPreview {
                 .setTexturePath(Value.of(rel.startsWith("/") ? rel.substring(1) : rel))
                 .setBorder(Value.of(0));
         commandBuilder.setObject(elementId + ".Background", ps);
+        LOG.log(Level.INFO, "[PortraitPlaytime] tête vignette depuis avatar rel=" + rel);
     }
 
     public static void applyPngToPreview(
@@ -133,12 +141,14 @@ public final class HytlSkinPreview {
             @Nullable byte[] pngBytes,
             @Nullable JavaPlugin plugin) {
         if (pngBytes == null || pngBytes.length < 24 || !isPng(pngBytes)) {
+            LOG.log(Level.WARNING, "[SkinUI] sidebar #PlayerSkinPreview placeholder uuid=" + uuid);
             applyPlaceholder(commandBuilder);
             return;
         }
         byte[] scaled = resizeContainCenteredPng(pngBytes, PREVIEW_CANVAS_WIDTH, PREVIEW_CANVAS_HEIGHT);
         String rel = SkinPortraitRuntime.publishPng(plugin, uuid, scaled);
         if (rel == null || rel.isBlank()) {
+            LOG.log(Level.WARNING, "[SkinUI] sidebar publish=null uuid=" + uuid);
             applyPlaceholder(commandBuilder);
             return;
         }
@@ -146,6 +156,7 @@ public final class HytlSkinPreview {
                 .setTexturePath(Value.of(rel.startsWith("/") ? rel.substring(1) : rel))
                 .setBorder(Value.of(0));
         commandBuilder.setObject("#PlayerSkinPreview.Background", ps);
+        LOG.log(Level.INFO, "[PortraitPlaytime] texture sidebar " + rel);
     }
 
     private static byte[] resizeContainCenteredPng(@Nonnull byte[] pngBytes, int canvasW, int canvasH) {

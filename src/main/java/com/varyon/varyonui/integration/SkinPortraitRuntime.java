@@ -78,11 +78,19 @@ final class SkinPortraitRuntime {
 
     @Nullable
     static String publishPngWithKey(JavaPlugin plugin, String key, byte[] pngBytes) {
+        return publishPngWithKey(plugin, key, pngBytes, false);
+    }
+
+    @Nullable
+    static String publishPngWithKey(JavaPlugin plugin, String key, byte[] pngBytes, boolean forceClientRebuild) {
         if (key == null || pngBytes == null || pngBytes.length < 24) {
+            LOG.log(Level.WARNING, "[PortraitPack] publishPngWithKey bad args key=" + key
+                    + " len=" + (pngBytes == null ? -1 : pngBytes.length));
             return null;
         }
         ensurePortraitPack(plugin);
         if (!portraitPackReady || portraitPackId == null) {
+            LOG.log(Level.WARNING, "[PortraitPack] pack not ready key=" + key);
             return null;
         }
         try {
@@ -97,11 +105,11 @@ final class SkinPortraitRuntime {
             CommonAssetRegistry.addCommonAsset(portraitPackId, asset);
             CommonAssetModule module = CommonAssetModule.get();
             if (module != null) {
-                module.sendAsset(asset, false);
+                module.sendAsset(asset, forceClientRebuild);
             }
             return "Portraits/" + key + ".png";
         } catch (Exception e) {
-            LOG.log(Level.FINE, "skin portrait publish failed", e);
+            LOG.log(Level.WARNING, "[PortraitPack] publish failed key=" + key, e);
             return null;
         }
     }

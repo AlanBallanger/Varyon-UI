@@ -36,6 +36,11 @@ public final class PlaytimeBridge {
         return Boolean.TRUE.equals(available);
     }
 
+    /** API Playtime censée être là mais inaccessible (init, refl., stockage distant, etc.). */
+    public static boolean isBackendOperational() {
+        return isAvailable() && api() != null;
+    }
+
     @Nullable
     private static Object api() {
         if (!isAvailable()) return null;

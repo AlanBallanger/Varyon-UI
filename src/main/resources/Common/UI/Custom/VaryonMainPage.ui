@@ -1,4 +1,4 @@
-$C = "Common.ui";
+﻿$C = "Common.ui";
 $Sounds = "Sounds.ui";
 @VaryonTabBarSounds = (
   Activate: (
@@ -250,7 +250,7 @@ $C.@PageOverlay {
                   Group {
                     LayoutMode: Middle;
                     Label { Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
-                      Text: "Détails";
+                      Text: "DÃ©tails";
                       Style: (FontSize: 11, TextColor: #dceeff, VerticalAlignment: Center, HorizontalAlignment: Center);
                     }
                   }
@@ -320,7 +320,7 @@ $C.@PageOverlay {
                   Group {
                     LayoutMode: Middle;
                     Label { Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
-                      Text: "Détails";
+                      Text: "DÃ©tails";
                       Style: (FontSize: 11, TextColor: #dceeff, VerticalAlignment: Center, HorizontalAlignment: Center);
                     }
                   }
@@ -389,7 +389,7 @@ $C.@PageOverlay {
                   Group {
                     LayoutMode: Middle;
                     Label { Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
-                      Text: "Détails";
+                      Text: "DÃ©tails";
                       Style: (FontSize: 11, TextColor: #dceeff, VerticalAlignment: Center, HorizontalAlignment: Center);
                     }
                   }
@@ -721,7 +721,7 @@ $C.@PageOverlay {
                 }
 
                 Label #CategoryTitle1 {
-                  Text: "Se dÃ©placer";
+                  Text: "Se dÃƒÂ©placer";
                   Style: (FontSize: 18, RenderBold: true, TextColor: #dceeff, VerticalAlignment: Center);
                   FlexWeight: 1;
                 }
@@ -3379,7 +3379,7 @@ $C.@PageOverlay {
 
               Group #PtChestsRow {
                 LayoutMode: Left;
-                Anchor: (Height: 120, Bottom: 8);
+                Anchor: (Bottom: 8);
               }
 
               Group #PtChestActionsRow {
