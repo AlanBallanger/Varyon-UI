@@ -1,4 +1,19 @@
 $C = "Common.ui";
+$Sounds = "Sounds.ui";
+@VaryonTabBarSounds = (
+  Activate: (
+    SoundPath: "Sounds/TopBarActivate.ogg",
+    Volume: 11
+  ),
+  MouseHover: (
+    SoundPath: "Sounds/ButtonsMainHover.ogg",
+    MinPitch: -0.15,
+    MaxPitch: 0.15,
+    Volume: 14
+  )
+);
+
+
 
 $C.@PageOverlay {
   
@@ -229,7 +244,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: (Color: #2a3545)),
                     Hovered: (Background: (Color: #4a6ea8)),
-                    Pressed: (Background: (Color: #2a3545))
+                    Pressed: (Background: (Color: #2a3545)),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                   Group {
                     LayoutMode: Middle;
@@ -298,7 +314,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: (Color: #2a3545)),
                     Hovered: (Background: (Color: #4a6ea8)),
-                    Pressed: (Background: (Color: #2a3545))
+                    Pressed: (Background: (Color: #2a3545)),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                   Group {
                     LayoutMode: Middle;
@@ -366,7 +383,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: (Color: #2a3545)),
                     Hovered: (Background: (Color: #4a6ea8)),
-                    Pressed: (Background: (Color: #2a3545))
+                    Pressed: (Background: (Color: #2a3545)),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                   Group {
                     LayoutMode: Middle;
@@ -410,7 +428,8 @@ $C.@PageOverlay {
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -438,7 +457,8 @@ $C.@PageOverlay {
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -466,7 +486,8 @@ $C.@PageOverlay {
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -494,7 +515,8 @@ $C.@PageOverlay {
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -522,7 +544,8 @@ $C.@PageOverlay {
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -550,7 +573,8 @@ $C.@PageOverlay {
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -577,7 +601,8 @@ $C.@PageOverlay {
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -608,7 +633,8 @@ $C.@PageOverlay {
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -712,7 +738,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Yelow_Button_small.png"),
                     Hovered: (Background: "Icons/Yelow_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Yelow_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Yelow_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -747,7 +774,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Yelow_Button_small.png"),
                     Hovered: (Background: "Icons/Yelow_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Yelow_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Yelow_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -782,7 +810,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button.png"),
                     Hovered: (Background: "Icons/Blue_Button_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -817,7 +846,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Orange_Button.png"),
                     Hovered: (Background: "Icons/Orange_Button_Hovered.png"),
-                    Pressed: (Background: "Icons/Orange_Button_Hovered.png")
+                    Pressed: (Background: "Icons/Orange_Button_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -852,7 +882,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Green_Button.png"),
                     Hovered: (Background: "Icons/Green_Button_Hovered.png"),
-                    Pressed: (Background: "Icons/Green_Button_Hovered.png")
+                    Pressed: (Background: "Icons/Green_Button_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -913,7 +944,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -949,7 +981,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -985,7 +1018,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1021,7 +1055,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1057,7 +1092,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1119,7 +1155,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1155,7 +1192,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1191,7 +1229,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1227,7 +1266,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1263,7 +1303,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1325,7 +1366,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1361,7 +1403,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1397,7 +1440,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1433,7 +1477,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1469,7 +1514,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1530,7 +1576,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1566,7 +1613,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1602,7 +1650,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1638,7 +1687,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1674,7 +1724,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1736,7 +1787,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1772,7 +1824,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1808,7 +1861,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1844,7 +1898,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1880,7 +1935,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1942,7 +1998,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -1978,7 +2035,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2014,7 +2072,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2050,7 +2109,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2086,7 +2146,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2148,7 +2209,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2174,7 +2236,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2200,7 +2263,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2226,7 +2290,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2252,7 +2317,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2304,7 +2370,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2330,7 +2397,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2356,7 +2424,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2382,7 +2451,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2408,7 +2478,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2460,7 +2531,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2486,7 +2558,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2512,7 +2585,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2538,7 +2612,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2564,7 +2639,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button_small.png"),
                     Hovered: (Background: "Icons/Blue_Button_small_Hovered.png"),
-                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png")
+                    Pressed: (Background: "Icons/Blue_Button_small_Hovered.png"),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                 
                   Group {
@@ -2851,7 +2927,8 @@ $C.@PageOverlay {
                 Style: ButtonStyle(
                   Default: (Background: (Color: #2a4a6a)),
                   Hovered: (Background: (Color: #3a5a7a)),
-                  Pressed: (Background: (Color: #3a5a7a))
+                  Pressed: (Background: (Color: #3a5a7a)),
+                  Sounds: $Sounds.@ButtonsLight
                 );
                 Group {
                   LayoutMode: Left;
@@ -2881,7 +2958,8 @@ $C.@PageOverlay {
                 Style: ButtonStyle(
                   Default: (Background: (Color: #2a4a6a)),
                   Hovered: (Background: (Color: #3a5a7a)),
-                  Pressed: (Background: (Color: #3a5a7a))
+                  Pressed: (Background: (Color: #3a5a7a)),
+                  Sounds: $Sounds.@ButtonsLight
                 );
                 Group {
                   LayoutMode: Left;
@@ -2911,7 +2989,8 @@ $C.@PageOverlay {
                 Style: ButtonStyle(
                   Default: (Background: (Color: #2a4a6a)),
                   Hovered: (Background: (Color: #3a5a7a)),
-                  Pressed: (Background: (Color: #3a5a7a))
+                  Pressed: (Background: (Color: #3a5a7a)),
+                  Sounds: $Sounds.@ButtonsLight
                 );
                 Group {
                   LayoutMode: Left;
@@ -2941,7 +3020,8 @@ $C.@PageOverlay {
                 Style: ButtonStyle(
                   Default: (Background: (Color: #2a4a6a)),
                   Hovered: (Background: (Color: #3a5a7a)),
-                  Pressed: (Background: (Color: #3a5a7a))
+                  Pressed: (Background: (Color: #3a5a7a)),
+                  Sounds: $Sounds.@ButtonsLight
                 );
                 Group {
                   LayoutMode: Left;
@@ -2971,7 +3051,8 @@ $C.@PageOverlay {
                 Style: ButtonStyle(
                   Default: (Background: (Color: #2a4a6a)),
                   Hovered: (Background: (Color: #3a5a7a)),
-                  Pressed: (Background: (Color: #3a5a7a))
+                  Pressed: (Background: (Color: #3a5a7a)),
+                  Sounds: $Sounds.@ButtonsLight
                 );
                 Group {
                   LayoutMode: Left;
@@ -3028,7 +3109,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: (Color: #1a2838)),
                     Hovered: (Background: (Color: #243448)),
-                    Pressed: (Background: (Color: #1a2838))
+                    Pressed: (Background: (Color: #1a2838)),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                   Label #ParametresMenuShortcutAltLabel {
                     Text: "Alt";
@@ -3042,7 +3124,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: (Color: #1a2838)),
                     Hovered: (Background: (Color: #243448)),
-                    Pressed: (Background: (Color: #1a2838))
+                    Pressed: (Background: (Color: #1a2838)),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                   Label #ParametresMenuShortcutOLabel {
                     Text: "O";
@@ -3056,7 +3139,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: (Color: #1a2838)),
                     Hovered: (Background: (Color: #243448)),
-                    Pressed: (Background: (Color: #1a2838))
+                    Pressed: (Background: (Color: #1a2838)),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                   Label #ParametresMenuShortcutDisableLabel {
                     Text: "Aucun";
@@ -3085,7 +3169,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: (Color: #1a2838)),
                     Hovered: (Background: (Color: #243448)),
-                    Pressed: (Background: (Color: #1a2838))
+                    Pressed: (Background: (Color: #1a2838)),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                   Label #ParametresMenuTargetAccueilLabel {
                     Text: "Accueil";
@@ -3099,7 +3184,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: (Color: #1a2838)),
                     Hovered: (Background: (Color: #243448)),
-                    Pressed: (Background: (Color: #1a2838))
+                    Pressed: (Background: (Color: #1a2838)),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                   Label #ParametresMenuTargetCommandesLabel {
                     Text: "Commandes";
@@ -3113,7 +3199,8 @@ $C.@PageOverlay {
                   Style: ButtonStyle(
                     Default: (Background: (Color: #1a2838)),
                     Hovered: (Background: (Color: #243448)),
-                    Pressed: (Background: (Color: #1a2838))
+                    Pressed: (Background: (Color: #1a2838)),
+                    Sounds: $Sounds.@ButtonsLight
                   );
                   Label #ParametresMenuTargetVaryonLabel {
                     Text: "Varyon";
@@ -3307,7 +3394,10 @@ $C.@PageOverlay {
                 TextButton #PtClaimAllBtn {
                   Text: "";
                   Anchor: (Width: 220, Height: 36);
-                  Style: $C.@SmallSecondaryTextButtonStyle;
+                  Style: (
+                    ...$C.@SmallSecondaryTextButtonStyle,
+                    Sounds: (...$Sounds.@ButtonsLight)
+                  );
                 }
               }
             }
@@ -3333,7 +3423,8 @@ $C.@PageOverlay {
       Anchor: (Width: 30, Height: 30, Top: 8, Right: 12);
       Style: TextButtonStyle(
         Default: (LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, VerticalAlignment: Center)),
-        Hovered: (Background: (Color: #cc4444), LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, VerticalAlignment: Center))
+        Hovered: (Background: (Color: #cc4444), LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, VerticalAlignment: Center)),
+        Sounds: $Sounds.@ButtonsLight
       );
     }
   }

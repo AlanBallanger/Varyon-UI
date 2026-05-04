@@ -1,4 +1,19 @@
-﻿    Group #Content {
+﻿$Sounds = "Sounds.ui";
+
+@VaryonTabBarSounds = (
+  Activate: (
+    SoundPath: "Sounds/TopBarActivate.ogg",
+    Volume: 11
+  ),
+  MouseHover: (
+    SoundPath: "Sounds/ButtonsMainHover.ogg",
+    MinPitch: -0.15,
+    MaxPitch: 0.15,
+    Volume: 14
+  )
+);
+
+    Group #Content {
       LayoutMode: Left;
 
       Group #LeftMenuSidebar {
@@ -296,7 +311,8 @@
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -324,7 +340,8 @@
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -352,7 +369,8 @@
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -380,7 +398,8 @@
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -408,7 +427,8 @@
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -436,7 +456,8 @@
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
@@ -467,7 +488,8 @@
               Style: ButtonStyle(
                 Default: (Background: (Color: #203040)),
                 Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545))
+                Pressed: (Background: (Color: #2a3545)),
+                Sounds: @VaryonTabBarSounds
               );
 
               Group {
