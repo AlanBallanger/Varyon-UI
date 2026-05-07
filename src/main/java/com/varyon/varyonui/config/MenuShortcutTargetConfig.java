@@ -23,7 +23,7 @@ public final class MenuShortcutTargetConfig {
     public enum Target {
         ACCUEIL("accueil"),
         COMMANDES("commands"),
-        VARYON("varyon");
+        VARYON("var");
 
         private final String commandName;
 
