@@ -498,6 +498,15 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     }
 
     private void buildContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull UIEventBuilder eventBuilder, @Nonnull Store<EntityStore> store, @Nonnull Ref<EntityStore> ref) {
+        commandBuilder.set("#VaryonPageHomeMount.Visible", "home".equals(activeTab));
+        commandBuilder.set("#VaryonPageTutorielMount.Visible", "tutoriel".equals(activeTab));
+        commandBuilder.set("#VaryonPageCommandesMount.Visible", "commandes".equals(activeTab));
+        commandBuilder.set("#VaryonPageMisesAJourMount.Visible", "misesajour".equals(activeTab));
+        commandBuilder.set("#VaryonPageVaryonMount.Visible", "varyon".equals(activeTab));
+        commandBuilder.set("#VaryonPageParametresMount.Visible", "parametres".equals(activeTab));
+        commandBuilder.set("#VaryonPagePlaytimeMount.Visible", "playtime".equals(activeTab));
+        commandBuilder.set("#VaryonPageAdminMount.Visible", "admin".equals(activeTab) && isAdmin);
+
         commandBuilder.set("#HomeContent.Visible", "home".equals(activeTab));
         commandBuilder.set("#TutorielContent.Visible", "tutoriel".equals(activeTab));
         commandBuilder.set("#CommandesContent.Visible", "commandes".equals(activeTab));
