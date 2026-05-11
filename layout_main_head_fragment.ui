@@ -26,8 +26,31 @@
           LayoutMode: Top;
           Padding: (Left: 2, Right: 8, Bottom: 16);
 
+          Group #SidebarMetaColumn {
+            LayoutMode: Top;
+            Padding: (Left: 8, Top: 8, Right: 6, Bottom: 6);
+
+            Label #SidebarWorldName {
+              Text: "";
+              Anchor: (Height: 16);
+              Style: (FontSize: 13, TextColor: #C8D0D8, RenderBold: true, VerticalAlignment: Top);
+            }
+
+            Label #SidebarPlayerCoords {
+              Text: "";
+              Anchor: (Height: 16);
+              Style: (FontSize: 12, TextColor: #9E9585, VerticalAlignment: Top);
+            }
+
+            Label #SidebarGameTime {
+              Text: "";
+              Anchor: (Height: 16);
+              Style: (FontSize: 12, TextColor: #9E9585, VerticalAlignment: Top);
+            }
+          }
+
           Group #LeftMenuSidebarSkinRow {
-            Anchor: (Top: 70, Left: 0, Right: 0);
+            Anchor: (Left: 0, Right: 0);
             LayoutMode: Left;
 
             Group #PlayerSkinPreviewWrap {

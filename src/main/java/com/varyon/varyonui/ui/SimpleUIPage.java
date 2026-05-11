@@ -20,6 +20,7 @@ import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -42,6 +43,7 @@ import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 import java.util.Locale;
 import java.util.UUID;
@@ -95,11 +97,14 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     + "Si le problème persiste, rendez-vous sur le site du serveur ou contactez le staff.";
 
 
-    private static final long COMMAND_EXECUTE_DELAY_MS = 50L;
+    private static final long COMMAND_EXECUTE_DELAY_MS = 100L;
 
     private static final int MAX_SLOTS = 10;
     private static final int MAX_BUTTONS = 50;
     private static final int BUTTONS_PER_ROW = 5;
+
+    private static final DateTimeFormatter SIDEBAR_GAME_TIME =
+            DateTimeFormatter.ofPattern("HH:mm", Locale.FRANCE);
 
     private String activeTab;
     private final boolean isAdmin;
@@ -299,9 +304,9 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             EcotaleEconomyBridge.applySidebarBalance(playerRef, cb);
             try {
                 Player p = ref.getStore().getComponent(ref, Player.getComponentType());
-                applySidebarWorldAndPosition(cb, p, playerRef);
+                applySidebarWorldAndPosition(cb, p, playerRef, ref.getStore());
             } catch (Throwable ignored) {
-                applySidebarWorldAndPosition(cb, null, playerRef);
+                applySidebarWorldAndPosition(cb, null, playerRef, ref.getStore());
             }
             byte[] avatarPng = playtimeTab ? HytlSkinPreview.fetchAvatarPng(uuid) : null;
             HytlSkinPreview.applyPngToPreview(cb, uuid, png, VaryonUIPlugin.getInstance());
@@ -400,7 +405,8 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
     private static void applySidebarWorldAndPosition(
             @Nonnull UICommandBuilder commandBuilder,
             @Nullable Player player,
-            @Nonnull PlayerRef playerRef) {
+            @Nonnull PlayerRef playerRef,
+            @Nullable Store<EntityStore> storeFallback) {
         String worldName = "";
         String coords = "";
         try {
@@ -424,6 +430,44 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
         commandBuilder.set("#SidebarWorldName.TextSpans", Message.raw(worldName));
         commandBuilder.set("#SidebarPlayerCoords.TextSpans", Message.raw(coords));
+        commandBuilder.set("#SidebarGameTime.TextSpans", Message.raw(formatSidebarGameTime(player, storeFallback)));
+    }
+
+    @Nonnull
+    private static String formatSidebarGameTime(@Nullable Player player, @Nullable Store<EntityStore> storeFallback) {
+        Store<EntityStore> store = resolveWorldStoreForTime(player, storeFallback);
+        if (store == null) {
+            return "";
+        }
+        try {
+            WorldTimeResource tr = store.getResource(WorldTimeResource.getResourceType());
+            if (tr == null) {
+                return "";
+            }
+            var dt = tr.getGameDateTime();
+            if (dt == null) {
+                return "";
+            }
+            return SIDEBAR_GAME_TIME.format(dt);
+        } catch (Throwable ignored) {
+            return "";
+        }
+    }
+
+    @Nullable
+    private static Store<EntityStore> resolveWorldStoreForTime(
+            @Nullable Player player,
+            @Nullable Store<EntityStore> storeFallback) {
+        try {
+            if (player != null) {
+                World w = player.getWorld();
+                if (w != null && w.getEntityStore() != null) {
+                    return w.getEntityStore().getStore();
+                }
+            }
+        } catch (Throwable ignored) {
+        }
+        return storeFallback;
     }
 
     private void buildContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull UIEventBuilder eventBuilder, @Nonnull Store<EntityStore> store, @Nonnull Ref<EntityStore> ref) {
@@ -461,7 +505,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         Player player = store.getComponent(ref, Player.getComponentType());
         CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
         EcotaleEconomyBridge.applySidebarBalance(playerRef, commandBuilder);
-        applySidebarWorldAndPosition(commandBuilder, player, playerRef);
+        applySidebarWorldAndPosition(commandBuilder, player, playerRef, store);
         MenuRpgBridge.applyMenuXp(playerRef.getUuid(), commandBuilder);
         if ("parametres".equals(activeTab)) {
             PlayerRef pref = store.getComponent(ref, PlayerRef.getComponentType());
