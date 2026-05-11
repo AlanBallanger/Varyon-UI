@@ -445,6 +445,12 @@ $C.@PageOverlay {
               Anchor: (Height: 14, Left: 0, Right: 0);
               Style: (FontSize: 11, TextColor: #8899aa, VerticalAlignment: Center, Wrap: true);
             }
+
+            Label #SidebarGameTime {
+              Text: "";
+              Anchor: (Height: 14, Left: 0, Right: 0);
+              Style: (FontSize: 11, TextColor: #8899aa, VerticalAlignment: Center, Wrap: true);
+            }
           }
         }
         Group #LeftMenuSidebarRightSeparator {
