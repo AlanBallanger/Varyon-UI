@@ -1,0 +1,21 @@
+$C = "Common.ui";
+$Sounds = "Sounds.ui";
+
+          Group #HomeContent {
+            FlexWeight: 1;
+            LayoutMode: TopScrolling;
+            ScrollbarStyle: $C.@DefaultScrollbarStyle;
+            Visible: true;
+            Padding: (Top: 16, Bottom: 16, Left: 16, Right: 16);
+          
+            Group #HomeImage {
+              Anchor: (Width: 600, Height: 400, Bottom: 16);
+              LayoutMode: Middle;
+              Background: "Icons/Varyon_Logo.png";
+            }
+          
+            Group #HomeTextContainer {
+              LayoutMode: TopScrolling;
+              ScrollbarStyle: $C.@DefaultScrollbarStyle;
+            }
+          }

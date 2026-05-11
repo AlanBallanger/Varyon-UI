@@ -133,8 +133,20 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                       @Nonnull UIEventBuilder eventBuilder,
                       @Nonnull Store<EntityStore> store) {
         commandBuilder.append("VaryonMainPage.ui");
+        commandBuilder.append("#VaryonSidebarMount", "VaryonSidebar.ui");
+        commandBuilder.append("#VaryonBodyMount", "VaryonBody.ui");
+        commandBuilder.append("#VaryonTabBarMount", "VaryonTabBar.ui");
+        commandBuilder.append("#VaryonBodyContentMount", "VaryonBodyContent.ui");
+        commandBuilder.append("#VaryonPageHomeMount", "VaryonPageHome.ui");
+        commandBuilder.append("#VaryonPageTutorielMount", "VaryonPageTutoriel.ui");
+        commandBuilder.append("#VaryonPageCommandesMount", "VaryonPageCommandes.ui");
+        commandBuilder.append("#VaryonPageMisesAJourMount", "VaryonPageMisesAJour.ui");
+        commandBuilder.append("#VaryonPageVaryonMount", "VaryonPageVaryon.ui");
+        commandBuilder.append("#VaryonPageParametresMount", "VaryonPageParametres.ui");
+        commandBuilder.append("#VaryonPagePlaytimeMount", "VaryonPagePlaytime.ui");
+        commandBuilder.append("#VaryonPageAdminMount", "VaryonPageAdmin.ui");
         buildContent(commandBuilder, eventBuilder, store, ref);
-        buildTabBar(commandBuilder, eventBuilder);
+        buildTabBar(commandBuilder, eventBuilder, true, ref);
     }
 
     private void applyTabIconTextures(@Nonnull UICommandBuilder cb) {
@@ -164,19 +176,16 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         cb.setObject("#" + iconId + ".Background", ps);
     }
 
-    private void buildTabBar(@Nonnull UICommandBuilder commandBuilder,
-                             @Nonnull UIEventBuilder eventBuilder) {
-        buildTabBar(commandBuilder, eventBuilder, true);
-    }
-
-    private void buildTabBar(@Nonnull UICommandBuilder commandBuilder,
-                             @Nonnull UIEventBuilder eventBuilder,
-                             boolean scheduleSkinFetch) {
+    private void buildTabBar(
+            @Nonnull UICommandBuilder commandBuilder,
+            @Nonnull UIEventBuilder eventBuilder,
+            boolean scheduleSkinFetch,
+            @Nullable Ref<EntityStore> skinContextRef) {
         patchTabBarAppearance(commandBuilder);
         appendTabBarEvents(commandBuilder, eventBuilder);
         HytlSkinPreview.applyPlaceholder(commandBuilder);
         if (scheduleSkinFetch) {
-            scheduleSkinHeadshotFetch();
+            scheduleSkinHeadshotFetch(skinContextRef);
         }
     }
 
@@ -283,30 +292,34 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
     }
 
-    private void scheduleSkinHeadshotFetch() {
+    private void scheduleSkinHeadshotFetch(@Nullable Ref<EntityStore> skinContextRef) {
         UUID uuid = playerRef.getUuid();
         if (uuid == null) {
             return;
         }
+        final Ref<EntityStore> contextHint = skinContextRef;
         HytaleServer.SCHEDULED_EXECUTOR.execute(() -> {
             LOG.log(Level.INFO, "[PortraitPlaytime] fetch skin tab=" + activeTab + " uuid=" + uuid);
             byte[] png = HytlSkinPreview.fetchHeadshotPng(uuid);
             boolean playtimeTab = "playtime".equals(activeTab);
-            Ref<EntityStore> ref = playerRef.getReference();
-            if (ref == null || !ref.isValid()) {
-                LOG.log(Level.WARNING, "[PortraitPlaytime] ref invalide après fetch uuid=" + uuid);
-                return;
+            Ref<EntityStore> ref = resolveRefForMenuUpdate(contextHint, playerRef);
+            if (ref == null) {
+                LOG.log(Level.FINE, "[PortraitPlaytime] ref indisponible pour coords/éco; skin quand même uuid=" + uuid);
             }
             UICommandBuilder cb = new UICommandBuilder();
             UIEventBuilder eb = new UIEventBuilder();
             patchTabBarAppearance(cb);
             appendTabBarEvents(cb, eb);
             EcotaleEconomyBridge.applySidebarBalance(playerRef, cb);
-            try {
-                Player p = ref.getStore().getComponent(ref, Player.getComponentType());
-                applySidebarWorldAndPosition(cb, p, playerRef, ref.getStore());
-            } catch (Throwable ignored) {
-                applySidebarWorldAndPosition(cb, null, playerRef, ref.getStore());
+            if (ref != null && ref.isValid()) {
+                try {
+                    Player p = ref.getStore().getComponent(ref, Player.getComponentType());
+                    applySidebarWorldAndPosition(cb, p, playerRef, ref.getStore());
+                } catch (Throwable ignored) {
+                    applySidebarWorldAndPosition(cb, null, playerRef, ref.getStore());
+                }
+            } else {
+                applySidebarWorldAndPosition(cb, null, playerRef, null);
             }
             byte[] avatarPng = playtimeTab ? HytlSkinPreview.fetchAvatarPng(uuid) : null;
             HytlSkinPreview.applyPngToPreview(cb, uuid, png, VaryonUIPlugin.getInstance());
@@ -319,6 +332,20 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                     + " uuid=" + uuid);
             sendUpdate(cb, eb, false);
         });
+    }
+
+    @Nullable
+    private static Ref<EntityStore> resolveRefForMenuUpdate(
+            @Nullable Ref<EntityStore> preferred,
+            @Nonnull PlayerRef menuPlayerRef) {
+        if (preferred != null && preferred.isValid()) {
+            return preferred;
+        }
+        Ref<EntityStore> r = menuPlayerRef.getReference();
+        if (r != null && r.isValid()) {
+            return r;
+        }
+        return null;
     }
 
     private static void buildVaryonQuickButtonEvents(@Nonnull UIEventBuilder eventBuilder) {
@@ -1215,7 +1242,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 UICommandBuilder cb = new UICommandBuilder();
                 UIEventBuilder eb = new UIEventBuilder();
                 buildContent(cb, eb, store, ref);
-                buildTabBar(cb, eb, false);
+                buildTabBar(cb, eb, false, ref);
                 HytlSkinPreview.applyPngToPreview(cb, uuid, skinFront, VaryonUIPlugin.getInstance());
                 HytlSkinPreview.applyPlaytimeHeadFromAvatarPng(cb, uuid, avatarPng,
                         VaryonUIPlugin.getInstance(), "#PlaytimeHeadPreview");
@@ -1272,7 +1299,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             UICommandBuilder commandBuilder = new UICommandBuilder();
             UIEventBuilder eventBuilder = new UIEventBuilder();
             buildContent(commandBuilder, eventBuilder, store, ref);
-            buildTabBar(commandBuilder, eventBuilder);
+            buildTabBar(commandBuilder, eventBuilder, true, ref);
             sendUpdate(commandBuilder, eventBuilder, false);
         } else if ("close".equals(data.action)) {
             Player player = store.getComponent(ref, Player.getComponentType());
@@ -1289,7 +1316,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 UICommandBuilder commandBuilder = new UICommandBuilder();
                 UIEventBuilder eventBuilder = new UIEventBuilder();
                 buildContent(commandBuilder, eventBuilder, store, ref);
-                buildTabBar(commandBuilder, eventBuilder);
+                buildTabBar(commandBuilder, eventBuilder, true, ref);
                 sendUpdate(commandBuilder, eventBuilder, false);
             }
         } else if ("menushortcuttarget".equals(data.action) && data.menuShortcutTarget != null) {
@@ -1301,7 +1328,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 UICommandBuilder commandBuilder = new UICommandBuilder();
                 UIEventBuilder eventBuilder = new UIEventBuilder();
                 buildContent(commandBuilder, eventBuilder, store, ref);
-                buildTabBar(commandBuilder, eventBuilder);
+                buildTabBar(commandBuilder, eventBuilder, true, ref);
                 sendUpdate(commandBuilder, eventBuilder, false);
             }
         } else if ("playtimeclaim".equals(data.action)
@@ -1314,7 +1341,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 UICommandBuilder commandBuilder = new UICommandBuilder();
                 UIEventBuilder eventBuilder = new UIEventBuilder();
                 buildContent(commandBuilder, eventBuilder, store, ref);
-                buildTabBar(commandBuilder, eventBuilder);
+                buildTabBar(commandBuilder, eventBuilder, true, ref);
                 sendUpdate(commandBuilder, eventBuilder, false);
             }
         } else if ("playtimeclaimall".equals(data.action)) {
@@ -1325,14 +1352,14 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 UICommandBuilder commandBuilder = new UICommandBuilder();
                 UIEventBuilder eventBuilder = new UIEventBuilder();
                 buildContent(commandBuilder, eventBuilder, store, ref);
-                buildTabBar(commandBuilder, eventBuilder);
+                buildTabBar(commandBuilder, eventBuilder, true, ref);
                 sendUpdate(commandBuilder, eventBuilder, false);
             }
         } else if ("refreshplaytime".equals(data.action)) {
             UICommandBuilder commandBuilder = new UICommandBuilder();
             UIEventBuilder eventBuilder = new UIEventBuilder();
             buildContent(commandBuilder, eventBuilder, store, ref);
-            buildTabBar(commandBuilder, eventBuilder);
+            buildTabBar(commandBuilder, eventBuilder, true, ref);
             sendUpdate(commandBuilder, eventBuilder, false);
         } else if ("chatcommand".equals(data.action) && data.command != null) {
             Player player = store.getComponent(ref, Player.getComponentType());
