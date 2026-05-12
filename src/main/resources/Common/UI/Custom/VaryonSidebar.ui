@@ -1,4 +1,4 @@
-$C = "Common.ui";
+﻿$C = "Common.ui";
 $Sounds = "Sounds.ui";
       Group #LeftMenuSidebar {
         Anchor: (Width: 248);
@@ -384,11 +384,9 @@ $Sounds = "Sounds.ui";
               Anchor: (Height: 44, Left: 0, Right: 0);
               Group {
                 Anchor: (Width: 40, Height: 40);
-                Background: #1a2530;
                 Padding: 2;
-                ItemSlot #SidebarBalanceItemSlot {
+                ItemIcon #SidebarBalanceItemSlot {
                   Anchor: (Full: 0);
-                  ShowQualityBackground: true;
                 }
               }
             }

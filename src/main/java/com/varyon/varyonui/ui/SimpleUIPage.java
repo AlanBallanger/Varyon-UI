@@ -185,7 +185,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         appendTabBarEvents(commandBuilder, eventBuilder);
         HytlSkinPreview.applyPlaceholder(commandBuilder);
         if (scheduleSkinFetch) {
-            scheduleSkinHeadshotFetch(skinContextRef);
+            scheduleAsyncSidebarPortraitRefresh(skinContextRef);
         }
     }
 
@@ -292,45 +292,36 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
     }
 
-    private void scheduleSkinHeadshotFetch(@Nullable Ref<EntityStore> skinContextRef) {
+    private void scheduleAsyncSidebarPortraitRefresh(@Nullable Ref<EntityStore> skinContextRef) {
         UUID uuid = playerRef.getUuid();
         if (uuid == null) {
             return;
         }
+        if (!playtimeHeadPortraitFetchInFlight.compareAndSet(false, true)) {
+            LOG.log(Level.FINE, "[PortraitPlaytime] refresh déjà en cours, ignoré uuid=" + uuid);
+            return;
+        }
         final Ref<EntityStore> contextHint = skinContextRef;
         HytaleServer.SCHEDULED_EXECUTOR.execute(() -> {
-            LOG.log(Level.INFO, "[PortraitPlaytime] fetch skin tab=" + activeTab + " uuid=" + uuid);
-            byte[] png = HytlSkinPreview.fetchHeadshotPng(uuid);
-            boolean playtimeTab = "playtime".equals(activeTab);
-            Ref<EntityStore> ref = resolveRefForMenuUpdate(contextHint, playerRef);
-            if (ref == null) {
-                LOG.log(Level.FINE, "[PortraitPlaytime] ref indisponible pour coords/éco; skin quand même uuid=" + uuid);
-            }
-            UICommandBuilder cb = new UICommandBuilder();
-            UIEventBuilder eb = new UIEventBuilder();
-            patchTabBarAppearance(cb);
-            appendTabBarEvents(cb, eb);
-            EcotaleEconomyBridge.applySidebarBalance(playerRef, cb);
-            if (ref != null && ref.isValid()) {
-                try {
-                    Player p = ref.getStore().getComponent(ref, Player.getComponentType());
-                    applySidebarWorldAndPosition(cb, p, playerRef, ref.getStore());
-                } catch (Throwable ignored) {
-                    applySidebarWorldAndPosition(cb, null, playerRef, ref.getStore());
-                }
-            } else {
+            try {
+                byte[] avatarPng = HytlSkinPreview.fetchAvatarPng(uuid);
+                byte[] skinFront = HytlSkinPreview.fetchHeadshotPng(uuid);
+                Ref<EntityStore> ref = resolveRefForMenuUpdate(contextHint, playerRef);
+                UICommandBuilder cb = new UICommandBuilder();
+                UIEventBuilder eb = new UIEventBuilder();
+                patchTabBarAppearance(cb);
+                appendTabBarEvents(cb, eb);
+                EcotaleEconomyBridge.applySidebarBalance(playerRef, cb);
                 applySidebarWorldAndPosition(cb, null, playerRef, null);
-            }
-            byte[] avatarPng = playtimeTab ? HytlSkinPreview.fetchAvatarPng(uuid) : null;
-            HytlSkinPreview.applyPngToPreview(cb, uuid, png, VaryonUIPlugin.getInstance());
-            if (playtimeTab) {
+                HytlSkinPreview.applyPngToPreview(cb, uuid, skinFront, VaryonUIPlugin.getInstance());
                 HytlSkinPreview.applyPlaytimeHeadFromAvatarPng(cb, uuid, avatarPng,
                         VaryonUIPlugin.getInstance(), "#PlaytimeHeadPreview");
+                sendUpdate(cb, eb, false);
+            } catch (Throwable t) {
+                LOG.log(Level.WARNING, "[PortraitPlaytime] async menu refresh failed uuid=" + uuid, t);
+            } finally {
+                playtimeHeadPortraitFetchInFlight.set(false);
             }
-            LOG.log(Level.INFO, "[PortraitPlaytime] sendUpdate partiel sidebar=front.png"
-                    + (playtimeTab ? " vignette=avatar.png" : "")
-                    + " uuid=" + uuid);
-            sendUpdate(cb, eb, false);
         });
     }
 
@@ -536,7 +527,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
         }
         if ("playtime".equals(activeTab)) {
             buildPlaytimeContent(commandBuilder);
-            scheduleAvatarFetch();
         }
         Player player = store.getComponent(ref, Player.getComponentType());
         CombatProfilBridge.applyCombatProfil(playerRef, player, commandBuilder);
@@ -1222,45 +1212,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
 
     private static int clamp255(int v) {
         return Math.min(255, Math.max(0, v));
-    }
-
-    private void scheduleAvatarFetch() {
-        UUID uuid = playerRef.getUuid();
-        if (uuid == null) {
-            return;
-        }
-        if (!playtimeHeadPortraitFetchInFlight.compareAndSet(false, true)) {
-            LOG.log(Level.FINE, "[PortraitPlaytime] refresh déjà en cours, ignoré uuid=" + uuid);
-            return;
-        }
-        LOG.log(Level.INFO, "[PortraitPlaytime] file d'attente refresh complet menus uuid=" + uuid);
-        HytaleServer.SCHEDULED_EXECUTOR.execute(() -> {
-            try {
-                byte[] avatarPng = HytlSkinPreview.fetchAvatarPng(uuid);
-                byte[] skinFront = HytlSkinPreview.fetchHeadshotPng(uuid);
-                LOG.log(Level.INFO, "[PortraitPlaytime] téléchargés front(sidebar)="
-                        + (skinFront != null ? skinFront.length : -1)
-                        + " avatar(vignette)=" + (avatarPng != null ? avatarPng.length : -1)
-                        + " uuid=" + uuid);
-                Ref<EntityStore> ref = playerRef.getReference();
-                if (ref == null || !ref.isValid()) {
-                    LOG.log(Level.WARNING, "[PortraitPlaytime] refresh complet annulé: ref invalide uuid=" + uuid);
-                    return;
-                }
-                Store<EntityStore> store = ref.getStore();
-                UICommandBuilder cb = new UICommandBuilder();
-                UIEventBuilder eb = new UIEventBuilder();
-                buildContent(cb, eb, store, ref);
-                buildTabBar(cb, eb, false, ref);
-                HytlSkinPreview.applyPngToPreview(cb, uuid, skinFront, VaryonUIPlugin.getInstance());
-                HytlSkinPreview.applyPlaytimeHeadFromAvatarPng(cb, uuid, avatarPng,
-                        VaryonUIPlugin.getInstance(), "#PlaytimeHeadPreview");
-                LOG.log(Level.INFO, "[PortraitPlaytime] sendUpdate refresh complet uuid=" + uuid);
-                sendUpdate(cb, eb, false);
-            } finally {
-                playtimeHeadPortraitFetchInFlight.set(false);
-            }
-        });
     }
 
     private void buildScrollableTextContent(@Nonnull UICommandBuilder commandBuilder, @Nonnull String containerId, @Nonnull String content) {

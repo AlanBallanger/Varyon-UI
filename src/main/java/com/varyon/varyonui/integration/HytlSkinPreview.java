@@ -85,7 +85,6 @@ public final class HytlSkinPreview {
     public static byte[] fetchAvatarPng(@Nonnull UUID uuid) {
         String qs = "user=" + uuid + "&trim=true&size=" + PHOTO_QUERY_SIZE;
         URI uri = URI.create(HYTALE_PHOTO_SKIN_AVATAR + "?" + qs);
-        LOG.log(Level.INFO, "[PortraitPlaytime] GET avatar (différent de front.png) uuid=" + uuid);
         try {
             HttpRequest req = HttpRequest.newBuilder(uri)
                     .GET()
@@ -132,7 +131,6 @@ public final class HytlSkinPreview {
                 .setTexturePath(Value.of(rel.startsWith("/") ? rel.substring(1) : rel))
                 .setBorder(Value.of(0));
         commandBuilder.setObject(elementId + ".Background", ps);
-        LOG.log(Level.INFO, "[PortraitPlaytime] tête vignette depuis avatar rel=" + rel);
     }
 
     public static void applyPngToPreview(
@@ -156,7 +154,6 @@ public final class HytlSkinPreview {
                 .setTexturePath(Value.of(rel.startsWith("/") ? rel.substring(1) : rel))
                 .setBorder(Value.of(0));
         commandBuilder.setObject("#PlayerSkinPreview.Background", ps);
-        LOG.log(Level.INFO, "[PortraitPlaytime] texture sidebar " + rel);
     }
 
     private static byte[] resizeContainCenteredPng(@Nonnull byte[] pngBytes, int canvasW, int canvasH) {
