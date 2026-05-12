@@ -39,8 +39,8 @@ $C.@PageOverlay {
       Text: "X";
       Anchor: (Width: 30, Height: 30, Top: 8, Right: 12);
       Style: TextButtonStyle(
-        Default: (LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, VerticalAlignment: Center)),
-        Hovered: (Background: (Color: #cc4444), LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, VerticalAlignment: Center)),
+        Default: (LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+        Hovered: (Background: (Color: #cc4444), LabelStyle: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
         Sounds: $Sounds.@ButtonsLight
       );
     }

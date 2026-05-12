@@ -36,7 +36,7 @@ $Sounds = "Sounds.ui";
                 Visible: false;
               
                 Button #CommandButton1 {
-                  Anchor: (Width: 160, Height: 110, Right: 10);
+                  Anchor: (Width: 152, Height: 110, Right: 10);
                   Visible: false;
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Yelow_Button_small.png"),
@@ -72,7 +72,7 @@ $Sounds = "Sounds.ui";
                 }
               
                 Button #CommandButton2 {
-                  Anchor: (Width: 160, Height: 110, Right: 10);
+                  Anchor: (Width: 152, Height: 110, Right: 10);
                   Visible: false;
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Yelow_Button_small.png"),
@@ -108,7 +108,7 @@ $Sounds = "Sounds.ui";
                 }
               
                 Button #CommandButton3 {
-                  Anchor: (Width: 160, Height: 110, Right: 10);
+                  Anchor: (Width: 152, Height: 110, Right: 10);
                   Visible: false;
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Blue_Button.png"),
@@ -144,7 +144,7 @@ $Sounds = "Sounds.ui";
                 }
               
                 Button #CommandButton4 {
-                  Anchor: (Width: 160, Height: 110, Right: 10);
+                  Anchor: (Width: 152, Height: 110, Right: 10);
                   Visible: false;
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Orange_Button.png"),
@@ -180,7 +180,7 @@ $Sounds = "Sounds.ui";
                 }
               
                 Button #CommandButton5 {
-                  Anchor: (Width: 160, Height: 110);
+                  Anchor: (Width: 152, Height: 110);
                   Visible: false;
                   Style: ButtonStyle(
                     Default: (Background: "Icons/Green_Button.png"),

@@ -26,7 +26,7 @@ $Sounds = "Sounds.ui";
 
             Button #HomeTab {
               TooltipText: "Accueil";
-              TextTooltipShowDelay: 0;
+              TextTooltipShowDelay: 0.001;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
                 Default: (Background: (Color: #00000000)),
@@ -58,7 +58,7 @@ $Sounds = "Sounds.ui";
 
             Button #TutorielTab {
               TooltipText: "Tutoriel";
-              TextTooltipShowDelay: 0;
+              TextTooltipShowDelay: 0.001;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
                 Default: (Background: (Color: #00000000)),
@@ -88,7 +88,7 @@ $Sounds = "Sounds.ui";
 
             Button #CommandesTab {
               TooltipText: "Commandes";
-              TextTooltipShowDelay: 0;
+              TextTooltipShowDelay: 0.001;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
                 Default: (Background: (Color: #00000000)),
@@ -118,7 +118,7 @@ $Sounds = "Sounds.ui";
 
             Button #MisesAJourTab {
               TooltipText: "Mises à jour";
-              TextTooltipShowDelay: 0;
+              TextTooltipShowDelay: 0.001;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
                 Default: (Background: (Color: #00000000)),
@@ -148,7 +148,7 @@ $Sounds = "Sounds.ui";
 
             Button #VaryonTab {
               TooltipText: "Varyon";
-              TextTooltipShowDelay: 0;
+              TextTooltipShowDelay: 0.001;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
                 Default: (Background: (Color: #00000000)),
@@ -179,7 +179,7 @@ $Sounds = "Sounds.ui";
 
             Button #PlaytimeTab {
               TooltipText: "Temps de jeu";
-              TextTooltipShowDelay: 0;
+              TextTooltipShowDelay: 0.001;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
                 Default: (Background: (Color: #00000000)),
@@ -209,7 +209,7 @@ $Sounds = "Sounds.ui";
 
             Button #JournalTab {
               TooltipText: "Journal de quêtes";
-              TextTooltipShowDelay: 0;
+              TextTooltipShowDelay: 0.001;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
                 Default: (Background: (Color: #00000000)),
@@ -233,7 +233,7 @@ $Sounds = "Sounds.ui";
 
             Button #ParametresTab {
               TooltipText: "Paramètres";
-              TextTooltipShowDelay: 0;
+              TextTooltipShowDelay: 0.001;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
                 Default: (Background: (Color: #00000000)),
@@ -267,7 +267,7 @@ $Sounds = "Sounds.ui";
 
             Button #AdminTab {
               TooltipText: "Admin";
-              TextTooltipShowDelay: 0;
+              TextTooltipShowDelay: 0.001;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
                 Default: (Background: (Color: #00000000)),

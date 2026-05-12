@@ -15,7 +15,7 @@ command = "/spawn"
 type = "execute"
 
 [[category.buttons]]
-label = "TP aléatoire (Haven)"
+label = "tp random (haven)"
 command = "/rtp"
 type = "execute"
 
