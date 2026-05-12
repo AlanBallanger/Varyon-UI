@@ -223,6 +223,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             "#JournalTab",
             EventData.of("Action", "command").append("Command", "/journal"));
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#ParametresTab", EventData.of("Action", "tab").append("Tab", "parametres"));
+
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#PtClaimAllBtn",  EventData.of("Action", "playtimeclaimall"));
         if ("playtime".equals(activeTab) && PlaytimeBridge.isAvailable() && PlaytimeBridge.isBackendOperational()) {
             appendPlaytimeChestButtonEvents(eventBuilder, playerRef.getUuid());
@@ -312,7 +313,6 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
                 patchTabBarAppearance(cb);
                 appendTabBarEvents(cb, eb);
                 EcotaleEconomyBridge.applySidebarBalance(playerRef, cb);
-                applySidebarWorldAndPosition(cb, null, playerRef, null);
                 HytlSkinPreview.applyPngToPreview(cb, uuid, skinFront, VaryonUIPlugin.getInstance());
                 HytlSkinPreview.applyPlaytimeHeadFromAvatarPng(cb, uuid, avatarPng,
                         VaryonUIPlugin.getInstance(), "#PlaytimeHeadPreview");
