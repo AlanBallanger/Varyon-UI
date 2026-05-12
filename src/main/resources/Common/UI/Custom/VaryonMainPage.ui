@@ -18,8 +18,8 @@ $Sounds = "Sounds.ui";
 $C.@PageOverlay {
   
   Group {
-    Anchor: (Width: 1125, Height: 775);
-    Background: (Color: #151b24);
+    Anchor: (Width: 1125, Height: 759);
+    Background: (PatchStyle(TexturePath: "Common/ContainerFullPatch.png", Border: 20));
 
     Group #Content {
       LayoutMode: Left;

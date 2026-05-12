@@ -17,8 +17,8 @@ $Sounds = "Sounds.ui";
         Group #TabBar {
           LayoutMode: Left;
           Anchor: (Height: 70);
-          Background: (Color: #203040);
-          Padding: (Left: 8, Right: 8);
+
+          Padding: (Top: 14, Left: 8, Right: 8, Bottom: 0);
 
           Group #HomeTabContainer {
             Anchor: (Top: 0, Bottom: 0, Width: 70);
@@ -26,11 +26,12 @@ $Sounds = "Sounds.ui";
 
             Button #HomeTab {
               TooltipText: "Accueil";
+              TextTooltipShowDelay: 0;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545)),
+                Default: (Background: (Color: #00000000)),
+                Hovered: (Background: (Color: #ffffff18)),
+                Pressed: (Background: (Color: #00000030)),
                 Sounds: @VaryonTabBarSounds
               );
 
@@ -57,11 +58,12 @@ $Sounds = "Sounds.ui";
 
             Button #TutorielTab {
               TooltipText: "Tutoriel";
+              TextTooltipShowDelay: 0;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545)),
+                Default: (Background: (Color: #00000000)),
+                Hovered: (Background: (Color: #ffffff18)),
+                Pressed: (Background: (Color: #00000030)),
                 Sounds: @VaryonTabBarSounds
               );
 
@@ -86,11 +88,12 @@ $Sounds = "Sounds.ui";
 
             Button #CommandesTab {
               TooltipText: "Commandes";
+              TextTooltipShowDelay: 0;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545)),
+                Default: (Background: (Color: #00000000)),
+                Hovered: (Background: (Color: #ffffff18)),
+                Pressed: (Background: (Color: #00000030)),
                 Sounds: @VaryonTabBarSounds
               );
 
@@ -115,11 +118,12 @@ $Sounds = "Sounds.ui";
 
             Button #MisesAJourTab {
               TooltipText: "Mises à jour";
+              TextTooltipShowDelay: 0;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545)),
+                Default: (Background: (Color: #00000000)),
+                Hovered: (Background: (Color: #ffffff18)),
+                Pressed: (Background: (Color: #00000030)),
                 Sounds: @VaryonTabBarSounds
               );
 
@@ -144,11 +148,12 @@ $Sounds = "Sounds.ui";
 
             Button #VaryonTab {
               TooltipText: "Varyon";
+              TextTooltipShowDelay: 0;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545)),
+                Default: (Background: (Color: #00000000)),
+                Hovered: (Background: (Color: #ffffff18)),
+                Pressed: (Background: (Color: #00000030)),
                 Sounds: @VaryonTabBarSounds
               );
 
@@ -174,11 +179,12 @@ $Sounds = "Sounds.ui";
 
             Button #PlaytimeTab {
               TooltipText: "Temps de jeu";
+              TextTooltipShowDelay: 0;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545)),
+                Default: (Background: (Color: #00000000)),
+                Hovered: (Background: (Color: #ffffff18)),
+                Pressed: (Background: (Color: #00000030)),
                 Sounds: @VaryonTabBarSounds
               );
 
@@ -203,11 +209,12 @@ $Sounds = "Sounds.ui";
 
             Button #JournalTab {
               TooltipText: "Journal de quêtes";
+              TextTooltipShowDelay: 0;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545)),
+                Default: (Background: (Color: #00000000)),
+                Hovered: (Background: (Color: #ffffff18)),
+                Pressed: (Background: (Color: #00000030)),
                 Sounds: @VaryonTabBarSounds
               );
 
@@ -226,11 +233,12 @@ $Sounds = "Sounds.ui";
 
             Button #ParametresTab {
               TooltipText: "Paramètres";
+              TextTooltipShowDelay: 0;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545)),
+                Default: (Background: (Color: #00000000)),
+                Hovered: (Background: (Color: #ffffff18)),
+                Pressed: (Background: (Color: #00000030)),
                 Sounds: @VaryonTabBarSounds
               );
 
@@ -259,11 +267,12 @@ $Sounds = "Sounds.ui";
 
             Button #AdminTab {
               TooltipText: "Admin";
+              TextTooltipShowDelay: 0;
               Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 2);
               Style: ButtonStyle(
-                Default: (Background: (Color: #203040)),
-                Hovered: (Background: (Color: #4a6ea8)),
-                Pressed: (Background: (Color: #2a3545)),
+                Default: (Background: (Color: #00000000)),
+                Hovered: (Background: (Color: #ffffff18)),
+                Pressed: (Background: (Color: #00000030)),
                 Sounds: @VaryonTabBarSounds
               );
 

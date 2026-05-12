@@ -3,26 +3,26 @@ $Sounds = "Sounds.ui";
       Group #LeftMenuSidebar {
         Anchor: (Width: 248);
         LayoutMode: Left;
-        Background: (Color: #203040);
-
         Group #LeftMenuSidebarInner {
           Anchor: (Width: 247);
           LayoutMode: Top;
-          Padding: (Left: 0, Right: 0, Bottom: 16);
+          Padding: (Top: 0, Left: 12, Right: 0, Bottom: 0);
 
           Group #LeftMenuSidebarSkinRow {
-            Anchor: (Top: 70, Left: 0, Right: 0);
+            Anchor: (Top: 70, Left: 0, Right: 5);
             LayoutMode: Top;
+            Background: (Color: #232d42);
+            Padding: (Top: 15, Bottom: 15, Left: 15, Right: 25);
 
             Group {
               LayoutMode: Left;
 
               Group #PlayerSkinPreviewWrap {
-              Anchor: (Width: 144, Height: 192, Left: -16);
+              Anchor: (Width: 137, Height: 182, Left: -16);
               LayoutMode: Top;
 
               Group #PlayerSkinPreview {
-                Anchor: (Width: 144, Height: 192);
+                Anchor: (Width: 137, Height: 182);
                 Background: (Color: #1e2838);
               }
             }
@@ -30,7 +30,7 @@ $Sounds = "Sounds.ui";
             Group #SidebarStatsColumn {
               Anchor: (Width: 95);
               LayoutMode: Top;
-              Padding: (Top: 4);
+              Padding: (Top: 0);
 
               Group #SidebarStatHP {
                 LayoutMode: Left;
@@ -153,21 +153,19 @@ $Sounds = "Sounds.ui";
 
             }
             }
+          }
 
-          Group {
-            LayoutMode: Left;
-            Anchor: (Left: 0, Right: 0);
-
+          Group { LayoutMode: Top; Anchor: (Height: 5, Left: 0, Right: 5); }
           Group #LeftMenuSidebarXpSection {
-            FlexWeight: 1;
-            Anchor: (Left: 0, Right: 0);
+            Anchor: (Left: 0, Right: 5);
             LayoutMode: Top;
-            Padding: (Top: 10, Left: 5, Right: 0);
+            Background: (Color: #232d42);
+            Padding: (Top: 7, Bottom: 7, Left: 15, Right: 25);
 
             Group #MenuGenXPPanel {
               LayoutMode: Top;
               Anchor: (Left: 0, Right: 0);
-              Padding: (Bottom: 8);
+              Padding: (Bottom: 3);
 
               Group {
                 LayoutMode: Left;
@@ -237,7 +235,7 @@ $Sounds = "Sounds.ui";
             Group #MenuJob1Panel {
               LayoutMode: Top;
               Anchor: (Left: 0, Right: 0);
-              Padding: (Bottom: 6);
+              Padding: (Bottom: 2);
 
               Group {
                 LayoutMode: Left;
@@ -373,11 +371,17 @@ $Sounds = "Sounds.ui";
               }
             }
           }
-          }
+          Group { LayoutMode: Top; Anchor: (Height: 5, Left: 0, Right: 5); }
+          Group #SidebarFooterSection {
+            LayoutMode: Top;
+            Anchor: (Left: 0, Right: 5);
+            Background: (Color: #232d42);
+            Padding: (Top: 15, Bottom: 15, Left: 15, Right: 25);
+
           Group #SidebarBalanceRow {
             LayoutMode: Left;
             Anchor: (Left: 0, Right: 0);
-            Padding: (Top: 14, Left: 0, Right: 0, Bottom: 2);
+            Padding: (Bottom: 6);
 
             Group {
               LayoutMode: Middle;
@@ -402,11 +406,10 @@ $Sounds = "Sounds.ui";
             }
           }
 
-          }
           Group #SidebarLocationBlock {
             LayoutMode: Top;
             Anchor: (Left: 0, Right: 0);
-            Padding: (Top: 4, Left: 0, Right: 0, Bottom: 0);
+            Padding: (Top: 0, Bottom: 0, Left: 0, Right: 0);
 
             Label #SidebarWorldName {
               Text: "";
@@ -426,9 +429,10 @@ $Sounds = "Sounds.ui";
               Style: (FontSize: 11, TextColor: #8899aa, VerticalAlignment: Center, Wrap: true);
             }
           }
+          }
         }
         Group #LeftMenuSidebarRightSeparator {
-          Anchor: (Width: 1, Top: 0, Bottom: 0);
+          Anchor: (Width: 1, Top: 10, Bottom: 10);
           Background: (Color: #545B63);
         }
       }

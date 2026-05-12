@@ -6,6 +6,7 @@ $Sounds = "Sounds.ui";
             LayoutMode: TopScrolling;
             ScrollbarStyle: $C.@DefaultScrollbarStyle;
             Visible: false;
+            Padding: (Top: 0, Bottom: 0, Left: 0, Right: 0);
           
             Group #AdminCommandesList {
               LayoutMode: Top;

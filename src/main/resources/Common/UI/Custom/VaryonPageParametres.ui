@@ -5,7 +5,7 @@ $Sounds = "Sounds.ui";
             FlexWeight: 1;
             LayoutMode: Top;
             Visible: false;
-            Padding: (Top: 10, Bottom: 10, Left: 16, Right: 16);
+            Padding: (Top: 10, Bottom: 10, Left: 0, Right: 0);
 
             Group #ParametresMenuShortcutRow {
               LayoutMode: Left;

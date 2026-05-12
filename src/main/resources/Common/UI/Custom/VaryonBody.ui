@@ -12,7 +12,7 @@ $Sounds = "Sounds.ui";
         }
 
         Group #MainColumnTopSeparator {
-          Anchor: (Height: 1, Left: 0, Right: 0);
+          Anchor: (Height: 1, Left: 0, Right: 10);
           Background: (Color: #545B63);
         }
 

@@ -6,7 +6,7 @@ $Sounds = "Sounds.ui";
             LayoutMode: TopScrolling;
             ScrollbarStyle: $C.@DefaultScrollbarStyle;
             Visible: true;
-            Padding: (Top: 16, Bottom: 16, Left: 16, Right: 16);
+            Padding: (Top: 0, Bottom: 0, Left: 0, Right: 0);
           
             Group #HomeImage {
               Anchor: (Width: 600, Height: 400, Bottom: 16);
@@ -15,7 +15,6 @@ $Sounds = "Sounds.ui";
             }
           
             Group #HomeTextContainer {
-              LayoutMode: TopScrolling;
-              ScrollbarStyle: $C.@DefaultScrollbarStyle;
+              LayoutMode: Top;
             }
           }

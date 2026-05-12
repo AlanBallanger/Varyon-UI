@@ -56,8 +56,6 @@ public final class CombatProfilBridge {
         int weaponDmg = readWeaponDisplayDamage(player);
         double atkMult = invokeDouble(data, "getAtkDamageMultiplier");
         int atkDisplay = computeDisplayedAttackDamageReflect(weaponDmg, atkMult);
-        int atkBonusPct = invokeInt(data, "getAtkBonusPercentFromMod");
-        String atkPctSuffix = formatAtkBonusPercentSuffix(atkBonusPct);
         int armor = invokeInt(data, "getBaseArmor");
         int maxStaminaData = invokeInt(data, "getMaxStamina");
         int liveStaCur = readLiveStaminaCurrent(playerRef);
@@ -70,7 +68,7 @@ public final class CombatProfilBridge {
         int critDamageTotalPct = 100 + critBonus;
 
         ui.set("#SidebarStatHPValueMain.TextSpans", Message.raw(currentHp + " / " + displayMaxHp));
-        ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(String.valueOf(atkDisplay) + atkPctSuffix));
+        ui.set("#SidebarStatATKValueMain.TextSpans", Message.raw(String.valueOf(atkDisplay)));
         ui.set("#SidebarStatArmorValueMain.TextSpans", Message.raw(armor + "%"));
         ui.set("#SidebarStatStaminaValueMain.TextSpans", Message.raw(currentSta + " / " + displayMaxSta));
         ui.set("#SidebarStatCritChanceValueMain.TextSpans", Message.raw(critPct + "%"));
@@ -142,11 +140,6 @@ public final class CombatProfilBridge {
         } catch (Throwable ignored) {
         }
         return 0;
-    }
-
-    private static String formatAtkBonusPercentSuffix(int atkBonusPercentFromMod) {
-        int pct = atkBonusPercentFromMod;
-        return " (" + (pct >= 0 ? "+" : "") + pct + "%)";
     }
 
     private static int readWeaponDisplayDamage(Player player) {
