@@ -19,6 +19,8 @@ public final class EcotaleEconomyBridge {
     private static final String ITEM_COIN_LEGACY = "Coin_Copper";
 
     private static final String BALANCE_SLOT = "#SidebarBalanceItemSlot";
+    private static final java.util.regex.Pattern TRAILING_ZERO_DECIMALS =
+            java.util.regex.Pattern.compile("[.,]00$");
 
     private static Boolean available = null;
 
@@ -52,11 +54,8 @@ public final class EcotaleEconomyBridge {
             Class<?> c = Class.forName(ECONOMY_BRIDGE);
             Method getBalance = c.getMethod("getBalance", UUID.class);
             double bal = ((Number) getBalance.invoke(null, uuid)).doubleValue();
-            String text = formatAmountOnlyReflect(c, bal);
+            String text = TRAILING_ZERO_DECIMALS.matcher(formatAmountOnlyReflect(c, bal)).replaceAll("");
             ui.set("#SidebarStatBalanceValueMain.TextSpans", Message.raw(text));
-            String itemId = resolveCoinItemId();
-            ui.setNull(BALANCE_SLOT + ".Background");
-            ui.set(BALANCE_SLOT + ".ItemId", itemId);
         } catch (Throwable t) {
             LOG.log(Level.WARNING, "[EcotaleSidebar] apply failed uuid=" + uuid, t);
             clear(ui);
@@ -119,6 +118,5 @@ public final class EcotaleEconomyBridge {
 
     private static void clear(@Nonnull UICommandBuilder ui) {
         ui.set("#SidebarStatBalanceValueMain.TextSpans", Message.raw(""));
-        ui.setNull(BALANCE_SLOT + ".ItemId");
     }
 }

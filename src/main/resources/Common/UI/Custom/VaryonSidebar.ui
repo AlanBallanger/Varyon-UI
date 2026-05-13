@@ -12,7 +12,7 @@ $Sounds = "Sounds.ui";
             Anchor: (Top: 70, Left: 0, Right: 5);
             LayoutMode: Top;
             Background: (Color: #232d42);
-            Padding: (Top: 15, Bottom: 15, Left: 15, Right: 25);
+            Padding: (Top: 15, Bottom: 15);
 
             Group {
               LayoutMode: Left;
@@ -160,7 +160,7 @@ $Sounds = "Sounds.ui";
             Anchor: (Left: 0, Right: 5);
             LayoutMode: Top;
             Background: (Color: #232d42);
-            Padding: (Top: 7, Bottom: 7, Left: 15, Right: 25);
+            Padding: (Top: 7, Bottom: 7);
 
             Group #MenuGenXPPanel {
               LayoutMode: Top;
@@ -376,57 +376,105 @@ $Sounds = "Sounds.ui";
             LayoutMode: Top;
             Anchor: (Left: 0, Right: 5);
             Background: (Color: #232d42);
-            Padding: (Top: 15, Bottom: 15, Left: 15, Right: 25);
+            Padding: (Top: 15, Bottom: 15);
 
           Group #SidebarBalanceRow {
             LayoutMode: Left;
-            Anchor: (Left: 0, Right: 0);
-            Padding: (Bottom: 6);
+            Anchor: (Left: 0, Right: 0, Height: 70);
+            Background: "HUD/CoinSection.png";
+            Padding: (Top: 6, Bottom: 6);
+
+            Group { Anchor: (Width: 64); }
 
             Group {
-              LayoutMode: Middle;
-              Anchor: (Height: 44, Left: 0, Right: 0);
-              Group {
-                Anchor: (Width: 40, Height: 40);
-                Padding: 2;
-                ItemIcon #SidebarBalanceItemSlot {
-                  Anchor: (Full: 0);
-                }
+              LayoutMode: Top;
+              FlexWeight: 1;
+
+              Label {
+                Text: "MONNAIE";
+                Anchor: (Height: 22);
+                Style: (FontSize: 10, RenderBold: true, TextColor: #9a8030, VerticalAlignment: Center);
+              }
+
+              Label #SidebarStatBalanceValueMain {
+                Text: "";
+                Anchor: (Height: 30);
+                Style: (FontSize: 18, RenderBold: true, TextColor: #b89820, VerticalAlignment: Center);
               }
             }
-
-            Group { Anchor: (Width: 6); }
-
-
-            Label #SidebarStatBalanceValueMain {
-              Text: "";
-              Anchor: (Height: 24);
-              FlexWeight: 1;
-              Style: (FontSize: 14, TextColor: #FFD700, RenderBold: true, VerticalAlignment: Center);
-            }
           }
-
           Group #SidebarLocationBlock {
-            LayoutMode: Top;
-            Anchor: (Left: 0, Right: 0);
-            Padding: (Top: 0, Bottom: 0, Left: 0, Right: 0);
+            LayoutMode: Left;
+            Anchor: (Left: 0, Right: 0, Height: 89);
+            Background: "HUD/WorldSection.png";
+            Padding: (Top: 4, Bottom: 4);
 
-            Label #SidebarWorldName {
-              Text: "";
-              Anchor: (Height: 14, Left: 0, Right: 0);
-              Style: (FontSize: 11, TextColor: #b8c8d8, VerticalAlignment: Center, Wrap: true);
-            }
+            Group { Anchor: (Width: 54); }
 
-            Label #SidebarPlayerCoords {
-              Text: "";
-              Anchor: (Height: 14, Left: 0, Right: 0);
-              Style: (FontSize: 11, TextColor: #8899aa, VerticalAlignment: Center, Wrap: true);
-            }
+            Group {
+              LayoutMode: Top;
+              FlexWeight: 1;
 
-            Label #SidebarGameTime {
-              Text: "";
-              Anchor: (Height: 14, Left: 0, Right: 0);
-              Style: (FontSize: 11, TextColor: #8899aa, VerticalAlignment: Center, Wrap: true);
+              Label {
+                Text: "MONDE";
+                Anchor: (Height: 11);
+                Style: (FontSize: 9, RenderBold: true, TextColor: #9a8030, VerticalAlignment: Center);
+              }
+
+              Label #SidebarWorldName {
+                Text: "";
+                Anchor: (Height: 22);
+                Style: (FontSize: 14, RenderBold: true, TextColor: #c8b860, VerticalAlignment: Center, Wrap: false);
+              }
+
+              Group {
+                Anchor: (Height: 6, Left: 0, Right: 0);
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 1, Top: 3, Left: 0, Right: 0);
+                  Group { Background: (Color: #3a4050); FlexWeight: 1; }
+                  Group { FlexWeight: 1; }
+                }
+              }
+
+              Group {
+                LayoutMode: Left;
+                Anchor: (Height: 37, Left: 0, Right: 0);
+
+                Group {
+                  LayoutMode: Top;
+                  FlexWeight: 1;
+
+                  Label {
+                    Text: "COORDONNEES";
+                    Anchor: (Height: 15);
+                    Style: (FontSize: 8, RenderBold: true, TextColor: #9a8030, VerticalAlignment: Center);
+                  }
+
+                  Label #SidebarPlayerCoords {
+                    Text: "";
+                    Anchor: (Height: 22);
+                    Style: (FontSize: 9, TextColor: #b89820, VerticalAlignment: Center, Wrap: false);
+                  }
+                }
+
+                Group {
+                  LayoutMode: Top;
+                  FlexWeight: 1;
+
+                  Label {
+                    Text: "HEURE";
+                    Anchor: (Height: 15);
+                    Style: (FontSize: 8, RenderBold: true, TextColor: #9a8030, VerticalAlignment: Center);
+                  }
+
+                  Label #SidebarGameTime {
+                    Text: "";
+                    Anchor: (Height: 22);
+                    Style: (FontSize: 9, TextColor: #b89820, VerticalAlignment: Center);
+                  }
+                }
+              }
             }
           }
           }

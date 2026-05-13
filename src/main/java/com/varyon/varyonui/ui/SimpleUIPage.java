@@ -430,7 +430,7 @@ public class SimpleUIPage extends InteractiveCustomUIPage<SimpleUIPage.EventData
             if (t != null) {
                 var p = t.getPosition();
                 if (p != null) {
-                    coords = String.format(Locale.ROOT, "x %.1f  y %.1f  z %.1f", p.getX(), p.getY(), p.getZ());
+                    coords = String.format(Locale.ROOT, "%d ; %d ; %d", (int) p.getX(), (int) p.getY(), (int) p.getZ());
                 }
             }
         } catch (Throwable ignored) {
